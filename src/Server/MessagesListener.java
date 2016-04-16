@@ -24,24 +24,20 @@ public class MessagesListener implements Runnable {
         try {
             objectInputStream = new ObjectInputStream(clientSocket.getInputStream());
 
-            String username = "root"; //TODO Backdoor :D it will be until I'm doing the fucking registration system
-            String password = "pass";
+            String usernameT = "root"; //TODO Backdoor :D it will be until I'm doing the fucking registration system
+            String passwordT = "pass";
 
-            String userTemp = null;
-            String passwordTemp = null;
+            Message message = (Message) objectInputStream.readObject(); //TODO Yeah login form but where is registration?
+            String username = ((LoginForm)message.getObject()).getLogin();
+            String password = ((LoginForm)message.getObject()).getPassword();
 
-            LoginForm loginForm = ((LoginForm) objectInputStream.readObject()); //TODO Yeah login form but where is registration?
-            userTemp = loginForm.getLogin();
-            passwordTemp = loginForm.getPassword();
-
-            if (username.equals(userTemp) && password.equals(passwordTemp)) { //TODO Need to implement database/JSON/XML
-
-
-                Server.addUserOnlineAndSendToAll(new UserOnline(this, new User(username)));
-                Server.sendAllUsersOnlineToUser(clientSocket);
+            if (username.equals(usernameT) && password.equals(passwordT)) { //TODO Need to implement database/JSON/XML
 
                 (new ObjectOutputStream(clientSocket.getOutputStream())).writeObject(new Message("You have been successfully logged in", Codes.SUCCESSFUL_LOGIN));
                 (new ObjectOutputStream(clientSocket.getOutputStream())).writeObject(new Message("Your ID: " + clientSocket.getPort(), Codes.SIMPLE_MESSAGE));
+
+                Server.addUserOnlineAndSendToAll(new UserOnline(this, new User(username)));
+                Server.sendAllUsersOnlineToUser(clientSocket);
 
                 new Thread(new Runnable() { //TODO Don't use lambdas cuz my VPS has JRE 1.7
                     @Override

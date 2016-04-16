@@ -54,7 +54,7 @@
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                      </HBox.margin></Label>
                   <TextField fx:id="port" />
-                  <Button fx:id="connect" maxWidth="1.7976931348623157E308" minWidth="-Infinity" mnemonicParsing="false" text="Connect">
+                  <Button fx:id="connect" maxWidth="1.7976931348623157E308" minWidth="-Infinity" mnemonicParsing="false" onAction="#connectToServer" text="Connect">
                      <HBox.margin>
                         <Insets bottom="5.0" left="5.0" right="5.0" />
                      </HBox.margin></Button>
@@ -80,7 +80,7 @@
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                      </HBox.margin></Label>
                   <PasswordField fx:id="password" />
-                  <Button fx:id="login" mnemonicParsing="false" text="Log In">
+                  <Button fx:id="login" mnemonicParsing="false" onAction="#loginToServer" text="Log In">
                      <HBox.margin>
                         <Insets bottom="5.0" left="5.0" right="5.0" />
                      </HBox.margin></Button>
