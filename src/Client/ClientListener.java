@@ -51,6 +51,7 @@ public class ClientListener implements Runnable {
                             controller.addUserOnline(message.getObject().toString());
                         } else if (message.getHeader() == Codes.USER_LEFT){
                             controller.setReceivedMessages(message.getObject() + " - left the server");
+                            controller.removeUserOnline((String)message.getObject());
                         } else if (message.getHeader() == Codes.USERS_LIST){
                             controller.addUserListOnline((ArrayList<String>) message.getObject());
                         } else {

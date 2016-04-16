@@ -98,6 +98,16 @@ public class Controller implements Initializable {
         usersTable.refresh();
     }
 
+    public void removeUserOnline(String name){
+        for(int i=0; i<usersObservableList.size(); i++){
+            if(usersObservableList.get(i).getUsername().equals(name)){
+                usersObservableList.remove(i);
+                i=usersObservableList.size();
+            }
+        }
+        usersTable.refresh();
+    }
+
     private void setDefaultValues(){
         address.setText("127.0.0.1");
         port.setText("7171");
