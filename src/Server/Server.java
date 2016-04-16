@@ -92,6 +92,19 @@ public class Server {
         }
     }
 
+    static void removeUserOnlineAndSendToAll(Socket socket){
+        synchronized (lockOnlineUsers){
+            for(int i=0; i<onlineUsersArrayList.size(); i++){
+                if(onlineUsersArrayList.get(i).getMessagesListener().getClientSocket() == socket){
+                    sendObjectToAllUsers(new Message(onlineUsersArrayList.get(i).getUser().getUsername(), Codes.USER_LEFT));
+                    onlineUsersArrayList.get(i).getMessagesListener().terminate();
+                    onlineUsersArrayList.remove(i);
+                    i=onlineUsersArrayList.size();
+                }
+            }
+        }
+    }
+
     static UserOnline getUserOnline(int index) { //TODO Is it necessary?
         synchronized (lockOnlineUsers) {
             return onlineUsersArrayList.get(index);

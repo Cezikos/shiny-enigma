@@ -3,6 +3,7 @@ package Server;
 import Both.Codes;
 import Both.Message;
 import Both.LoginForm;
+import Client.Controller;
 
 import java.io.*;
 import java.net.Socket;
@@ -80,11 +81,17 @@ public class MessagesListener implements Runnable {
                             Server.sendObjectToAllUsers(new Message(msg, Codes.SIMPLE_MESSAGE));
                         }
                     }).start();
+                } else if(message.getHeader() == Codes.DISCONNECT){
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Server.removeUserOnlineAndSendToAll(clientSocket);
+                        }
+                    }).start();
                 }
 
-            } catch (IOException e) { //TODO Break? I lost my mind
+            } catch (IOException e) {
                 terminate();
-                break;
             } catch (ClassNotFoundException e) {
                 e.printStackTrace();
             }
