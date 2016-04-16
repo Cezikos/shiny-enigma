@@ -139,7 +139,7 @@ public class Controller implements Initializable {
         inputMessages.setScrollTop(Double.MAX_VALUE);
     }
 
-    public void closeSocket(){
+    public void terminate(){
 
         clientListener.terminate();
 

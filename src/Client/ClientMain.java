@@ -1,5 +1,7 @@
 package Client;
 
+import Both.Codes;
+import Both.Message;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -7,6 +9,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.io.PrintStream;
 
 public class ClientMain extends Application {
@@ -28,7 +31,8 @@ public class ClientMain extends Application {
     public void stop(){
 
         try {
-            (new PrintStream(Controller.controller.getClientSocket().getOutputStream())).println("Closed");
+            (new ObjectOutputStream(Controller.controller.getClientSocket().getOutputStream())).writeObject(new Message("", Codes.DISCONNECT));
+            Controller.controller.terminate();
         } catch (IOException e) {
             e.printStackTrace();
         }
