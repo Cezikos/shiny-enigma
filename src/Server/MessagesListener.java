@@ -1,0 +1,108 @@
+package Server;
+
+import Both.Codes;
+import Both.Message;
+import Both.LoginForm;
+
+import java.io.*;
+import java.net.Socket;
+
+/**
+ * Created by Piotr on 2016-04-13.
+ */
+public class MessagesListener implements Runnable {
+
+    private boolean running;
+
+    private Socket clientSocket;
+    private ObjectInputStream objectInputStream;
+
+    public MessagesListener(Socket clientSocket) {
+        this.clientSocket = clientSocket;
+        this.running = true;
+    }
+
+    @Override
+    public void run() { //TODO Need Refactor! Code looks, a bit messy.
+        try {
+            objectInputStream = new ObjectInputStream(clientSocket.getInputStream());
+
+            String username = "root"; //TODO Backdoor :D it will be until I'm doing the fucking registration system
+            String password = "pass";
+
+            String userTemp = null;
+            String passwordTemp = null;
+
+            LoginForm loginForm = ((LoginForm) objectInputStream.readObject()); //TODO Yeah login form but where is registration?
+            userTemp = loginForm.getLogin();
+            passwordTemp = loginForm.getPassword();
+
+            if (username.equals(userTemp) && password.equals(passwordTemp)) { //TODO Need to implement database/JSON/XML
+
+
+                Server.addUserOnlineAndSendToAll(new UserOnline(this, new User(username)));
+                Server.sendAllUsersOnlineToUser(clientSocket);
+
+                (new ObjectOutputStream(clientSocket.getOutputStream())).writeObject(new Message("You have been successfully logged in", Codes.SUCCESSFUL_LOGIN));
+                (new ObjectOutputStream(clientSocket.getOutputStream())).writeObject(new Message("Your ID: " + clientSocket.getPort(), Codes.SIMPLE_MESSAGE));
+
+                new Thread(new Runnable() { //TODO Don't use lambdas cuz my VPS has JRE 1.7
+                    @Override
+                    public void run() {
+                        Server.sendObjectToAllUsers(new Message("[User " + clientSocket.getPort() + "] joined the server", Codes.SIMPLE_MESSAGE));
+                    }
+                }).start();
+
+            } else {
+
+                (new ObjectOutputStream(clientSocket.getOutputStream())).writeObject(new Message(Codes.FAILURE_LOGIN.toString() + "[Error] Incorrect login or password", Codes.FAILURE_LOGIN));
+                terminate();
+
+            }
+
+
+        } catch (IOException e) {
+            terminate();
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        while (running) {
+            try {
+                Message message = (Message)  objectInputStream.readObject();
+
+                if(message.getHeader() == Codes.SIMPLE_MESSAGE){ //TODO Need to implement more Codes and switch statement?
+                    final String msg = "[User: " + clientSocket.getPort() + "]: " + message.getObject();
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Server.sendObjectToAllUsers(new Message(msg, Codes.SIMPLE_MESSAGE));
+                        }
+                    }).start();
+                }
+
+            } catch (IOException e) { //TODO Break? I lost my mind
+                terminate();
+                break;
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public Socket getClientSocket() {
+        return clientSocket;
+    }
+
+    public void terminate() {
+        this.running = false;
+        try {
+            clientSocket.close();
+            objectInputStream.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+}
