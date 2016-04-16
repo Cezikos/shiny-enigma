@@ -1,7 +1,6 @@
 package Server;
 
 
-
 public class UserOnline {
     private MessagesListener messagesListener;
     private User user;

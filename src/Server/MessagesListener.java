@@ -3,14 +3,10 @@ package Server;
 import Both.Codes;
 import Both.Message;
 import Both.LoginForm;
-import Client.Controller;
 
 import java.io.*;
 import java.net.Socket;
 
-/**
- * Created by Piotr on 2016-04-13.
- */
 public class MessagesListener implements Runnable {
 
     private boolean running;
@@ -71,9 +67,9 @@ public class MessagesListener implements Runnable {
 
         while (running) {
             try {
-                Message message = (Message)  objectInputStream.readObject();
+                Message message = (Message) objectInputStream.readObject();
 
-                if(message.getHeader() == Codes.SIMPLE_MESSAGE){ //TODO Need to implement more Codes and switch statement?
+                if (message.getHeader() == Codes.SIMPLE_MESSAGE) { //TODO Need to implement more Codes and switch statement?
                     final String msg = "[User: " + clientSocket.getPort() + "]: " + message.getObject();
                     new Thread(new Runnable() {
                         @Override
@@ -81,7 +77,7 @@ public class MessagesListener implements Runnable {
                             Server.sendObjectToAllUsers(new Message(msg, Codes.SIMPLE_MESSAGE));
                         }
                     }).start();
-                } else if(message.getHeader() == Codes.DISCONNECT){
+                } else if (message.getHeader() == Codes.DISCONNECT) {
                     new Thread(new Runnable() {
                         @Override
                         public void run() {

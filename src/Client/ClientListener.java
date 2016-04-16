@@ -7,9 +7,6 @@ import java.io.*;
 import java.net.Socket;
 import java.util.ArrayList;
 
-/**
- * Created by Piotr on 2016-04-13.
- */
 public class ClientListener implements Runnable {
 
     private Controller controller;
@@ -19,7 +16,7 @@ public class ClientListener implements Runnable {
 
     private ObjectInputStream objectInputStream;
 
-    ClientListener(Socket clientSocket, Controller controller){
+    ClientListener(Socket clientSocket, Controller controller) {
 
         this.clientSocket = clientSocket;
         this.controller = controller;
@@ -29,7 +26,7 @@ public class ClientListener implements Runnable {
 
     @Override
     public void run() {
-        while(running){
+        while (running) {
             try {
                 objectInputStream = new ObjectInputStream(this.clientSocket.getInputStream());
             } catch (IOException e) {
@@ -38,26 +35,24 @@ public class ClientListener implements Runnable {
             }
 
             try {
-                if(running) {
+                if (running) {
                     Message message = (Message) objectInputStream.readObject();
 
 
-
-                        if(message.getHeader() == Codes.FAILURE_LOGIN){
-                            controller.setReceivedMessages((String)message.getObject());
-                            terminate();
-                        } else if (message.getHeader() == Codes.USER_JOIN) {
-                            controller.setReceivedMessages(message.getObject() + " - joined the server");
-                            controller.addUserOnline(message.getObject().toString());
-                        } else if (message.getHeader() == Codes.USER_LEFT){
-                            controller.setReceivedMessages(message.getObject() + " - left the server");
-                            controller.removeUserOnline((String)message.getObject());
-                        } else if (message.getHeader() == Codes.USERS_LIST){
-                            controller.addUserListOnline((ArrayList<String>) message.getObject());
-                        } else {
-                            controller.setReceivedMessages((String)message.getObject());
-                        }
-
+                    if (message.getHeader() == Codes.FAILURE_LOGIN) {
+                        controller.setReceivedMessages((String) message.getObject());
+                        terminate();
+                    } else if (message.getHeader() == Codes.USER_JOIN) {
+                        controller.setReceivedMessages(message.getObject() + " - joined the server");
+                        controller.addUserOnline(message.getObject().toString());
+                    } else if (message.getHeader() == Codes.USER_LEFT) {
+                        controller.setReceivedMessages(message.getObject() + " - left the server");
+                        controller.removeUserOnline((String) message.getObject());
+                    } else if (message.getHeader() == Codes.USERS_LIST) {
+                        controller.addUserListOnline((ArrayList<String>) message.getObject());
+                    } else {
+                        controller.setReceivedMessages((String) message.getObject());
+                    }
 
 
                 }
@@ -72,7 +67,7 @@ public class ClientListener implements Runnable {
 
     }
 
-    public void terminate(){
+    public void terminate() {
         running = false;
     }
 }

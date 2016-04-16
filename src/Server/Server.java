@@ -9,25 +9,31 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 
-/**
- * Created by Piotr on 2016-04-14.
- */
 public class Server {
-    /** Server will listening on this socket **/
+    /**
+     * Server will listening on this socket
+     **/
     private ServerSocket serverSocket;
-    /** Port on which server will be listening **/
+    /**
+     * Port on which server will be listening
+     **/
     private final int PORT;
-    /** Condition for infinite loop **/
+    /**
+     * Condition for infinite loop
+     **/
     private boolean running;
 
-    /** Object locker to synchronize ArrayList with online users **/
+    /**
+     * Object locker to synchronize ArrayList with online users
+     **/
     private static Object lockOnlineUsers;
-    /** Static ArrayList which contain all online users **/
+    /**
+     * Static ArrayList which contain all online users
+     **/
     static ArrayList<UserOnline> onlineUsersArrayList = new ArrayList<>();
 
 
     /**
-     *
      * @param port specific port to listen on it
      */
     public Server(int port) {
@@ -38,11 +44,11 @@ public class Server {
     }
 
 
-    static void sendAllUsersOnlineToAll(){ //TODO Is it necessary? Maybe, /users command
-        synchronized (lockOnlineUsers){
+    static void sendAllUsersOnlineToAll() { //TODO Is it necessary? Maybe, /users command
+        synchronized (lockOnlineUsers) {
             ArrayList<String> usersToSend = new ArrayList<>();
 
-            for(int i=0; i<onlineUsersArrayList.size(); i++){
+            for (int i = 0; i < onlineUsersArrayList.size(); i++) {
                 usersToSend.add(onlineUsersArrayList.get(i).getUser().getUsername());
             }
 
@@ -50,11 +56,11 @@ public class Server {
         }
     }
 
-    static void sendAllUsersOnlineToUser(Socket socket){
-        synchronized (lockOnlineUsers){
+    static void sendAllUsersOnlineToUser(Socket socket) {
+        synchronized (lockOnlineUsers) {
             ArrayList<String> usersToSend = new ArrayList<>();
 
-            for(int i=0; i<onlineUsersArrayList.size(); i++){
+            for (int i = 0; i < onlineUsersArrayList.size(); i++) {
                 usersToSend.add(onlineUsersArrayList.get(i).getUser().getUsername());
             }
 
@@ -62,8 +68,8 @@ public class Server {
         }
     }
 
-    static void sendObjectToUser(Message message, Socket socket){
-        synchronized (lockOnlineUsers){
+    static void sendObjectToUser(Message message, Socket socket) {
+        synchronized (lockOnlineUsers) {
             try {
                 (new ObjectOutputStream(socket.getOutputStream())).writeObject(message);
             } catch (IOException e) {
@@ -92,14 +98,14 @@ public class Server {
         }
     }
 
-    static void removeUserOnlineAndSendToAll(Socket socket){
-        synchronized (lockOnlineUsers){
-            for(int i=0; i<onlineUsersArrayList.size(); i++){
-                if(onlineUsersArrayList.get(i).getMessagesListener().getClientSocket() == socket){
+    static void removeUserOnlineAndSendToAll(Socket socket) {
+        synchronized (lockOnlineUsers) {
+            for (int i = 0; i < onlineUsersArrayList.size(); i++) {
+                if (onlineUsersArrayList.get(i).getMessagesListener().getClientSocket() == socket) {
                     sendObjectToAllUsers(new Message(onlineUsersArrayList.get(i).getUser().getUsername(), Codes.USER_LEFT));
                     onlineUsersArrayList.get(i).getMessagesListener().terminate();
                     onlineUsersArrayList.remove(i);
-                    i=onlineUsersArrayList.size();
+                    i = onlineUsersArrayList.size();
                 }
             }
         }
@@ -129,7 +135,6 @@ public class Server {
             removeUsersOnlineAndSendToAll(usersToDelete);
         }
     }
-
 
 
     public void start() {
