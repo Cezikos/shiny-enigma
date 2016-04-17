@@ -102,10 +102,12 @@ public class Server {
         synchronized (lockOnlineUsers) {
             for (int i = 0; i < onlineUsersArrayList.size(); i++) {
                 if (onlineUsersArrayList.get(i).getMessagesListener().getClientSocket() == socket) {
-                    sendObjectToAllUsers(new Message(onlineUsersArrayList.get(i).getUser().getUsername(), Codes.USER_LEFT));
                     onlineUsersArrayList.get(i).getMessagesListener().terminate();
+                    String s = onlineUsersArrayList.get(i).getUser().getUsername();
                     onlineUsersArrayList.remove(i);
                     i = onlineUsersArrayList.size();
+                    sendObjectToAllUsers(new Message(s, Codes.USER_LEFT));
+
                 }
             }
         }

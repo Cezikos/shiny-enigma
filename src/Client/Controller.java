@@ -193,7 +193,7 @@ public class Controller implements Initializable {
     private void sendMessageToServer() {
         if (outputMessage.getText().length() > 0) {
             try {
-                objectOutputStream.writeObject(new Message(outputMessage.getText(), Codes.SIMPLE_MESSAGE));
+                (new ObjectOutputStream(clientSocket.getOutputStream())).writeObject(new Message(outputMessage.getText(), Codes.SIMPLE_MESSAGE));
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -210,7 +210,11 @@ public class Controller implements Initializable {
 
     public void terminate() {
 
-
+        try {
+            (new ObjectOutputStream(clientSocket.getOutputStream())).writeObject(new Message("", Codes.DISCONNECT));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         if(clientListener != null) {
             clientListener.terminate();
@@ -218,11 +222,7 @@ public class Controller implements Initializable {
         }
 
         if (clientSocket != null) {
-            try {
-                (new ObjectOutputStream(clientSocket.getOutputStream())).writeObject(new Message("", Codes.DISCONNECT));
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+
 
             try {
                 clientSocket.close();

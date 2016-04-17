@@ -76,6 +76,7 @@ public class MessagesListener implements Runnable { //TODO Refactor! Code looks 
 
         while (running) {
             try {
+                objectInputStream = new ObjectInputStream(clientSocket.getInputStream());
                 Message message = (Message) objectInputStream.readObject();
 
                 if (message.getHeader() == Codes.SIMPLE_MESSAGE) { //TODO Need to implement more Codes and switch statement?
@@ -86,7 +87,7 @@ public class MessagesListener implements Runnable { //TODO Refactor! Code looks 
                             Server.sendObjectToAllUsers(new Message(msg, Codes.SIMPLE_MESSAGE));
                         }
                     }).start();
-                } else if (message.getHeader() == Codes.DISCONNECT) {
+                } else if (message.getHeader() == Codes.DISCONNECT) { //TODO Not working properly.
                     new Thread(new Runnable() {
                         @Override
                         public void run() {
