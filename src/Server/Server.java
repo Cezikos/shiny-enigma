@@ -1,8 +1,10 @@
 package Server;
 
 import Both.Codes;
+import Both.LoginForm;
 import Both.Message;
 
+import javax.xml.crypto.Data;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
@@ -32,6 +34,7 @@ public class Server {
      **/
     static ArrayList<UserOnline> onlineUsersArrayList = new ArrayList<>();
 
+    Database database;
 
     /**
      * @param port specific port to listen on it
@@ -41,6 +44,7 @@ public class Server {
         this.PORT = port;
 
         lockOnlineUsers = new Object();
+        database = new Database();
     }
 
 
@@ -150,7 +154,7 @@ public class Server {
 
                 clientSocket = serverSocket.accept();
 
-                thread = new Thread(new MessagesListener(clientSocket));
+                thread = new Thread(new MessagesListener(clientSocket, database));
                 thread.setDaemon(true);
 
 

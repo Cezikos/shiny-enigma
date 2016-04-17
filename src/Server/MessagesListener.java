@@ -16,8 +16,11 @@ public class MessagesListener implements Runnable { //TODO Refactor! Code looks 
     private Socket clientSocket;
     private ObjectInputStream objectInputStream;
 
-    public MessagesListener(Socket clientSocket) {
+    private Database database;
+
+    public MessagesListener(Socket clientSocket, Database database) {
         this.clientSocket = clientSocket;
+        this.database = database;
         this.running = true;
     }
 
@@ -61,7 +64,29 @@ public class MessagesListener implements Runnable { //TODO Refactor! Code looks 
                 }
 
             } else if (message.getHeader() == Codes.REGISTER) {
-                //TODO Register system
+                String username = ((LoginForm) message.getObject()).getLogin();
+                String password = ((LoginForm) message.getObject()).getPassword();
+
+                /**Creating new account if not exist**/
+                if(database.registerUser(username, password)){
+
+                    new Thread(new Runnable() { //TODO Don't use lambdas cuz my VPS has JRE 1.7
+                        @Override
+                        public void run() {
+                            try {
+                                (new ObjectOutputStream(clientSocket.getOutputStream())).writeObject(new Message("", Codes.SUCCESSFUL_REGISTER));
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                            Server.sendObjectToAllUsers(new Message("[User " + clientSocket.getPort() + "] joined the server", Codes.SIMPLE_MESSAGE));
+                        }
+                    }).start();
+
+                } else {
+                    (new ObjectOutputStream(clientSocket.getOutputStream())).writeObject(new Message("", Codes.FAILURE_REGISTER));
+                    running = false;
+                }
+
             } else if (message.getHeader() == Codes.DISCONNECT) {
                 terminate();
             }
