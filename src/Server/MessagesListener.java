@@ -1,10 +1,12 @@
 package Server;
 
 import Both.Codes;
-import Both.Message;
 import Both.LoginForm;
+import Both.Message;
 
-import java.io.*;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.net.Socket;
 
 public class MessagesListener implements Runnable {
@@ -28,8 +30,8 @@ public class MessagesListener implements Runnable {
             String passwordT = "pass";
 
             Message message = (Message) objectInputStream.readObject(); //TODO Yeah login form but where is registration?
-            String username = ((LoginForm)message.getObject()).getLogin();
-            String password = ((LoginForm)message.getObject()).getPassword();
+            String username = ((LoginForm) message.getObject()).getLogin();
+            String password = ((LoginForm) message.getObject()).getPassword();
 
             if (username.equals(usernameT) && password.equals(passwordT)) { //TODO Need to implement database/JSON/XML
 
