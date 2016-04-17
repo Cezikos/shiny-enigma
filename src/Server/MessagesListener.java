@@ -34,26 +34,24 @@ public class MessagesListener implements Runnable { //TODO Refactor! Code looks 
             /**If statement to attend these three Codes**/
             if(message.getHeader() == Codes.LOGIN) {
 
-                String usernameT = "root"; //TODO Backdoor :D it will be until I'm doing the fucking registration system
-                String passwordT = "pass";
-
                 //TODO Yeah login form but where is registration?
                 String username = ((LoginForm) message.getObject()).getLogin(); //TODO When player Connect and Disconnect, he/she not send the Message with LoginForm! Need FiX
                 String password = ((LoginForm) message.getObject()).getPassword();
 
                 /**If login and password is correct then client is successfully logged in otherwise client is disconnected**/
-                if (username.equals(usernameT) && password.equals(passwordT)) { //TODO Need to implement database/JSON/XML
+                if (database.isValidLoginAndPassword(username,password)) { //TODO Need to implement database/JSON/XML
 
                     (new ObjectOutputStream(clientSocket.getOutputStream())).writeObject(new Message("You have been successfully logged in", Codes.SUCCESSFUL_LOGIN));
                     (new ObjectOutputStream(clientSocket.getOutputStream())).writeObject(new Message("Your ID: " + clientSocket.getPort(), Codes.SIMPLE_MESSAGE));
 
-                    Server.addUserOnlineAndSendToAll(new UserOnline(this, new User(username)));
-                    Server.sendAllUsersOnlineToUser(clientSocket);
 
+                    final MessagesListener listener = this;
                     /**Creating new thread because sending message to all users can take a lot of time (synchronized + a lot of users)**/
                     new Thread(new Runnable() { //TODO Don't use lambdas cuz my VPS has JRE 1.7
                         @Override
                         public void run() {
+                            Server.addUserOnlineAndSendToAll(new UserOnline(listener, new User(username)));
+                            Server.sendAllUsersOnlineToUser(clientSocket);
                             Server.sendObjectToAllUsers(new Message("[User " + clientSocket.getPort() + "] joined the server", Codes.SIMPLE_MESSAGE));
                         }
                     }).start();
