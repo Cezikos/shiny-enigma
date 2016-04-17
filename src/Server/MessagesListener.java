@@ -76,15 +76,14 @@ public class MessagesListener implements Runnable { //TODO Refactor! Code looks 
                             } catch (IOException e) {
                                 e.printStackTrace();
                             }
-                            Server.sendObjectToAllUsers(new Message("[User " + clientSocket.getPort() + "] joined the server", Codes.SIMPLE_MESSAGE));
                         }
                     }).start();
 
                 } else {
                     (new ObjectOutputStream(clientSocket.getOutputStream())).writeObject(new Message("", Codes.FAILURE_REGISTER));
-                    running = false;
-                }
 
+                }
+                running = false;
             } else if (message.getHeader() == Codes.DISCONNECT) {
                 terminate();
             }

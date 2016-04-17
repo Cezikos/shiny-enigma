@@ -52,6 +52,10 @@ public class ClientListener implements Runnable {
             e.printStackTrace();
         }
 
+        controller.setLoginDisabled();
+        controller.setRegisterDisabled();
+        controller.setConnectDisabled();
+
         while (running) {
             try {
                 objectInputStream = new ObjectInputStream(this.clientSocket.getInputStream());

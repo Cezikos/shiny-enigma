@@ -40,6 +40,9 @@ public class Controller implements Initializable {
     private PasswordField password;
 
     @FXML
+    private Button connect;
+
+    @FXML
     private Button login;
 
     @FXML
@@ -156,19 +159,22 @@ public class Controller implements Initializable {
 
         if(clientSocket != null){
             login.setDisable(false);
+            register.setDisable(false);
         } else {
             login.setDisable(true);
+            register.setDisable(false);
         }
     }
 
     @FXML
     private void disconnectFromServer() {
+        connect.setDisable(false);
         terminate();
     }
 
     @FXML
     private void loginToServer() {
-        if (clientSocket.isConnected()) {
+        if (clientSocket != null) {
 
             if(isUsername() && isPassword()){
 
@@ -184,9 +190,41 @@ public class Controller implements Initializable {
                     e.printStackTrace();
                 }
             }
+        }
+    }
+
+    @FXML
+    private void registerAccountOnServer(){
+        if (clientSocket != null){
+
+            if(isUsername() && isPassword()){
+
+                try {
+                    (new ObjectOutputStream(clientSocket.getOutputStream())).writeObject(new Message(new LoginForm(username.getText(), password.getText()), Codes.REGISTER));
+                    Message message = (Message)(new ObjectInputStream(clientSocket.getInputStream())).readObject();
+
+                    if(message.getHeader() == Codes.SUCCESSFUL_REGISTER){
+                        setReceivedMessages("You have been successful registered");
+                    } else {
+                        setReceivedMessages("Error - that username exists");
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } catch (ClassNotFoundException e) {
+                    e.printStackTrace();
+                }
+
+            }
+            login.setDisable(true);
+            register.setDisable(true);
+            try {
+                clientSocket.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            clientSocket = null;
 
         }
-
     }
 
     @FXML
@@ -208,15 +246,28 @@ public class Controller implements Initializable {
         inputMessages.setScrollTop(Double.MAX_VALUE);
     }
 
+    public void setConnectDisabled(){
+        connect.setDisable(true);
+    }
+
+    public void setLoginDisabled(){
+        login.setDisable(true);
+    }
+
+    public void setRegisterDisabled(){
+        register.setDisable(true);
+    }
+
     public void terminate() {
 
-        try {
-            (new ObjectOutputStream(clientSocket.getOutputStream())).writeObject(new Message("", Codes.DISCONNECT));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+
 
         if(clientListener != null) {
+            try {
+                (new ObjectOutputStream(clientSocket.getOutputStream())).writeObject(new Message("", Codes.DISCONNECT));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
             clientListener.terminate();
             clientListener = null;
         }
