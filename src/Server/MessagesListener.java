@@ -9,7 +9,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 
-public class MessagesListener implements Runnable {
+public class MessagesListener implements Runnable { //TODO Refactor! Code looks messy
 
     private boolean running;
 
@@ -25,34 +25,45 @@ public class MessagesListener implements Runnable {
     public void run() { //TODO Need Refactor! Code looks, a bit messy.
         try {
             objectInputStream = new ObjectInputStream(clientSocket.getInputStream());
+            /**Getting first message from new client,it can be LOGIN, REGISTER or DISCONNECT**/
+            Message message = (Message) objectInputStream.readObject();
 
-            String usernameT = "root"; //TODO Backdoor :D it will be until I'm doing the fucking registration system
-            String passwordT = "pass";
+            /**If statement to attend these three Codes**/
+            if(message.getHeader() == Codes.LOGIN) {
 
-            Message message = (Message) objectInputStream.readObject(); //TODO Yeah login form but where is registration?
-            String username = ((LoginForm) message.getObject()).getLogin(); //TODO When player Connect and Disconnect, he/she not send the Message with LoginForm! Need FiX
-            String password = ((LoginForm) message.getObject()).getPassword();
+                String usernameT = "root"; //TODO Backdoor :D it will be until I'm doing the fucking registration system
+                String passwordT = "pass";
 
-            if (username.equals(usernameT) && password.equals(passwordT)) { //TODO Need to implement database/JSON/XML
+                //TODO Yeah login form but where is registration?
+                String username = ((LoginForm) message.getObject()).getLogin(); //TODO When player Connect and Disconnect, he/she not send the Message with LoginForm! Need FiX
+                String password = ((LoginForm) message.getObject()).getPassword();
 
-                (new ObjectOutputStream(clientSocket.getOutputStream())).writeObject(new Message("You have been successfully logged in", Codes.SUCCESSFUL_LOGIN));
-                (new ObjectOutputStream(clientSocket.getOutputStream())).writeObject(new Message("Your ID: " + clientSocket.getPort(), Codes.SIMPLE_MESSAGE));
+                /**If login and password is correct then client is successfully logged in otherwise client is disconnected**/
+                if (username.equals(usernameT) && password.equals(passwordT)) { //TODO Need to implement database/JSON/XML
 
-                Server.addUserOnlineAndSendToAll(new UserOnline(this, new User(username)));
-                Server.sendAllUsersOnlineToUser(clientSocket);
+                    (new ObjectOutputStream(clientSocket.getOutputStream())).writeObject(new Message("You have been successfully logged in", Codes.SUCCESSFUL_LOGIN));
+                    (new ObjectOutputStream(clientSocket.getOutputStream())).writeObject(new Message("Your ID: " + clientSocket.getPort(), Codes.SIMPLE_MESSAGE));
 
-                new Thread(new Runnable() { //TODO Don't use lambdas cuz my VPS has JRE 1.7
-                    @Override
-                    public void run() {
-                        Server.sendObjectToAllUsers(new Message("[User " + clientSocket.getPort() + "] joined the server", Codes.SIMPLE_MESSAGE));
-                    }
-                }).start();
+                    Server.addUserOnlineAndSendToAll(new UserOnline(this, new User(username)));
+                    Server.sendAllUsersOnlineToUser(clientSocket);
 
-            } else {
+                    /**Creating new thread because sending message to all users can take a lot of time (synchronized + a lot of users)**/
+                    new Thread(new Runnable() { //TODO Don't use lambdas cuz my VPS has JRE 1.7
+                        @Override
+                        public void run() {
+                            Server.sendObjectToAllUsers(new Message("[User " + clientSocket.getPort() + "] joined the server", Codes.SIMPLE_MESSAGE));
+                        }
+                    }).start();
 
-                (new ObjectOutputStream(clientSocket.getOutputStream())).writeObject(new Message(Codes.FAILURE_LOGIN.toString() + "[Error] Incorrect login or password", Codes.FAILURE_LOGIN));
+                } else {
+                    (new ObjectOutputStream(clientSocket.getOutputStream())).writeObject(new Message(Codes.FAILURE_LOGIN.toString() + "[Error] Incorrect login or password", Codes.FAILURE_LOGIN));
+                    terminate();
+                }
+
+            } else if (message.getHeader() == Codes.REGISTER) {
+                //TODO Register system
+            } else if (message.getHeader() == Codes.DISCONNECT) {
                 terminate();
-
             }
 
 
@@ -100,6 +111,11 @@ public class MessagesListener implements Runnable {
         this.running = false;
         try {
             clientSocket.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        try {
             objectInputStream.close();
         } catch (IOException e) {
             e.printStackTrace();
