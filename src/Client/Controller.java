@@ -70,6 +70,7 @@ public class Controller implements Initializable {
         stringBuilder = new StringBuilder();
         usersObservableList = FXCollections.observableArrayList();
         clientListener = null;
+        clientSocket = null;
         controller = this;
     }
 
@@ -112,25 +113,32 @@ public class Controller implements Initializable {
     private void setDefaultValues() {
         address.setText("127.0.0.1");
         port.setText("7171");
+
+        login.setDisable(true);
     }
 
-    private String getUsername() throws EmptyField {
-
-        if (username.getText().length() > 0) {
-            return username.getText();
+    private boolean isUsername() {
+        if (username.getText().length() > 0){
+            return true;
         } else {
-            throw new EmptyField("Empty login field");
+            return false;
         }
-
     }
 
-    private String getPassword() throws EmptyField {
-
-        if (password.getText().length() > 0) {
-            return password.getText();
+    private boolean isPassword() {
+        if(password.getText().length() > 0){
+            return true;
         } else {
-            throw new EmptyField("Empty password field");
+            return false;
         }
+    }
+
+    private String getUsername() {
+        return username.getText();
+    }
+
+    private String getPassword() { //TODO Maybe clear password field after get?
+        return password.getText();
     }
 
     @FXML
@@ -138,7 +146,14 @@ public class Controller implements Initializable {
         try {
             clientSocket = new Socket(Constants.HOST, Constants.PORT);
         } catch (IOException e) {
+            clientSocket = null;
             e.printStackTrace();
+        }
+
+        if(clientSocket != null){
+            login.setDisable(false);
+        } else {
+            login.setDisable(true);
         }
     }
 
@@ -150,31 +165,22 @@ public class Controller implements Initializable {
     @FXML
     private void loginToServer() {
         if (clientSocket.isConnected()) {
-            try {
-                objectOutputStream = new ObjectOutputStream(clientSocket.getOutputStream());
-                String login = getUsername();
-                String password = getPassword();
 
-                objectOutputStream.writeObject(new Message(new LoginForm(login, password), Codes.LOGIN));
+            if(isUsername() && isPassword()){
 
-                Message message = (Message) (new ObjectInputStream(clientSocket.getInputStream())).readObject();
+                Thread thread = new Thread(clientListener = new ClientListener(clientSocket, this, getUsername(), getPassword()));
+                thread.setDaemon(true); //TODO Daemon?? :D
+                thread.start();
 
-                if (message.getHeader() == Codes.SUCCESSFUL_LOGIN) {
-                    Thread thread = new Thread(clientListener = new ClientListener(clientSocket, this));
-                    thread.setDaemon(true);
-                    thread.start();
-                } else {
-                    objectOutputStream.close();
+            } else {
+                login.setDisable(true);
+                try {
                     clientSocket.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
-
-            } catch (ClassNotFoundException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            } catch (EmptyField emptyField) {
-                System.err.println(emptyField.getMessage());
             }
+
         }
 
     }
