@@ -30,7 +30,7 @@ public class MessagesListener implements Runnable {
             String passwordT = "pass";
 
             Message message = (Message) objectInputStream.readObject(); //TODO Yeah login form but where is registration?
-            String username = ((LoginForm) message.getObject()).getLogin();
+            String username = ((LoginForm) message.getObject()).getLogin(); //TODO When player Connect and Disconnect, he/she not send the Message with LoginForm! Need FiX
             String password = ((LoginForm) message.getObject()).getPassword();
 
             if (username.equals(usernameT) && password.equals(passwordT)) { //TODO Need to implement database/JSON/XML

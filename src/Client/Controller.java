@@ -135,13 +135,16 @@ public class Controller implements Initializable {
 
     @FXML
     private void connectToServer() {
-
         try {
             clientSocket = new Socket(Constants.HOST, Constants.PORT);
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
 
+    @FXML
+    private void disconnectFromServer() {
+        terminate();
     }
 
     @FXML
@@ -165,12 +168,12 @@ public class Controller implements Initializable {
                     clientSocket.close();
                 }
 
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
             } catch (IOException e) {
                 e.printStackTrace();
             } catch (EmptyField emptyField) {
                 System.err.println(emptyField.getMessage());
-            } catch (ClassNotFoundException e) {
-                e.printStackTrace();
             }
         }
 
@@ -190,7 +193,6 @@ public class Controller implements Initializable {
     }
 
     public void setReceivedMessages(String message) {
-
         stringBuilder.append(message + "\n");
         inputMessages.setText(stringBuilder.toString());
         inputMessages.setScrollTop(Double.MAX_VALUE);
@@ -198,8 +200,13 @@ public class Controller implements Initializable {
 
     public void terminate() {
 
-        clientListener.terminate();
+        try {
+            (new ObjectOutputStream(clientSocket.getOutputStream())).writeObject(new Message("", Codes.DISCONNECT));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
+        clientListener.terminate();
         if (clientSocket.isConnected()) {
             try {
                 clientSocket.close();
@@ -210,7 +217,4 @@ public class Controller implements Initializable {
 
     }
 
-    public Socket getClientSocket() {
-        return clientSocket;
-    }
 }
