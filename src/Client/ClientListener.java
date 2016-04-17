@@ -57,7 +57,7 @@ public class ClientListener implements Runnable {
                 objectInputStream = new ObjectInputStream(this.clientSocket.getInputStream());
             } catch (IOException e) {
                 terminate();
-                e.printStackTrace();
+                //e.printStackTrace();
             }
 
             try {

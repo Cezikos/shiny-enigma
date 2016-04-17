@@ -22,7 +22,7 @@ import java.util.ResourceBundle;
 
 public class Controller implements Initializable {
 
-    static Controller controller;
+    static Controller controller; //TODO static, necessary?
 
     @FXML
     private BorderPane borderPane;
@@ -41,6 +41,9 @@ public class Controller implements Initializable {
 
     @FXML
     private Button login;
+
+    @FXML
+    private Button register;
 
     @FXML
     private TextField outputMessage;
@@ -115,6 +118,7 @@ public class Controller implements Initializable {
         port.setText("7171");
 
         login.setDisable(true);
+        register.setDisable(true);
     }
 
     private boolean isUsername() {
@@ -206,20 +210,30 @@ public class Controller implements Initializable {
 
     public void terminate() {
 
-        try {
-            (new ObjectOutputStream(clientSocket.getOutputStream())).writeObject(new Message("", Codes.DISCONNECT));
-        } catch (IOException e) {
-            e.printStackTrace();
+
+
+        if(clientListener != null) {
+            clientListener.terminate();
+            clientListener = null;
         }
 
-        clientListener.terminate();
-        if (clientSocket.isConnected()) {
+        if (clientSocket != null) {
+            try {
+                (new ObjectOutputStream(clientSocket.getOutputStream())).writeObject(new Message("", Codes.DISCONNECT));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
             try {
                 clientSocket.close();
             } catch (IOException e) {
                 e.printStackTrace();
             }
+            clientSocket = null;
         }
+
+        login.setDisable(true);
+        register.setDisable(true);
 
     }
 
