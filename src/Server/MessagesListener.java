@@ -12,6 +12,8 @@ import java.net.Socket;
 
 public class MessagesListener implements Runnable { //TODO Refactor! Code looks messy
 
+    private String username; //TODO ??
+
     private boolean running;
 
     private Socket clientSocket;
@@ -35,11 +37,10 @@ public class MessagesListener implements Runnable { //TODO Refactor! Code looks 
             /**If statement to attend these three Codes**/
             if (message.getHeader() == Codes.LOGIN) {
 
-                String username = ((LoginForm) message.getObject()).getLogin();
-                String password = ((LoginForm) message.getObject()).getPassword();
+                username = ((LoginForm) message.getObject()).getLogin();
 
                 /**If login and password is correct then client is successfully logged in otherwise client is disconnected**/
-                if (database.isValidLoginAndPassword(username, password)) { //TODO Need to implement database/JSON/XML
+                if (database.isValidLoginAndPassword(username, ((LoginForm) message.getObject()).getPassword())) { //TODO Need to implement database/JSON/XML
 
                     (new ObjectOutputStream(clientSocket.getOutputStream())).writeObject(new Message("You have been successfully logged in", Codes.SUCCESSFUL_LOGIN));
 
@@ -60,12 +61,11 @@ public class MessagesListener implements Runnable { //TODO Refactor! Code looks 
                 }
 
             } else if (message.getHeader() == Codes.REGISTER) {
-                String username = ((LoginForm) message.getObject()).getLogin();
-                String password = ((LoginForm) message.getObject()).getPassword();
+                username = (String)((LoginForm) message.getObject()).getLogin();
 
 
                 /**Creating new account if not exist**/
-                if (database.createUser(username, password)) {
+                if (database.createUser(username, ((LoginForm) message.getObject()).getPassword())) {
                     (new ObjectOutputStream(clientSocket.getOutputStream())).writeObject(new Message("", Codes.SUCCESSFUL_REGISTER));
                 } else {
                     (new ObjectOutputStream(clientSocket.getOutputStream())).writeObject(new Message("", Codes.FAILURE_REGISTER));
@@ -90,7 +90,7 @@ public class MessagesListener implements Runnable { //TODO Refactor! Code looks 
                 Message message = (Message) objectInputStream.readObject();
 
                 if (message.getHeader() == Codes.SIMPLE_MESSAGE) { //TODO Need to implement more Codes and switch statement?
-                    final String msg = "[User: " + clientSocket.getPort() + "]: " + message.getObject();
+                    final String msg = "["+ username +"]:" + message.getObject();
                     new Thread(new Runnable() {
                         @Override
                         public void run() {

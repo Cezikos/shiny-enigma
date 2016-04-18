@@ -43,6 +43,7 @@ public class ClientListener implements Runnable {
                 controller.setReceivedMessages((String) message.getObject());
                 running = true;
             } else {
+                controller.setReceivedMessages((String) message.getObject());
                 running = false;
                 clientSocket.close();
             }
