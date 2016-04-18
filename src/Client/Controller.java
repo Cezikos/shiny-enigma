@@ -125,7 +125,7 @@ public class Controller implements Initializable {
     }
 
     private boolean isUsername() {
-        if (username.getText().length() > 0){
+        if (username.getText().length() > 0) {
             return true;
         } else {
             return false;
@@ -133,7 +133,7 @@ public class Controller implements Initializable {
     }
 
     private boolean isPassword() {
-        if(password.getText().length() > 0){
+        if (password.getText().length() > 0) {
             return true;
         } else {
             return false;
@@ -157,7 +157,7 @@ public class Controller implements Initializable {
             e.printStackTrace();
         }
 
-        if(clientSocket != null){
+        if (clientSocket != null) {
             login.setDisable(false);
             register.setDisable(false);
         } else {
@@ -176,7 +176,7 @@ public class Controller implements Initializable {
     private void loginToServer() {
         if (clientSocket != null) {
 
-            if(isUsername() && isPassword()){
+            if (isUsername() && isPassword()) {
 
                 Thread thread = new Thread(clientListener = new ClientListener(clientSocket, this, getUsername(), getPassword()));
                 thread.setDaemon(true); //TODO Daemon?? :D
@@ -194,16 +194,16 @@ public class Controller implements Initializable {
     }
 
     @FXML
-    private void registerAccountOnServer(){
-        if (clientSocket != null){
+    private void registerAccountOnServer() {
+        if (clientSocket != null) {
 
-            if(isUsername() && isPassword()){
+            if (isUsername() && isPassword()) {
 
                 try {
                     (new ObjectOutputStream(clientSocket.getOutputStream())).writeObject(new Message(new LoginForm(username.getText(), password.getText()), Codes.REGISTER));
-                    Message message = (Message)(new ObjectInputStream(clientSocket.getInputStream())).readObject();
+                    Message message = (Message) (new ObjectInputStream(clientSocket.getInputStream())).readObject();
 
-                    if(message.getHeader() == Codes.SUCCESSFUL_REGISTER){
+                    if (message.getHeader() == Codes.SUCCESSFUL_REGISTER) {
                         setReceivedMessages("You have been successful registered");
                     } else {
                         setReceivedMessages("Error - that username exists");
@@ -246,23 +246,22 @@ public class Controller implements Initializable {
         inputMessages.setScrollTop(Double.MAX_VALUE);
     }
 
-    public void setConnectDisabled(){
+    public void setConnectDisabled() {
         connect.setDisable(true);
     }
 
-    public void setLoginDisabled(){
+    public void setLoginDisabled() {
         login.setDisable(true);
     }
 
-    public void setRegisterDisabled(){
+    public void setRegisterDisabled() {
         register.setDisable(true);
     }
 
     public void terminate() {
 
 
-
-        if(clientListener != null) {
+        if (clientListener != null) {
             try {
                 (new ObjectOutputStream(clientSocket.getOutputStream())).writeObject(new Message("", Codes.DISCONNECT));
             } catch (IOException e) {

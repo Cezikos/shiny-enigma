@@ -32,13 +32,13 @@ public class MessagesListener implements Runnable { //TODO Refactor! Code looks 
             Message message = (Message) objectInputStream.readObject();
 
             /**If statement to attend these three Codes**/
-            if(message.getHeader() == Codes.LOGIN) {
+            if (message.getHeader() == Codes.LOGIN) {
 
                 String username = ((LoginForm) message.getObject()).getLogin();
                 String password = ((LoginForm) message.getObject()).getPassword();
 
                 /**If login and password is correct then client is successfully logged in otherwise client is disconnected**/
-                if (database.isValidLoginAndPassword(username,password)) { //TODO Need to implement database/JSON/XML
+                if (database.isValidLoginAndPassword(username, password)) { //TODO Need to implement database/JSON/XML
 
                     (new ObjectOutputStream(clientSocket.getOutputStream())).writeObject(new Message("You have been successfully logged in", Codes.SUCCESSFUL_LOGIN));
                     (new ObjectOutputStream(clientSocket.getOutputStream())).writeObject(new Message("Your ID: " + clientSocket.getPort(), Codes.SIMPLE_MESSAGE));
@@ -65,7 +65,7 @@ public class MessagesListener implements Runnable { //TODO Refactor! Code looks 
                 String password = ((LoginForm) message.getObject()).getPassword();
 
                 /**Creating new account if not exist**/
-                if(database.createUser(username, password)){
+                if (database.createUser(username, password)) {
                     (new ObjectOutputStream(clientSocket.getOutputStream())).writeObject(new Message("", Codes.SUCCESSFUL_REGISTER));
                 } else {
                     (new ObjectOutputStream(clientSocket.getOutputStream())).writeObject(new Message("", Codes.FAILURE_REGISTER));

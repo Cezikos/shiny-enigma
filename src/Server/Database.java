@@ -76,7 +76,7 @@ public class Database {
                 ResultSet resultSet = statement.executeQuery("SELECT COUNT(*) FROM USERS WHERE login='" + login + "' AND password='" + password + "'");
 
                 if (resultSet.next()) {
-                    if(Integer.parseInt(resultSet.getString("COUNT(*)")) == 1){
+                    if (Integer.parseInt(resultSet.getString("COUNT(*)")) == 1) {
                         return true;
                     }
                 }

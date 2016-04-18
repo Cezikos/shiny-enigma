@@ -1,10 +1,8 @@
 package Server;
 
 import Both.Codes;
-import Both.LoginForm;
 import Both.Message;
 
-import javax.xml.crypto.Data;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
@@ -46,11 +44,11 @@ public class Server {
         lockOnlineUsers = new Object();
         database = new Database();
 
-        if(database.connectToMySQLServer()){
+        if (database.connectToMySQLServer()) {
 
             System.out.println("Connected with MySQL");
 
-            if(database.connectToDatabase("chat")){ //TODO Not work properly
+            if (database.connectToDatabase("chat")) { //TODO Not work properly
                 System.out.println("Connected with chat");
             }
 
