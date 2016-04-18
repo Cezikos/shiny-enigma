@@ -1,5 +1,7 @@
 package Server;
 
+import org.mindrot.jbcrypt.BCrypt;
+
 import java.sql.*;
 
 public class Database {
@@ -60,7 +62,10 @@ public class Database {
     public boolean createUser(String username, String password) {
         synchronized (locker) {
             try {
-                statement.execute("INSERT INTO USERS (login, password) VALUES ('" + username + "', '" + password + "')");
+                // Hash a password for the first time
+                String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt());
+
+                statement.execute("INSERT INTO USERS (login, password) VALUES ('" + username + "', '" + hashedPassword + "')");
                 return true;
             } catch (SQLException e) {
                 e.printStackTrace();
@@ -73,11 +78,13 @@ public class Database {
     public boolean isValidLoginAndPassword(String login, String password) {
         synchronized (locker) {
             try {
-                ResultSet resultSet = statement.executeQuery("SELECT COUNT(*) FROM USERS WHERE login='" + login + "' AND password='" + password + "'");
+                ResultSet resultSet = statement.executeQuery("SELECT password FROM USERS WHERE login='" + login + "'");
 
                 if (resultSet.next()) {
-                    if (Integer.parseInt(resultSet.getString("COUNT(*)")) == 1) {
+                    if (BCrypt.checkpw(password, resultSet.getString("password"))){
                         return true;
+                    } else{
+                        return false;
                     }
                 }
             } catch (SQLException e) {

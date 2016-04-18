@@ -3,6 +3,7 @@ package Server;
 import Both.Codes;
 import Both.LoginForm;
 import Both.Message;
+import org.mindrot.jbcrypt.BCrypt;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -61,6 +62,7 @@ public class MessagesListener implements Runnable { //TODO Refactor! Code looks 
             } else if (message.getHeader() == Codes.REGISTER) {
                 String username = ((LoginForm) message.getObject()).getLogin();
                 String password = ((LoginForm) message.getObject()).getPassword();
+
 
                 /**Creating new account if not exist**/
                 if (database.createUser(username, password)) {
