@@ -40,6 +40,7 @@ public class ClientListener implements Runnable {
             Message message = (Message) (new ObjectInputStream(clientSocket.getInputStream())).readObject();
 
             if (message.getHeader() == Codes.SUCCESSFUL_LOGIN) {
+                controller.setReceivedMessages((String) message.getObject());
                 running = true;
             } else {
                 running = false;

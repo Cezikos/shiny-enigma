@@ -41,7 +41,6 @@ public class MessagesListener implements Runnable { //TODO Refactor! Code looks 
                 if (database.isValidLoginAndPassword(username, password)) { //TODO Need to implement database/JSON/XML
 
                     (new ObjectOutputStream(clientSocket.getOutputStream())).writeObject(new Message("You have been successfully logged in", Codes.SUCCESSFUL_LOGIN));
-                    (new ObjectOutputStream(clientSocket.getOutputStream())).writeObject(new Message("Your ID: " + clientSocket.getPort(), Codes.SIMPLE_MESSAGE));
 
 
                     final MessagesListener listener = this;
@@ -51,7 +50,6 @@ public class MessagesListener implements Runnable { //TODO Refactor! Code looks 
                         public void run() {
                             Server.addUserOnlineAndSendToAll(new UserOnline(listener, new User(username)));
                             Server.sendAllUsersOnlineToUser(clientSocket);
-                            Server.sendObjectToAllUsers(new Message("[User " + clientSocket.getPort() + "] joined the server", Codes.SIMPLE_MESSAGE));
                         }
                     }).start();
 
