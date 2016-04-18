@@ -34,8 +34,7 @@ public class MessagesListener implements Runnable { //TODO Refactor! Code looks 
             /**If statement to attend these three Codes**/
             if(message.getHeader() == Codes.LOGIN) {
 
-                //TODO Yeah login form but where is registration?
-                String username = ((LoginForm) message.getObject()).getLogin(); //TODO When player Connect and Disconnect, he/she not send the Message with LoginForm! Need FiX
+                String username = ((LoginForm) message.getObject()).getLogin();
                 String password = ((LoginForm) message.getObject()).getPassword();
 
                 /**If login and password is correct then client is successfully logged in otherwise client is disconnected**/
@@ -66,24 +65,13 @@ public class MessagesListener implements Runnable { //TODO Refactor! Code looks 
                 String password = ((LoginForm) message.getObject()).getPassword();
 
                 /**Creating new account if not exist**/
-                if(database.registerUser(username, password)){
-
-                    new Thread(new Runnable() { //TODO Don't use lambdas cuz my VPS has JRE 1.7
-                        @Override
-                        public void run() {
-                            try {
-                                (new ObjectOutputStream(clientSocket.getOutputStream())).writeObject(new Message("", Codes.SUCCESSFUL_REGISTER));
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
-                        }
-                    }).start();
-
+                if(database.createUser(username, password)){
+                    (new ObjectOutputStream(clientSocket.getOutputStream())).writeObject(new Message("", Codes.SUCCESSFUL_REGISTER));
                 } else {
                     (new ObjectOutputStream(clientSocket.getOutputStream())).writeObject(new Message("", Codes.FAILURE_REGISTER));
-
                 }
-                running = false;
+
+                terminate();
             } else if (message.getHeader() == Codes.DISCONNECT) {
                 terminate();
             }

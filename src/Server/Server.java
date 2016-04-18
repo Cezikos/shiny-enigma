@@ -45,6 +45,19 @@ public class Server {
 
         lockOnlineUsers = new Object();
         database = new Database();
+
+        if(database.connectToMySQLServer()){
+
+            System.out.println("Connected with MySQL");
+
+            if(database.connectToDatabase("chat")){ //TODO Not work properly
+                System.out.println("Connected with chat");
+            }
+
+        } else {
+            System.out.println("Connection with MySQL failed!");
+        }
+
     }
 
 
