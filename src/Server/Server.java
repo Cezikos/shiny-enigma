@@ -20,6 +20,7 @@ public class Server {
 
 
     private Database database;
+    private UsersOnlineList usersOnlineList;
 
     /**
      * @param port specific port to listen on it
@@ -28,8 +29,8 @@ public class Server {
         this.running = true;
         this.PORT = port;
 
-
         database = new Database();
+        usersOnlineList = new UsersOnlineList();
 
         connectWithDatabase();
     }
@@ -59,7 +60,7 @@ public class Server {
 
                 clientSocket = serverSocket.accept();
 
-                thread = new Thread(new MessagesListener(clientSocket, database));
+                thread = new Thread(new MessagesListener(clientSocket, database, usersOnlineList));
                 thread.setDaemon(true);
 
 

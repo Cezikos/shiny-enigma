@@ -11,7 +11,7 @@ import java.net.Socket;
 
 public class MessagesListener implements Runnable { //TODO Refactor! Code looks messy
 
-    private String username; //TODO ??
+    private UserOnline userOnline;
 
     private boolean running;
 
@@ -19,10 +19,14 @@ public class MessagesListener implements Runnable { //TODO Refactor! Code looks 
     private ObjectInputStream objectInputStream;
 
     private Database database;
+    private UsersOnlineList usersOnlineList;
 
-    public MessagesListener(Socket clientSocket, Database database) {
+    public MessagesListener(Socket clientSocket, Database database, UsersOnlineList usersOnlineList) {
+        this.userOnline = null;
         this.clientSocket = clientSocket;
         this.database = database;
+        this.usersOnlineList = usersOnlineList;
+
         this.running = true;
     }
 
@@ -34,6 +38,7 @@ public class MessagesListener implements Runnable { //TODO Refactor! Code looks 
             Message message = (Message) objectInputStream.readObject();
 
             /**If statement to attend these three Codes**/
+            String username;
             if (message.getHeader() == Codes.LOGIN) {
 
                 username = ((LoginForm) message.getObject()).getLogin();
@@ -49,8 +54,10 @@ public class MessagesListener implements Runnable { //TODO Refactor! Code looks 
                     new Thread(new Runnable() { //TODO Don't use lambdas cuz my VPS has JRE 1.7
                         @Override
                         public void run() {
-                            database.addUserOnlineAndSendToAll(new UserOnline(listener, new User(username)));
-                            database.sendAllUsersOnlineToUser(clientSocket);
+                            userOnline = new UserOnline(listener, new User(username));
+                            usersOnlineList.addObserver(userOnline);
+                            usersOnlineList.sendUsersListToUser(clientSocket);
+                            //database.sendAllUsersOnlineToUser(clientSocket); //TODO Online list if new
                         }
                     }).start();
 
@@ -113,17 +120,17 @@ public class MessagesListener implements Runnable { //TODO Refactor! Code looks 
         new Thread(new Runnable() {//TODO Not working properly.
             @Override
             public void run() {
-                database.removeUserOnlineAndSendToAll(clientSocket);
+                usersOnlineList.removeObserver(userOnline);
             }
         }).start();
     }
 
     private void headerSimpleMessage(Message message) {
-        final String msg = "[" + username + "]:" + message.getObject();
+        final String msg = "[" + userOnline.getUser().getUsername() + "]:" + message.getObject();
         new Thread(new Runnable() {
             @Override
             public void run() {
-                database.sendObjectToAllUsers(new Message(msg, Codes.SIMPLE_MESSAGE));
+                usersOnlineList.sendMessageToAllUsers(new Message(msg, Codes.SIMPLE_MESSAGE));
             }
         }).start();
     }

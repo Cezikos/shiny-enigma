@@ -1,7 +1,12 @@
 package Server;
 
 
-public class UserOnline {
+import Both.Message;
+
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+
+public class UserOnline implements Observer {
     private MessagesListener messagesListener;
     private User user;
 
@@ -16,5 +21,14 @@ public class UserOnline {
 
     public User getUser() {
         return user;
+    }
+
+    @Override
+    public void sendMessage(Message message) {
+        try {
+            (new ObjectOutputStream(messagesListener.getClientSocket().getOutputStream())).writeObject(message);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
