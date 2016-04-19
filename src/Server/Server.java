@@ -1,13 +1,8 @@
 package Server;
 
-import Both.Codes;
-import Both.Message;
-
 import java.io.IOException;
-import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.ArrayList;
 
 public class Server {
     /**
@@ -22,8 +17,6 @@ public class Server {
      * Condition for infinite loop
      **/
     private boolean running;
-
-
 
 
     private Database database;
@@ -41,7 +34,7 @@ public class Server {
         connectWithDatabase();
     }
 
-    private void connectWithDatabase(){
+    private void connectWithDatabase() {
         if (database.connectToMySQLServer()) {
 
             System.out.println("Connected with MySQL");

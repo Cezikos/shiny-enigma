@@ -3,13 +3,11 @@ package Server;
 import Both.Codes;
 import Both.LoginForm;
 import Both.Message;
-import org.mindrot.jbcrypt.BCrypt;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
-import java.util.ArrayList;
 
 public class MessagesListener implements Runnable { //TODO Refactor! Code looks messy
 
@@ -62,7 +60,7 @@ public class MessagesListener implements Runnable { //TODO Refactor! Code looks 
                 }
 
             } else if (message.getHeader() == Codes.REGISTER) {
-                username = (String)((LoginForm) message.getObject()).getLogin();
+                username = (String) ((LoginForm) message.getObject()).getLogin();
 
 
                 /**Creating new account if not exist**/
@@ -91,7 +89,7 @@ public class MessagesListener implements Runnable { //TODO Refactor! Code looks 
                 Message message = (Message) objectInputStream.readObject();
 
                 if (message.getHeader() == Codes.SIMPLE_MESSAGE) { //TODO Need to implement more Codes and switch statement?
-                    final String msg = "["+ username +"]:" + message.getObject();
+                    final String msg = "[" + username + "]:" + message.getObject();
                     new Thread(new Runnable() {
                         @Override
                         public void run() {

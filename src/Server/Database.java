@@ -11,7 +11,9 @@ import java.sql.*;
 import java.util.ArrayList;
 
 public class Database {
-    /**Object locker to synchronize actions on MySQL DB**/ //TODO Necessary?
+    /**
+     * Object locker to synchronize actions on MySQL DB
+     **/ //TODO Necessary?
     private Object locker;
 
     private Connection connection;
@@ -76,7 +78,9 @@ public class Database {
         return false;
     }
 
-    /**Synchronized functions to work on the MySQL Database of users**/
+    /**
+     * Synchronized functions to work on the MySQL Database of users
+     **/
     public boolean createUser(String username, String password) {
         synchronized (locker) {
             try {
@@ -99,9 +103,9 @@ public class Database {
                 ResultSet resultSet = statement.executeQuery("SELECT password FROM USERS WHERE login='" + login + "'");
 
                 if (resultSet.next()) {
-                    if (BCrypt.checkpw(password, resultSet.getString("password"))){
+                    if (BCrypt.checkpw(password, resultSet.getString("password"))) {
                         return true;
-                    } else{
+                    } else {
                         return false;
                     }
                 }
@@ -113,7 +117,9 @@ public class Database {
         }
     }
 
-    /**Synchronized functions to work on the ArrayList of Users Online**/
+    /**
+     * Synchronized functions to work on the ArrayList of Users Online
+     **/
     public void sendAllUsersOnlineToAll() { //TODO Is it necessary? Maybe, /users command
         synchronized (lockOnlineUsers) {
             ArrayList<String> usersToSend = new ArrayList<>();

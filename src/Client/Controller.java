@@ -64,13 +64,11 @@ public class Controller implements Initializable {
     private TableColumn usersList;
 
 
-
     private ClientListener clientListener;
     private Socket clientSocket;
 
     private ObservableList<User> usersObservableList;
     private StringBuilder stringBuilder;
-
 
 
     public Controller() {
