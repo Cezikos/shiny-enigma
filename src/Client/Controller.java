@@ -37,6 +37,9 @@ public class Controller implements Initializable {
     private TextField username;
 
     @FXML
+    private TextField outputMessage;
+
+    @FXML
     private PasswordField password;
 
     @FXML
@@ -47,9 +50,6 @@ public class Controller implements Initializable {
 
     @FXML
     private Button register;
-
-    @FXML
-    private TextField outputMessage;
 
     @FXML
     private Button sendButton;
@@ -64,13 +64,14 @@ public class Controller implements Initializable {
     private TableColumn usersList;
 
 
-    private ObservableList<User> usersObservableList;
 
     private ClientListener clientListener;
-
     private Socket clientSocket;
-    private ObjectOutputStream objectOutputStream;
+
+    private ObservableList<User> usersObservableList;
     private StringBuilder stringBuilder;
+
+
 
     public Controller() {
         stringBuilder = new StringBuilder();
@@ -125,7 +126,7 @@ public class Controller implements Initializable {
     }
 
     private boolean isUsername() {
-        if (username.getText().length() > 0) {
+        if (username.getText().length() > 0 && username.getText().length() < 20) {
             return true;
         } else {
             return false;
@@ -246,15 +247,15 @@ public class Controller implements Initializable {
         inputMessages.setScrollTop(Double.MAX_VALUE);
     }
 
-    public void setConnectDisabled() {
+    public void setConnectButtonDisabled() {
         connect.setDisable(true);
     }
 
-    public void setLoginDisabled() {
+    public void setLoginButtonDisabled() {
         login.setDisable(true);
     }
 
-    public void setRegisterDisabled() {
+    public void setRegisterButtonDisabled() {
         register.setDisable(true);
     }
 

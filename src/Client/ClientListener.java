@@ -19,26 +19,28 @@ public class ClientListener implements Runnable {
 
     private ObjectInputStream objectInputStream;
 
-    private final String username;
-    private final String password; //TODO Is it safe? Password can be stolen :(
-
     ClientListener(Socket clientSocket, Controller controller, String username, String password) {
         this.clientSocket = clientSocket;
         this.controller = controller;
 
-        this.username = username;
-        this.password = password;
+        loginToSever(username, password);
     }
 
-    @Override
-    public void run() {
+    private void loginToSever(String username, String password) {
+        /**Send request of login**/
         try {
-            /**Send request of login**/
             (new ObjectOutputStream(clientSocket.getOutputStream())).writeObject(new Message(new LoginForm(username, password), Codes.LOGIN));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
+    private void receiveValidityOfLogin() {
+        try {
             /**Receive correction of login**/
             Message message = (Message) (new ObjectInputStream(clientSocket.getInputStream())).readObject();
 
+            /**If login process went successful or not, notify user and listen/not for more messages**/
             if (message.getHeader() == Codes.SUCCESSFUL_LOGIN) {
                 controller.setReceivedMessages((String) message.getObject());
                 running = true;
@@ -50,13 +52,35 @@ public class ClientListener implements Runnable {
 
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
+            running = false;
+            try {
+                clientSocket.close();
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
         } catch (IOException e) {
             e.printStackTrace();
+            running = false;
+            try {
+                clientSocket.close();
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
         }
+    }
 
-        controller.setLoginDisabled();
-        controller.setRegisterDisabled();
-        controller.setConnectDisabled();
+    private void disableButtons() {
+        /**Disable buttons Connect, Login, Register **/
+        controller.setLoginButtonDisabled();
+        controller.setRegisterButtonDisabled();
+        controller.setConnectButtonDisabled();
+    }
+
+    @Override
+    public void run() {
+        receiveValidityOfLogin();
+
+        disableButtons();
 
         while (running) {
             try {

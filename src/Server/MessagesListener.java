@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.util.ArrayList;
 
 public class MessagesListener implements Runnable { //TODO Refactor! Code looks messy
 
@@ -50,8 +51,8 @@ public class MessagesListener implements Runnable { //TODO Refactor! Code looks 
                     new Thread(new Runnable() { //TODO Don't use lambdas cuz my VPS has JRE 1.7
                         @Override
                         public void run() {
-                            Server.addUserOnlineAndSendToAll(new UserOnline(listener, new User(username)));
-                            Server.sendAllUsersOnlineToUser(clientSocket);
+                            database.addUserOnlineAndSendToAll(new UserOnline(listener, new User(username)));
+                            database.sendAllUsersOnlineToUser(clientSocket);
                         }
                     }).start();
 
@@ -94,14 +95,14 @@ public class MessagesListener implements Runnable { //TODO Refactor! Code looks 
                     new Thread(new Runnable() {
                         @Override
                         public void run() {
-                            Server.sendObjectToAllUsers(new Message(msg, Codes.SIMPLE_MESSAGE));
+                            database.sendObjectToAllUsers(new Message(msg, Codes.SIMPLE_MESSAGE));
                         }
                     }).start();
                 } else if (message.getHeader() == Codes.DISCONNECT) { //TODO Not working properly.
                     new Thread(new Runnable() {
                         @Override
                         public void run() {
-                            Server.removeUserOnlineAndSendToAll(clientSocket);
+                            database.removeUserOnlineAndSendToAll(clientSocket);
                         }
                     }).start();
                 }
