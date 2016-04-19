@@ -60,7 +60,7 @@ public class MessagesListener implements Runnable { //TODO Refactor! Code looks 
                 }
 
             } else if (message.getHeader() == Codes.REGISTER) {
-                username = (String) ((LoginForm) message.getObject()).getLogin();
+                username = ((LoginForm) message.getObject()).getLogin();
 
 
                 /**Creating new account if not exist**/
@@ -87,22 +87,18 @@ public class MessagesListener implements Runnable { //TODO Refactor! Code looks 
             try {
                 objectInputStream = new ObjectInputStream(clientSocket.getInputStream());
                 Message message = (Message) objectInputStream.readObject();
+                Codes codes = message.getHeader();
 
-                if (message.getHeader() == Codes.SIMPLE_MESSAGE) { //TODO Need to implement more Codes and switch statement?
-                    final String msg = "[" + username + "]:" + message.getObject();
-                    new Thread(new Runnable() {
-                        @Override
-                        public void run() {
-                            database.sendObjectToAllUsers(new Message(msg, Codes.SIMPLE_MESSAGE));
-                        }
-                    }).start();
-                } else if (message.getHeader() == Codes.DISCONNECT) { //TODO Not working properly.
-                    new Thread(new Runnable() {
-                        @Override
-                        public void run() {
-                            database.removeUserOnlineAndSendToAll(clientSocket);
-                        }
-                    }).start();
+                switch (codes) { //TODO Need to implement more switch statement
+
+                    case SIMPLE_MESSAGE:
+                        headerSimpleMessage(message);
+                        break;
+
+                    case DISCONNECT:
+                        headerDisconnect();
+                        break;
+
                 }
 
             } catch (IOException e) {
@@ -111,6 +107,25 @@ public class MessagesListener implements Runnable { //TODO Refactor! Code looks 
                 e.printStackTrace();
             }
         }
+    }
+
+    private void headerDisconnect() {
+        new Thread(new Runnable() {//TODO Not working properly.
+            @Override
+            public void run() {
+                database.removeUserOnlineAndSendToAll(clientSocket);
+            }
+        }).start();
+    }
+
+    private void headerSimpleMessage(Message message) {
+        final String msg = "[" + username + "]:" + message.getObject();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                database.sendObjectToAllUsers(new Message(msg, Codes.SIMPLE_MESSAGE));
+            }
+        }).start();
     }
 
     public Socket getClientSocket() {

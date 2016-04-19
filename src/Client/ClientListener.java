@@ -19,9 +19,12 @@ public class ClientListener implements Runnable {
 
     private ObjectInputStream objectInputStream;
 
+    Message message;
+
     ClientListener(Socket clientSocket, Controller controller, String username, String password) {
         this.clientSocket = clientSocket;
         this.controller = controller;
+        this.message = null;
 
         loginToSever(username, password);
     }
@@ -92,24 +95,31 @@ public class ClientListener implements Runnable {
 
             try {
                 if (running) {
-                    Message message = (Message) objectInputStream.readObject();
+                    message = (Message) objectInputStream.readObject();
+                    Codes codes = message.getHeader();
 
+                    switch (codes) {
 
-                    if (message.getHeader() == Codes.FAILURE_LOGIN) {
-                        controller.setReceivedMessages((String) message.getObject());
-                        terminate();
-                    } else if (message.getHeader() == Codes.USER_JOIN) {
-                        controller.setReceivedMessages(message.getObject() + " - joined the server");
-                        controller.addUserOnline(message.getObject().toString());
-                    } else if (message.getHeader() == Codes.USER_LEFT) {
-                        controller.setReceivedMessages(message.getObject() + " - left the server");
-                        controller.removeUserOnline((String) message.getObject());
-                    } else if (message.getHeader() == Codes.USERS_LIST) {
-                        controller.addUserListOnline((ArrayList<String>) message.getObject());
-                    } else {
-                        controller.setReceivedMessages((String) message.getObject());
+                        case FAILURE_LOGIN:
+                            headerFailureLogin();
+                            break;
+
+                        case USER_JOIN:
+                            headerUserJoin();
+                            break;
+
+                        case USER_LEFT:
+                            headerUserLeft();
+                            break;
+
+                        case USERS_LIST:
+                            headerUsersList();
+                            break;
+
+                        default:
+                            headerUnknown();
+
                     }
-
 
                 }
             } catch (IOException e) {
@@ -121,6 +131,29 @@ public class ClientListener implements Runnable {
 
         }
 
+    }
+
+    private void headerUsersList() {
+        controller.addUserListOnline((ArrayList<String>) message.getObject());
+    }
+
+    private void headerUserLeft() {
+        controller.setReceivedMessages(message.getObject() + " - left the server");
+        controller.removeUserOnline((String) message.getObject());
+    }
+
+    private void headerFailureLogin() {
+        controller.setReceivedMessages((String) message.getObject());
+        terminate();
+    }
+
+    private void headerUnknown() {
+        controller.setReceivedMessages((String) message.getObject());
+    }
+
+    private void headerUserJoin() {
+        controller.setReceivedMessages(message.getObject() + " - joined the server");
+        controller.addUserOnline(message.getObject().toString());
     }
 
     public void terminate() {
