@@ -3,6 +3,7 @@ package Server;
 import Both.Codes;
 import Both.LoginForm;
 import Both.Message;
+import Both.User;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;

@@ -1,9 +1,6 @@
 package Client;
 
-import Both.Codes;
-import Both.Constants;
-import Both.LoginForm;
-import Both.Message;
+import Both.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
