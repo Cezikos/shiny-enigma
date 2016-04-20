@@ -17,8 +17,6 @@ public class Database {
         locker = new Object();
         connection = null;
         statement = null;
-//        lockOnlineUsers = new Object();
-//        onlineUsersArrayList = new ArrayList<>();
 
         try {
             Class.forName("com.mysql.jdbc.Driver");
@@ -70,9 +68,13 @@ public class Database {
         synchronized (locker) {
             try {
                 // Hash a password for the first time
-                String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt());
+                String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt(12)); //12 rounds
 
-                statement.execute("INSERT INTO USERS (login, password) VALUES ('" + username + "', '" + hashedPassword + "')");
+                /**SQL Injection bye bye**/
+                PreparedStatement statement = connection.prepareStatement("INSERT INTO USERS (login, password) VALUES (?, ?)");
+                statement.setString(1, username);
+                statement.setString(2, hashedPassword);
+                statement.execute();
                 return true;
             } catch (SQLException e) {
                 e.printStackTrace();
@@ -85,7 +87,10 @@ public class Database {
     public boolean isValidLoginAndPassword(String login, String password) {
         synchronized (locker) {
             try {
-                ResultSet resultSet = statement.executeQuery("SELECT password FROM USERS WHERE login='" + login + "'");
+                /**SQL Injection bye bye**/
+                PreparedStatement stmt = connection.prepareStatement("SELECT password FROM USERS WHERE login=?");
+                stmt.setString(1, login);
+                ResultSet resultSet = stmt.executeQuery();
 
                 if (resultSet.next()) {
                     if (BCrypt.checkpw(password, resultSet.getString("password"))) {
