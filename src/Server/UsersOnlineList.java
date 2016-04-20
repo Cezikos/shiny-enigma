@@ -9,10 +9,11 @@ import java.net.Socket;
 import java.util.ArrayList;
 
 public class UsersOnlineList implements Observed {
-    Object locker = new Object();
+    Object locker;
     ArrayList<UserOnline> usersOnline;
 
     public UsersOnlineList() {
+        locker = new Object();
         usersOnline = new ArrayList<>();
     }
 

@@ -12,15 +12,16 @@ import java.net.Socket;
 
 public class MessagesListener implements Runnable { //TODO Refactor! Code looks messy
 
-    private UserOnline userOnline;
-
     private boolean running;
 
     private Socket clientSocket;
     private ObjectInputStream objectInputStream;
 
     private Database database;
+
     private UsersOnlineList usersOnlineList;
+    private UserOnline userOnline;
+
 
     public MessagesListener(Socket clientSocket, Database database, UsersOnlineList usersOnlineList) {
         this.userOnline = null;
@@ -49,16 +50,14 @@ public class MessagesListener implements Runnable { //TODO Refactor! Code looks 
 
                     (new ObjectOutputStream(clientSocket.getOutputStream())).writeObject(new Message("You have been successfully logged in", Codes.SUCCESSFUL_LOGIN));
 
-
                     final MessagesListener listener = this;
                     /**Creating new thread because sending message to all users can take a lot of time (synchronized + a lot of users)**/
                     new Thread(new Runnable() { //TODO Don't use lambdas cuz my VPS has JRE 1.7
                         @Override
                         public void run() {
-                            userOnline = new UserOnline(listener, new User(username));
+                            userOnline = new UserOnline(clientSocket, new User(username));
                             usersOnlineList.addObserver(userOnline);
                             usersOnlineList.sendUsersListToUser(clientSocket);
-                            //database.sendAllUsersOnlineToUser(clientSocket); //TODO Online list if new
                         }
                     }).start();
 

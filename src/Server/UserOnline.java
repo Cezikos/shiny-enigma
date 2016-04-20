@@ -6,18 +6,15 @@ import Both.User;
 
 import java.io.IOException;
 import java.io.ObjectOutputStream;
+import java.net.Socket;
 
 public class UserOnline implements Observer {
-    private MessagesListener messagesListener; //TODO Redundant weird
+    private Socket socket;
     private User user;
 
-    public UserOnline(MessagesListener messagesListener, User user) {
-        this.messagesListener = messagesListener;
+    public UserOnline(Socket socket, User user) {
+        this.socket = socket;
         this.user = user;
-    }
-
-    public MessagesListener getMessagesListener() {
-        return messagesListener;
     }
 
     public User getUser() {
@@ -27,7 +24,7 @@ public class UserOnline implements Observer {
     @Override
     public void sendMessage(Message message) {
         try {
-            (new ObjectOutputStream(messagesListener.getClientSocket().getOutputStream())).writeObject(message);
+            (new ObjectOutputStream(socket.getOutputStream())).writeObject(message);
         } catch (IOException e) {
             e.printStackTrace();
         }
