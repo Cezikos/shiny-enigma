@@ -3,6 +3,7 @@
     JDK 7+ Server
     mysql-connector-java-5.1.38
     BCrypt 2.0
+    HikariCP-2.4.5
 
 Database:
     CREATE TABLE IF NOT EXISTS USERS (
