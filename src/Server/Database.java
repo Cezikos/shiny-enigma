@@ -1,96 +1,89 @@
 package Server;
 
+import com.zaxxer.hikari.HikariConfig;
+import com.zaxxer.hikari.HikariDataSource;
 import org.mindrot.jbcrypt.BCrypt;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class Database {
-    /**
-     * Object locker to synchronize actions on MySQL DB
-     **/ //TODO Necessary?
-    private Object locker;
 
-    private Connection connection;
-    private Statement statement;
+    HikariDataSource hikariDataSource;
 
     public Database() {
-        locker = new Object();
-        connection = null;
-        statement = null;
-
-        try {
-            Class.forName("com.mysql.jdbc.Driver");
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
+        setHikariCP();
     }
 
-    public boolean connectToMySQLServer() {
-        try {
+    private void setHikariCP() {
+        HikariConfig config = new HikariConfig();
+        config.setMaximumPoolSize(20);
 
-            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306", "root", "1234");
+        config.setDataSourceClassName("com.mysql.jdbc.jdbc2.optional.MysqlDataSource");
+        config.addDataSourceProperty("serverName", "localhost");
+        config.addDataSourceProperty("port", "3306");
+        config.addDataSourceProperty("databaseName", "chat");
+        config.addDataSourceProperty("user", "root");
+        config.addDataSourceProperty("password", "1234");
 
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return false;
-        }
-
-        if (connection != null) {
-            return true;
-        }
-
-        return false;
+        hikariDataSource = new HikariDataSource(config);
+        hikariDataSource.setConnectionTimeout(800);
     }
 
-    public boolean connectToDatabase(String database) {
-        if (connection != null) {
-            try {
-                ResultSet catalogs = connection.getMetaData().getCatalogs();
-                while (catalogs.next()) {
-                    if (catalogs.getString("TABLE_CAT").equals(database)) {
-                        connection.setCatalog(database);
-                        statement = connection.createStatement(); //statement must be created after DB change
-                        return true;
-                    }
-                }
-
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
-        return false;
-    }
-
-    /**
-     * Synchronized functions to work on the MySQL Database of users
-     **/
     public boolean createUser(String username, String password) {
-        synchronized (locker) {
+            Connection connection = null;
+            PreparedStatement statement = null;
+            // Hash a password for the first time
+            String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt(12)); //TODO Maybe another thread to hash faster???
             try {
-                // Hash a password for the first time
-                String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt(12)); //12 rounds
+
+                connection = hikariDataSource.getConnection();
 
                 /**SQL Injection bye bye**/
-                PreparedStatement statement = connection.prepareStatement("INSERT INTO USERS (login, password) VALUES (?, ?)");
+                statement = connection.prepareStatement("INSERT INTO USERS (login, password) VALUES (?, ?)");
                 statement.setString(1, username);
                 statement.setString(2, hashedPassword);
                 statement.execute();
+
                 return true;
             } catch (SQLException e) {
                 e.printStackTrace();
-                return false;
+            } finally {
+                try {
+                    if (statement != null) {
+                        statement.close();
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                try {
+                    if (connection != null) {
+                        connection.close();
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
 
-        }
+            return false;
     }
 
     public boolean isValidLoginAndPassword(String login, String password) {
-        synchronized (locker) {
+            Connection connection = null;
+            PreparedStatement statement = null;
+            ResultSet resultSet = null;
+            // Hash a password for the first time
             try {
+
+                connection = hikariDataSource.getConnection();
+
                 /**SQL Injection bye bye**/
-                PreparedStatement stmt = connection.prepareStatement("SELECT password FROM USERS WHERE login=?");
-                stmt.setString(1, login);
-                ResultSet resultSet = stmt.executeQuery();
+                statement = connection.prepareStatement("SELECT password FROM USERS WHERE login=?");
+                statement.setString(1, login);
+
+                resultSet = statement.executeQuery();
 
                 if (resultSet.next()) {
                     if (BCrypt.checkpw(password, resultSet.getString("password"))) {
@@ -101,11 +94,35 @@ public class Database {
                 }
             } catch (SQLException e) {
                 e.printStackTrace();
+
+            } finally {
+
+                try {
+                    if (resultSet != null) {
+                        resultSet.close();
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+                try {
+                    if (statement != null) {
+                        statement.close();
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+                try {
+                    if (connection != null) {
+                        connection.close();
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
             }
 
             return false;
         }
-    }
-
-
 }
