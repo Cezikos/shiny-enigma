@@ -3,6 +3,8 @@ package Server;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 import org.mindrot.jbcrypt.BCrypt;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -12,8 +14,10 @@ import java.sql.SQLException;
 public class Database {
 
     HikariDataSource hikariDataSource;
+    Logger logger;
 
     public Database() {
+        logger = LoggerFactory.getLogger(Database.class);
         setHikariCP();
     }
 
@@ -49,7 +53,7 @@ public class Database {
 
                 return true;
             } catch (SQLException e) {
-                e.printStackTrace();
+                logger.error(e.getMessage());
             } finally {
                 try {
                     if (statement != null) {

@@ -7,6 +7,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 
 import java.io.IOException;
@@ -15,7 +16,10 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Hashtable;
 import java.util.ResourceBundle;
+
+import static Both.Constants.DEFAULT_CHANNEL;
 
 public class Controller implements Initializable {
 
@@ -60,16 +64,20 @@ public class Controller implements Initializable {
     @FXML
     private TableColumn usersList;
 
+    @FXML
+    private TabPane tabPane;
+
+
+    private Hashtable<String, TextArea> channelsList;
 
     private ClientListener clientListener;
     private Socket clientSocket;
 
     private ObservableList<User> usersObservableList;
-    private StringBuilder stringBuilder;
 
 
     public Controller() {
-        stringBuilder = new StringBuilder();
+        channelsList = new Hashtable<>();
         usersObservableList = FXCollections.observableArrayList();
         clientListener = null;
         clientSocket = null;
@@ -79,14 +87,13 @@ public class Controller implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-        inputMessages.setEditable(false);
-        inputMessages.setWrapText(true);
         usersList.setCellValueFactory(
                 new PropertyValueFactory<>("username")
         );
         usersTable.setItems(usersObservableList);
 
         setDefaultValues();
+
     }
 
     public void addUserOnline(String name) {
@@ -196,13 +203,13 @@ public class Controller implements Initializable {
             if (isUsername() && isPassword()) {
 
                 try {
-                    (new ObjectOutputStream(clientSocket.getOutputStream())).writeObject(new Message(new LoginForm(username.getText(), password.getText()), Codes.REGISTER));
+                    (new ObjectOutputStream(clientSocket.getOutputStream())).writeObject(new Message(new LoginForm(username.getText(), password.getText()), Codes.REGISTER, "#system"));
                     Message message = (Message) (new ObjectInputStream(clientSocket.getInputStream())).readObject();
 
                     if (message.getHeader() == Codes.SUCCESSFUL_REGISTER) {
-                        setReceivedMessages("You have been successful registered");
+                        setReceivedMessages("You have been successful registered", "#system");
                     } else {
-                        setReceivedMessages("Error - that username exists");
+                        setReceivedMessages("Error - that username exists", "#system");
                     }
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -227,7 +234,7 @@ public class Controller implements Initializable {
     private void sendMessageToServer() {
         if (outputMessage.getText().length() > 0) {
             try {
-                (new ObjectOutputStream(clientSocket.getOutputStream())).writeObject(new Message(outputMessage.getText(), Codes.SIMPLE_MESSAGE));
+                (new ObjectOutputStream(clientSocket.getOutputStream())).writeObject(new Message(outputMessage.getText(), Codes.SIMPLE_MESSAGE, "#system"));
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -236,10 +243,38 @@ public class Controller implements Initializable {
 
     }
 
-    public void setReceivedMessages(String message) {
+    public void setReceivedMessages(String message, String channel) {
+
+        if(channel == null){
+            channel = DEFAULT_CHANNEL;
+        }
+
+        if (!channelsList.containsKey(channel)) {
+            openNewChannel(channel);
+        }
+
+        TextArea textArea = channelsList.get(channel);
+        StringBuilder stringBuilder = new StringBuilder();
+
+        stringBuilder.append(channelsList.get(channel).getText());
+
         stringBuilder.append(message + "\n");
-        inputMessages.setText(stringBuilder.toString());
-        inputMessages.setScrollTop(Double.MAX_VALUE);
+        textArea.setText(stringBuilder.toString());
+
+    }
+
+    private void openNewChannel(String channel) {
+        Tab tab = new Tab(channel);
+        AnchorPane anchorPane = new AnchorPane();
+        TextArea textArea = new TextArea();
+        textArea.setEditable(false);
+        textArea.setWrapText(true);
+        textArea.setScrollTop(Double.MAX_VALUE);
+        tab.setContent(anchorPane);
+        anchorPane.getChildren().add(textArea);
+        tabPane.getTabs().add(tab);
+        channelsList.put(channel, textArea);
+
     }
 
     public void setConnectButtonDisabled() {
@@ -259,7 +294,7 @@ public class Controller implements Initializable {
 
         if (clientListener != null) {
             try {
-                (new ObjectOutputStream(clientSocket.getOutputStream())).writeObject(new Message("", Codes.DISCONNECT));
+                (new ObjectOutputStream(clientSocket.getOutputStream())).writeObject(new Message("", Codes.DISCONNECT, "#system"));
             } catch (IOException e) {
                 e.printStackTrace();
             }

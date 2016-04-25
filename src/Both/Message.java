@@ -17,10 +17,25 @@ public class Message implements Serializable { //TODO Serializable need standard
      **/
     private Codes code;
 
+    /**
+     * Specific channel where message will be send
+     * Channel 0, default channel with system messages
+     **/
+    private String channel;
 
+    /**
+     * Default channel 0 - system channel
+     **/
     public Message(Object object, Codes code) {
         this.object = object;
         this.code = code;
+        channel = null;
+    }
+
+    public Message(Object object, Codes code, String channel) {
+        this.object = object;
+        this.code = code;
+        this.channel = channel;
     }
 
     public Object getObject() {
@@ -29,6 +44,10 @@ public class Message implements Serializable { //TODO Serializable need standard
 
     public Codes getHeader() {
         return code;
+    }
+
+    public String getChannel() {
+        return channel;
     }
 
     public long getID() {

@@ -36,7 +36,7 @@ public class UsersOnlineList implements Observed {
 
     @Override
     public void notifyObserversJoinUser(Observer observer) {
-        Message message = new Message(((UserOnline) observer).getUser().getUsername(), Codes.USER_JOIN);
+        Message message = new Message(((UserOnline) observer).getUser().getUsername(), Codes.USER_JOIN, "#system");
         synchronized (locker) {
             for (int i = 0; i < usersOnline.size(); i++) {
                 usersOnline.get(i).sendMessage(message);
@@ -46,7 +46,7 @@ public class UsersOnlineList implements Observed {
 
     @Override
     public void notifyObserversLeftUser(Observer observer) {
-        Message message = new Message(((UserOnline) observer).getUser().getUsername(), Codes.USER_LEFT);
+        Message message = new Message(((UserOnline) observer).getUser().getUsername(), Codes.USER_LEFT, "#system");
         synchronized (locker) {
             for (int i = 0; i < usersOnline.size(); i++) {
                 usersOnline.get(i).sendMessage(message);
@@ -57,7 +57,7 @@ public class UsersOnlineList implements Observed {
     @Override
     public void sendUsersListToUser(Socket socket) {
         ArrayList<String> usersToSend = new ArrayList<>();
-        Message message = new Message(usersToSend, Codes.USERS_LIST);
+        Message message = new Message(usersToSend, Codes.USERS_LIST, "#system");
         synchronized (locker) {
             for (int i = 0; i < usersOnline.size(); i++) {
                 usersToSend.add(usersOnline.get(i).getUser().getUsername());

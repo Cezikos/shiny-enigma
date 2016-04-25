@@ -1,5 +1,8 @@
 package Server;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -40,11 +43,11 @@ public class Server {
         try {
             serverSocket = new ServerSocket(PORT);
 
+            Logger logger = LoggerFactory.getLogger(Server.class);
             while (running) {
-                System.out.print("Listening in socket " + PORT + "\n");
-
                 clientSocket = serverSocket.accept();
 
+                logger.info("Someone connected");
                 thread = new Thread(new MessagesListener(clientSocket, database, usersOnlineList));
                 thread.setDaemon(true);
 

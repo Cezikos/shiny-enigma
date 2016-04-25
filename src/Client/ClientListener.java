@@ -3,14 +3,19 @@ package Client;
 import Both.Codes;
 import Both.LoginForm;
 import Both.Message;
+import javafx.scene.control.Tab;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.Hashtable;
+
+import static Both.Constants.DEFAULT_CHANNEL;
 
 public class ClientListener implements Runnable {
+
 
     private Controller controller;
 
@@ -19,7 +24,7 @@ public class ClientListener implements Runnable {
 
     private ObjectInputStream objectInputStream;
 
-    Message message;
+    private Message message;
 
     ClientListener(Socket clientSocket, Controller controller, String username, String password) {
         this.clientSocket = clientSocket;
@@ -32,7 +37,7 @@ public class ClientListener implements Runnable {
     private void loginToSever(String username, String password) {
         /**Send request of login**/
         try {
-            (new ObjectOutputStream(clientSocket.getOutputStream())).writeObject(new Message(new LoginForm(username, password), Codes.LOGIN));
+            (new ObjectOutputStream(clientSocket.getOutputStream())).writeObject(new Message(new LoginForm(username, password), Codes.LOGIN, "#system"));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -45,10 +50,10 @@ public class ClientListener implements Runnable {
 
             /**If login process went successful or not, notify user and listen/not for more messages**/
             if (message.getHeader() == Codes.SUCCESSFUL_LOGIN) {
-                controller.setReceivedMessages((String) message.getObject());
+                controller.setReceivedMessages((String) message.getObject(), message.getChannel());
                 running = true;
             } else {
-                controller.setReceivedMessages((String) message.getObject());
+                controller.setReceivedMessages((String) message.getObject(), message.getChannel());
                 running = false;
                 clientSocket.close();
             }
@@ -138,21 +143,21 @@ public class ClientListener implements Runnable {
     }
 
     private void headerUserLeft() {
-        controller.setReceivedMessages(message.getObject() + " - left the server");
+        controller.setReceivedMessages(message.getObject() + " - left the server", DEFAULT_CHANNEL);
         controller.removeUserOnline((String) message.getObject());
     }
 
     private void headerFailureLogin() {
-        controller.setReceivedMessages((String) message.getObject());
+        controller.setReceivedMessages((String) message.getObject(), DEFAULT_CHANNEL);
         terminate();
     }
 
     private void headerUnknown() {
-        controller.setReceivedMessages((String) message.getObject());
+        controller.setReceivedMessages((String) message.getObject(), DEFAULT_CHANNEL);
     }
 
     private void headerUserJoin() {
-        controller.setReceivedMessages(message.getObject() + " - joined the server");
+        controller.setReceivedMessages(message.getObject() + " - joined the server", DEFAULT_CHANNEL);
         controller.addUserOnline(message.getObject().toString());
     }
 

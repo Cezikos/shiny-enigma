@@ -1,11 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<BorderPane fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
-            prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.65"
-            xmlns:fx="http://javafx.com/fxml/1" fx:controller="Client.Controller">
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Client.Controller">
     <top>
         <VBox prefWidth="100.0" BorderPane.alignment="CENTER">
             <children>
@@ -13,17 +23,17 @@
                     <menus>
                         <Menu mnemonicParsing="false" text="File">
                             <items>
-                                <MenuItem mnemonicParsing="false" text="Close"/>
+                                <MenuItem mnemonicParsing="false" text="Close" />
                             </items>
                         </Menu>
                         <Menu mnemonicParsing="false" text="Edit">
                             <items>
-                                <MenuItem mnemonicParsing="false" text="Delete"/>
+                                <MenuItem mnemonicParsing="false" text="Delete" />
                             </items>
                         </Menu>
                         <Menu mnemonicParsing="false" text="Help">
                             <items>
-                                <MenuItem mnemonicParsing="false" text="About"/>
+                                <MenuItem mnemonicParsing="false" text="About" />
                             </items>
                         </Menu>
                     </menus>
@@ -32,65 +42,62 @@
                     <children>
                         <Label alignment="CENTER_RIGHT" prefWidth="56.0" text="Address:">
                             <HBox.margin>
-                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                             </HBox.margin>
                         </Label>
                         <TextField fx:id="address">
                             <HBox.margin>
-                                <Insets/>
+                                <Insets />
                             </HBox.margin>
                         </TextField>
                         <Label alignment="CENTER_RIGHT" prefWidth="53.0" text="Port:">
                             <HBox.margin>
-                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                             </HBox.margin>
                         </Label>
-                        <TextField fx:id="port"/>
-                        <Button fx:id="connect" maxWidth="1.7976931348623157E308" minWidth="-Infinity"
-                                mnemonicParsing="false" onAction="#connectToServer" text="Connect">
+                        <TextField fx:id="port" />
+                        <Button fx:id="connect" maxWidth="1.7976931348623157E308" minWidth="-Infinity" mnemonicParsing="false" onAction="#connectToServer" text="Connect">
                             <HBox.margin>
-                                <Insets bottom="5.0" left="5.0" right="5.0"/>
+                                <Insets bottom="5.0" left="5.0" right="5.0" />
                             </HBox.margin>
                         </Button>
-                        <Button fx:id="disconnect" mnemonicParsing="false" onAction="#disconnectFromServer"
-                                text="Disconnect">
+                        <Button fx:id="disconnect" mnemonicParsing="false" onAction="#disconnectFromServer" text="Disconnect">
                             <HBox.margin>
-                                <Insets bottom="5.0" left="5.0" right="5.0"/>
+                                <Insets bottom="5.0" left="5.0" right="5.0" />
                             </HBox.margin>
                         </Button>
                     </children>
                     <VBox.margin>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                     </VBox.margin>
                 </HBox>
                 <HBox prefWidth="200.0">
                     <children>
                         <Label alignment="CENTER_RIGHT" text="Username:">
                             <HBox.margin>
-                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                             </HBox.margin>
                         </Label>
-                        <TextField fx:id="username"/>
+                        <TextField fx:id="username" />
                         <Label alignment="CENTER_RIGHT" text="Password:">
                             <HBox.margin>
-                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                             </HBox.margin>
                         </Label>
-                        <PasswordField fx:id="password"/>
+                        <PasswordField fx:id="password" />
                         <Button fx:id="login" mnemonicParsing="false" onAction="#loginToServer" text="Log In">
                             <HBox.margin>
-                                <Insets bottom="5.0" left="5.0" right="5.0"/>
+                                <Insets bottom="5.0" left="5.0" right="5.0" />
                             </HBox.margin>
                         </Button>
-                        <Button fx:id="register" mnemonicParsing="false" onAction="#registerAccountOnServer"
-                                text="Sign Up">
+                        <Button fx:id="register" mnemonicParsing="false" onAction="#registerAccountOnServer" text="Sign Up">
                             <HBox.margin>
-                                <Insets bottom="5.0" left="5.0" right="5.0"/>
+                                <Insets bottom="5.0" left="5.0" right="5.0" />
                             </HBox.margin>
                         </Button>
                     </children>
                     <VBox.margin>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                     </VBox.margin>
                 </HBox>
             </children>
@@ -99,38 +106,43 @@
     <bottom>
         <HBox prefWidth="200.0" BorderPane.alignment="CENTER">
             <children>
-                <TextField fx:id="outputMessage" maxWidth="1.7976931348623157E308" minWidth="-Infinity"
-                           prefHeight="25.0" prefWidth="284.0">
+                <TextField fx:id="outputMessage" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefHeight="25.0" prefWidth="284.0">
                     <HBox.margin>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                     </HBox.margin>
                 </TextField>
-                <Button fx:id="sendButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false"
-                        onAction="#sendMessageToServer" text="Send">
+                <Button fx:id="sendButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#sendMessageToServer" text="Send">
                     <HBox.margin>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                     </HBox.margin>
                 </Button>
             </children>
         </HBox>
     </bottom>
     <right>
-        <TableView fx:id="usersTable" BorderPane.alignment="CENTER">
+        <TableView fx:id="usersTable" maxWidth="150.0" BorderPane.alignment="CENTER">
             <columnResizePolicy>
-                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
             </columnResizePolicy>
             <columns>
-                <TableColumn fx:id="usersList" editable="false" maxWidth="1.7976931348623157E308" minWidth="-1.0"
-                             prefWidth="-1.0" text="User"/>
+                <TableColumn fx:id="usersList" editable="false" maxWidth="1.7976931348623157E308" minWidth="-1.0" prefWidth="-1.0" text="User" />
             </columns>
         </TableView>
     </right>
-    <center>
-        <TextArea fx:id="inputMessages" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
-                  BorderPane.alignment="CENTER">
-            <BorderPane.margin>
-                <Insets left="5.0" right="5.0"/>
-            </BorderPane.margin>
-        </TextArea>
-    </center>
+   <center>
+      <TabPane fx:id="tabPane" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
+         <BorderPane.margin>
+            <Insets left="5.0" right="5.0" />
+         </BorderPane.margin>
+      </TabPane>
+   </center>
+   <left>
+      <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label text="Channel" />
+            <TextField />
+            <Button fx:id="joinChannel" mnemonicParsing="false" text="Join" />
+         </children>
+      </VBox>
+   </left>
 </BorderPane>
