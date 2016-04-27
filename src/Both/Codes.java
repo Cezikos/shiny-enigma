@@ -48,5 +48,7 @@ public enum Codes { //TODO Split into to categories? ERROR and Something??
     /**
      * Server send it when someone left the room/server
      **/
-    USER_LEFT
+    USER_LEFT,
+    /** Client send it when would like to join specific room **/
+    JOIN_ROOM
 }

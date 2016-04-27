@@ -22,11 +22,15 @@ public class ChatRoom {
         usersOnlineList.sendUsersListToUser(userOnline.getSocket());
     }
 
+    public void removeUser(UserOnline userOnline) { //TODO Need to do
+
+    }
+
     public UsersOnlineList getUsersOnlineList() {
         return usersOnlineList;
     }
 
-    public void closeRoom() {
+    public void closeRoom() { //TODO Need to do
 
     }
 

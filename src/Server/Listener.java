@@ -5,12 +5,16 @@ import Both.Message;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
+import java.util.Hashtable;
 
 public class Listener implements Runnable {
     private UserOnline userOnline;
+    private Hashtable<String, ChatRoom> chatRoomArrayList;
 
-    public Listener(UserOnline userOnline) {
+
+    public Listener(UserOnline userOnline, Hashtable<String, ChatRoom> chatRoomArrayList) {
         this.userOnline = userOnline;
+        this.chatRoomArrayList = chatRoomArrayList;
     }
 
     @Override
@@ -29,6 +33,10 @@ public class Listener implements Runnable {
                         headerSimpleMessage(message);
                         break;
 
+                    case JOIN_ROOM:
+                        headerJoinRoom(message);
+                        break;
+
                     case DISCONNECT:
                         headerDisconnect();
                         break;
@@ -42,6 +50,13 @@ public class Listener implements Runnable {
                 e.printStackTrace();
             }
         }
+    }
+
+    private void headerJoinRoom(Message message) {
+        if(!chatRoomArrayList.containsKey(message.getChannel())){
+            chatRoomArrayList.put(message.getChannel(), new ChatRoom(message.getChannel()));
+        }
+        chatRoomArrayList.get(message.getChannel()).addUser(userOnline);
     }
 
     private void headerDisconnect() {
@@ -58,7 +73,7 @@ public class Listener implements Runnable {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                userOnline.getChatRoom().getUsersOnlineList().sendMessageToAllUsers(new Message(msg, Codes.SIMPLE_MESSAGE, userOnline.getChatRoom().getROOM_ID()));
+                userOnline.getChatRoom().getUsersOnlineList().sendMessageToAllUsers(new Message(msg, Codes.SIMPLE_MESSAGE, message.getChannel()));
             }
         }).start();
     }

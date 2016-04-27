@@ -3,14 +3,12 @@ package Client;
 import Both.Codes;
 import Both.LoginForm;
 import Both.Message;
-import javafx.scene.control.Tab;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.ArrayList;
-import java.util.Hashtable;
 
 import static Both.Constants.DEFAULT_CHANNEL;
 
@@ -121,6 +119,10 @@ public class ClientListener implements Runnable {
                             headerUsersList();
                             break;
 
+                        case SIMPLE_MESSAGE:
+                            headerSimpleMessage();
+                            break;
+
                         default:
                             headerUnknown();
 
@@ -154,6 +156,11 @@ public class ClientListener implements Runnable {
 
     private void headerUnknown() {
         controller.setReceivedMessages((String) message.getObject(), DEFAULT_CHANNEL);
+    }
+
+    private void headerSimpleMessage() {
+        controller.setReceivedMessages((String) message.getObject(), message.getChannel());
+        System.out.println("645"+message.getChannel());
     }
 
     private void headerUserJoin() {

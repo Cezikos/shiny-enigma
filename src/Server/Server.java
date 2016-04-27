@@ -143,9 +143,10 @@ public class Server {
             /**Create new user**/
             UserOnline userOnline = new UserOnline(clientSocket, new User(username), chatRoom);
             /**Add user to default room**/
-            chatRoomArrayList.get(Constants.DEFAULT_CHANNEL).addUser(userOnline);
+            addUserToRoom(Constants.DEFAULT_CHANNEL, userOnline);
 
-
+            /**Create Listener to receive messages from user**/
+            (new Thread(new Listener(userOnline, chatRoomArrayList))).start();
         } else {
 
             /**If username or password is incorrect, send FAILURE_LOGIN**/
@@ -183,6 +184,23 @@ public class Server {
 
         }
 
+    }
+
+    public void addUserToRoom(String room, UserOnline userOnline) {
+        if (!chatRoomArrayList.containsKey(room)) {
+            addRoom(room);
+        }
+        chatRoomArrayList.get(room).addUser(userOnline);
+    }
+
+    private boolean addRoom(String room) {
+        if (!chatRoomArrayList.containsKey(room)) {
+            chatRoomArrayList.put(room, new ChatRoom(room));
+
+            return true;
+        }
+
+        return false;
     }
 
     private void sendMessage(Socket clientSocket, Message messageToSend) {

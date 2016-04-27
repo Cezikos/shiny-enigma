@@ -53,12 +53,6 @@ public class Controller implements Initializable {
     private Button register;
 
     @FXML
-    private Button sendButton;
-
-    @FXML
-    private TextArea inputMessages;
-
-    @FXML
     private TableView<User> usersTable;
 
     @FXML
@@ -66,6 +60,10 @@ public class Controller implements Initializable {
 
     @FXML
     private TabPane tabPane;
+
+
+    @FXML
+    private TextField outputChannel;
 
 
     private Hashtable<String, TextArea> channelsList;
@@ -232,20 +230,37 @@ public class Controller implements Initializable {
 
     @FXML
     private void sendMessageToServer() {
-        if (outputMessage.getText().length() > 0) {
-            try {
-                (new ObjectOutputStream(clientSocket.getOutputStream())).writeObject(new Message(outputMessage.getText(), Codes.SIMPLE_MESSAGE, Constants.DEFAULT_CHANNEL));
-            } catch (IOException e) {
-                e.printStackTrace();
+        if (clientSocket != null) {
+            if (outputMessage.getText().length() > 0) {
+                try {
+                    (new ObjectOutputStream(clientSocket.getOutputStream())).writeObject(new Message(outputMessage.getText(), Codes.SIMPLE_MESSAGE, tabPane.getSelectionModel().getSelectedItem().getText()));
+                System.out.println(tabPane.getSelectionModel().getSelectedItem().getText());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                outputMessage.clear();
             }
-            outputMessage.clear();
         }
+    }
 
+    @FXML
+    private void joinChannel() {
+        if (clientSocket != null) {
+            if (outputChannel.getText().length() > 0) {
+                try {
+                    (new ObjectOutputStream(clientSocket.getOutputStream())).writeObject(new Message(outputMessage.getText(), Codes.JOIN_ROOM, outputChannel.getText()));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                openNewChannel(outputChannel.getText());
+                outputChannel.clear();
+            }
+        }
     }
 
     public void setReceivedMessages(String message, String channel) {
 
-        if(channel == null){
+        if (channel == null) {
             channel = DEFAULT_CHANNEL;
         }
 

@@ -19,8 +19,6 @@ public class UserOnline implements Observer {
         this.socket = socket;
         this.user = user;
         this.chatRoom = chatRoom;
-        /**Create Listener to receive messages from user**/
-        (new Thread(new Listener(this))).start();
     }
 
     public User getUser() {
