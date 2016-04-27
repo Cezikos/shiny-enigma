@@ -91,7 +91,7 @@ public class Controller implements Initializable {
         usersTable.setItems(usersObservableList);
 
         setDefaultValues();
-
+        openNewChannel(Constants.DEFAULT_CHANNEL);
     }
 
     public void addUserOnline(String name) {
@@ -234,7 +234,6 @@ public class Controller implements Initializable {
             if (outputMessage.getText().length() > 0) {
                 try {
                     (new ObjectOutputStream(clientSocket.getOutputStream())).writeObject(new Message(outputMessage.getText(), Codes.SIMPLE_MESSAGE, tabPane.getSelectionModel().getSelectedItem().getText()));
-                System.out.println(tabPane.getSelectionModel().getSelectedItem().getText());
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -309,7 +308,7 @@ public class Controller implements Initializable {
 
         if (clientListener != null) {
             try {
-                (new ObjectOutputStream(clientSocket.getOutputStream())).writeObject(new Message("", Codes.DISCONNECT, "#system"));
+                (new ObjectOutputStream(clientSocket.getOutputStream())).writeObject(new Message("", Codes.DISCONNECT, Constants.DEFAULT_CHANNEL));
             } catch (IOException e) {
                 e.printStackTrace();
             }

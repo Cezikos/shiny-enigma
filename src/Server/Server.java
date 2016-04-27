@@ -79,7 +79,8 @@ public class Server {
     /**
      * If someone connected, check what he would like to do Login or Register
      **/
-    private void userConnected(Socket clientSocket) {
+    private void userConnected(Socket socket) {
+        Socket clientSocket = socket;
         ObjectInputStream objectInputStream = null;
         Message message = null;
 
@@ -135,13 +136,12 @@ public class Server {
             sendMessage(clientSocket, messageToSend);
 
             /**If default room does not exist, create it**/
-            ChatRoom chatRoom = new ChatRoom(Constants.DEFAULT_CHANNEL);
             if (!chatRoomArrayList.containsKey(Constants.DEFAULT_CHANNEL)) {
-                chatRoomArrayList.put(Constants.DEFAULT_CHANNEL, chatRoom);
+                chatRoomArrayList.put(Constants.DEFAULT_CHANNEL, new ChatRoom(Constants.DEFAULT_CHANNEL));
             }
 
             /**Create new user**/
-            UserOnline userOnline = new UserOnline(clientSocket, new User(username), chatRoom);
+            UserOnline userOnline = new UserOnline(clientSocket, new User(username), chatRoomArrayList.get(Constants.DEFAULT_CHANNEL));
             /**Add user to default room**/
             addUserToRoom(Constants.DEFAULT_CHANNEL, userOnline);
 

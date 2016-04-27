@@ -1,6 +1,7 @@
 package Client;
 
 import Both.Codes;
+import Both.Constants;
 import Both.LoginForm;
 import Both.Message;
 
@@ -35,7 +36,7 @@ public class ClientListener implements Runnable {
     private void loginToSever(String username, String password) {
         /**Send request of login**/
         try {
-            (new ObjectOutputStream(clientSocket.getOutputStream())).writeObject(new Message(new LoginForm(username, password), Codes.LOGIN, "#system"));
+            (new ObjectOutputStream(clientSocket.getOutputStream())).writeObject(new Message(new LoginForm(username, password), Codes.LOGIN, Constants.DEFAULT_CHANNEL));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -160,7 +161,6 @@ public class ClientListener implements Runnable {
 
     private void headerSimpleMessage() {
         controller.setReceivedMessages((String) message.getObject(), message.getChannel());
-        System.out.println("645"+message.getChannel());
     }
 
     private void headerUserJoin() {
