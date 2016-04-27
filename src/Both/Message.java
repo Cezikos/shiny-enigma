@@ -11,17 +11,17 @@ public class Message implements Serializable { //TODO Serializable need standard
     /**
      * Universal object to send
      **/
-    private Object object;
+    private final Object object;
     /**
      * Specific code which contain short information about sent/received <code>Object</code>
      **/
-    private Codes code;
+    private final Codes code;
 
     /**
      * Specific channel where message will be send
      * Channel 0, default channel with system messages
      **/
-    private String channel;
+    private final String channel;
 
     /**
      * Default channel 0 - system channel

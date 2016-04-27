@@ -234,7 +234,7 @@ public class Controller implements Initializable {
     private void sendMessageToServer() {
         if (outputMessage.getText().length() > 0) {
             try {
-                (new ObjectOutputStream(clientSocket.getOutputStream())).writeObject(new Message(outputMessage.getText(), Codes.SIMPLE_MESSAGE, "#system"));
+                (new ObjectOutputStream(clientSocket.getOutputStream())).writeObject(new Message(outputMessage.getText(), Codes.SIMPLE_MESSAGE, Constants.DEFAULT_CHANNEL));
             } catch (IOException e) {
                 e.printStackTrace();
             }

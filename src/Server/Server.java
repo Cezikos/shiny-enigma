@@ -1,11 +1,15 @@
 package Server;
 
+import Both.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.Hashtable;
 
 public class Server {
     /**
@@ -21,9 +25,8 @@ public class Server {
      **/
     private boolean running;
 
-
     private Database database;
-    private UsersOnlineList usersOnlineList;
+    private Hashtable<String, ChatRoom> chatRoomArrayList;
 
     /**
      * @param port specific port to listen on it
@@ -33,34 +36,164 @@ public class Server {
         this.PORT = port;
 
         database = new Database();
-        usersOnlineList = new UsersOnlineList();
+        chatRoomArrayList = new Hashtable<>();
 
     }
 
     public void start() {
-        Socket clientSocket;
-        Thread thread;
+
         try {
             serverSocket = new ServerSocket(PORT);
 
             Logger logger = LoggerFactory.getLogger(Server.class);
             while (running) {
-                clientSocket = serverSocket.accept();
+                Socket clientSocket = serverSocket.accept();
 
                 logger.info("Someone connected");
-                thread = new Thread(new MessagesListener(clientSocket, database, usersOnlineList));
-                thread.setDaemon(true);
 
-
-                thread.start();
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        logger.info("Created thread for the new user");
+                        userConnected(clientSocket);
+                    }
+                }).start();
             }
 
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+
+            try {
+                if (serverSocket != null) {
+                    serverSocket.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+        }
+
+    }
+
+    /**
+     * If someone connected, check what he would like to do Login or Register
+     **/
+    private void userConnected(Socket clientSocket) {
+        ObjectInputStream objectInputStream = null;
+        Message message = null;
+
+        try {
+
+            /**Listening first message from new client,it can be LOGIN, REGISTER or DISCONNECT**/
+            objectInputStream = new ObjectInputStream(clientSocket.getInputStream());
+
+            /**Getting first message from new client,it can be LOGIN, REGISTER or DISCONNECT**/
+            message = (Message) objectInputStream.readObject();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        if (message != null) {
+            final Codes codes = message.getHeader();
+            switch (codes) {
+
+                case LOGIN:
+                    loginHeader(message, clientSocket);
+                    break;
+
+                case REGISTER:
+                    registerHeader(message, clientSocket);
+                    break;
+
+                case DISCONNECT:
+                    if (clientSocket != null) {
+                        try {
+                            clientSocket.close();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    break;
+            }
+        }
+
+    }
+
+    private void loginHeader(Message message, Socket clientSocket) {
+        final String username = ((LoginForm) message.getObject()).getLogin();
+        final String password = ((LoginForm) message.getObject()).getPassword();
+
+        /**If login and password is correct then client is successfully logged in otherwise client is disconnected**/
+        if (database.isValidLoginAndPassword(username, password)) {
+
+            /**Sending message about successful login**/
+            Message messageToSend = new Message("You have been successfully logged in", Codes.SUCCESSFUL_LOGIN);
+            sendMessage(clientSocket, messageToSend);
+
+            /**If default room does not exist, create it**/
+            ChatRoom chatRoom = new ChatRoom(Constants.DEFAULT_CHANNEL);
+            if (!chatRoomArrayList.containsKey(Constants.DEFAULT_CHANNEL)) {
+                chatRoomArrayList.put(Constants.DEFAULT_CHANNEL, chatRoom);
+            }
+
+            /**Create new user**/
+            UserOnline userOnline = new UserOnline(clientSocket, new User(username), chatRoom);
+            /**Add user to default room**/
+            chatRoomArrayList.get(Constants.DEFAULT_CHANNEL).addUser(userOnline);
+
+
+        } else {
+
+            /**If username or password is incorrect, send FAILURE_LOGIN**/
+            Message messageToSend = new Message(Codes.FAILURE_LOGIN + "[Error] Incorrect login or password", Codes.FAILURE_LOGIN);
+            sendMessage(clientSocket, messageToSend);
+
+            try {
+                if (clientSocket != null) {
+                    clientSocket.close();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        }
+
+    }
+
+    private void registerHeader(Message message, Socket clientSocket) {
+        final String username = ((LoginForm) message.getObject()).getLogin();
+        final String password = ((LoginForm) message.getObject()).getPassword();
+
+        /**Creating new account if not exist**/
+        if (database.createUser(username, password)) {
+
+            /**If register succeeded**/
+            Message messageToSend = new Message("", Codes.SUCCESSFUL_REGISTER);
+            sendMessage(clientSocket, messageToSend);
+
+        } else {
+
+            /**If register failed**/
+            Message messageToSend = new Message("", Codes.FAILURE_REGISTER);
+            sendMessage(clientSocket, messageToSend);
+
+        }
+
+    }
+
+    private void sendMessage(Socket clientSocket, Message messageToSend) {
+        try {
+            (new ObjectOutputStream(clientSocket.getOutputStream())).writeObject(messageToSend);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    public void terminate() {  //TODO I should implement this method to correctly close the thread
+    public void terminateServer() {  //TODO I should implement this method to correctly close the thread
         running = false;
         try {
             new Socket("127.0.0.1", PORT);
