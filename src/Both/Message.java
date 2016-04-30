@@ -23,15 +23,6 @@ public class Message implements Serializable { //TODO Serializable need standard
      **/
     private final String channel;
 
-    /**
-     * Default channel 0 - system channel
-     **/
-    public Message(Object object, Codes code) {
-        this.object = object;
-        this.code = code;
-        channel = null;
-    }
-
     public Message(Object object, Codes code, String channel) {
         this.object = object;
         this.code = code;

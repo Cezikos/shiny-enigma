@@ -24,7 +24,6 @@ public class Listener implements Runnable {
 
             try {
                 objectInputStream = new ObjectInputStream(userOnline.getSocket().getInputStream());
-                System.out.println("dasdas");
                 Message message = (Message) objectInputStream.readObject();
                 Codes codes = message.getHeader();
 

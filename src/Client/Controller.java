@@ -152,7 +152,7 @@ public class Controller implements Initializable {
     @FXML
     private void connectToServer() {
         try {
-            clientSocket = new Socket(Constants.HOST, Constants.PORT);
+            clientSocket = new Socket(address.getText(), Constants.PORT);
         } catch (IOException e) {
             clientSocket = null;
             e.printStackTrace();
@@ -258,10 +258,6 @@ public class Controller implements Initializable {
     }
 
     public void setReceivedMessages(String message, String channel) {
-
-        if (channel == null) {
-            channel = DEFAULT_CHANNEL;
-        }
 
         if (!channelsList.containsKey(channel)) {
             openNewChannel(channel);

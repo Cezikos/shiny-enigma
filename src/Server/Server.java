@@ -132,7 +132,7 @@ public class Server {
         if (database.isValidLoginAndPassword(username, password)) {
 
             /**Sending message about successful login**/
-            Message messageToSend = new Message("You have been successfully logged in", Codes.SUCCESSFUL_LOGIN);
+            Message messageToSend = new Message("You have been successfully logged in", Codes.SUCCESSFUL_LOGIN, Constants.DEFAULT_CHANNEL);
             sendMessage(clientSocket, messageToSend);
 
             /**If default room does not exist, create it**/
@@ -150,7 +150,7 @@ public class Server {
         } else {
 
             /**If username or password is incorrect, send FAILURE_LOGIN**/
-            Message messageToSend = new Message(Codes.FAILURE_LOGIN + "[Error] Incorrect login or password", Codes.FAILURE_LOGIN);
+            Message messageToSend = new Message(Codes.FAILURE_LOGIN + "[Error] Incorrect login or password", Codes.FAILURE_LOGIN, Constants.DEFAULT_CHANNEL);
             sendMessage(clientSocket, messageToSend);
 
             try {
@@ -173,13 +173,13 @@ public class Server {
         if (database.createUser(username, password)) {
 
             /**If register succeeded**/
-            Message messageToSend = new Message("", Codes.SUCCESSFUL_REGISTER);
+            Message messageToSend = new Message("", Codes.SUCCESSFUL_REGISTER, Constants.DEFAULT_CHANNEL);
             sendMessage(clientSocket, messageToSend);
 
         } else {
 
             /**If register failed**/
-            Message messageToSend = new Message("", Codes.FAILURE_REGISTER);
+            Message messageToSend = new Message("", Codes.FAILURE_REGISTER, Constants.DEFAULT_CHANNEL);
             sendMessage(clientSocket, messageToSend);
 
         }
