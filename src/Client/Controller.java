@@ -1,29 +1,28 @@
 package Client;
 
-import Both.*;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+import Server.Constants;
+import Server.Model.Classes.*;
+import Server.Model.Enums.ActionCodes;
+import Server.Model.Enums.SuccessCodes;
+import Server.Model.Interfaces.Message;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.ResourceBundle;
 
-import static Both.Constants.DEFAULT_CHANNEL;
-
 public class Controller implements Initializable {
-
-    static Controller controller; //TODO static, necessary?
 
     @FXML
     private BorderPane borderPane;
@@ -35,16 +34,16 @@ public class Controller implements Initializable {
     private TextField port;
 
     @FXML
+    private Button connect;
+
+    @FXML
+    private Button disconnect;
+
+    @FXML
     private TextField username;
 
     @FXML
-    private TextField outputMessage;
-
-    @FXML
     private PasswordField password;
-
-    @FXML
-    private Button connect;
 
     @FXML
     private Button login;
@@ -53,279 +52,213 @@ public class Controller implements Initializable {
     private Button register;
 
     @FXML
-    private TableView<User> usersTable;
+    private TextField outputMessage;
 
     @FXML
-    private TableColumn usersList;
+    private Button sendButton;
+
+    @FXML
+    private TableView<?> usersTable;
+
+    @FXML
+    private TableColumn<?, ?> usersList;
 
     @FXML
     private TabPane tabPane;
 
-
     @FXML
     private TextField outputChannel;
 
+    @FXML
+    private Button joinChannel;
 
     private Hashtable<String, TextArea> channelsList;
 
-    private ClientListener clientListener;
-    private Socket clientSocket;
+    private Socket socket;
 
-    private ObservableList<User> usersObservableList;
+    private Listener listener;
 
+    private Logger logger;
 
     public Controller() {
-        channelsList = new Hashtable<>();
-        usersObservableList = FXCollections.observableArrayList();
-        clientListener = null;
-        clientSocket = null;
-        controller = this;
+        this.logger = LoggerFactory.getLogger(Controller.class);
+        this.channelsList = new Hashtable<>();
+        this.socket = null;
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-        usersList.setCellValueFactory(
-                new PropertyValueFactory<>("username")
-        );
-        usersTable.setItems(usersObservableList);
-
-        setDefaultValues();
-        openNewChannel(Constants.DEFAULT_CHANNEL);
+        /** Open default channel to catch system messages**/
+        openNewChannel(Constants.DEFAULT_ROOM);
     }
 
-    public void addUserOnline(String name) {
-        usersObservableList.add(new User(name));
-        usersTable.refresh();
-    }
-
-    public void addUserListOnline(ArrayList<String> arrayList) {
-        usersObservableList.clear();
-        for (int i = 0; i < arrayList.size(); i++) {
-            usersObservableList.add(new User(arrayList.get(i)));
-        }
-        usersTable.refresh();
-    }
-
-    public void removeUserOnline(String name) {
-        for (int i = 0; i < usersObservableList.size(); i++) {
-            if (usersObservableList.get(i).getUsername().equals(name)) {
-                usersObservableList.remove(i);
-                i = usersObservableList.size();
-            }
-        }
-        usersTable.refresh();
-    }
-
-    private void setDefaultValues() {
-        address.setText("127.0.0.1");
-        port.setText("7171");
-
-        login.setDisable(true);
-        register.setDisable(true);
-    }
-
-    private boolean isUsername() {
-        if (username.getText().length() > 0 && username.getText().length() < 20) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    private boolean isPassword() {
-        if (password.getText().length() > 0) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    private String getUsername() {
-        return username.getText();
-    }
-
-    private String getPassword() { //TODO Maybe clear password field after get?
-        return password.getText();
-    }
-
-    @FXML
-    private void connectToServer() {
-        try {
-            clientSocket = new Socket(address.getText(), Constants.PORT);
-        } catch (IOException e) {
-            clientSocket = null;
-            e.printStackTrace();
-        }
-
-        if (clientSocket != null) {
-            login.setDisable(false);
-            register.setDisable(false);
-        } else {
-            login.setDisable(true);
-            register.setDisable(false);
-        }
-    }
-
-    @FXML
-    private void disconnectFromServer() {
-        connect.setDisable(false);
-        terminate();
-    }
-
-    @FXML
-    private void loginToServer() {
-        if (clientSocket != null) {
-
-            if (isUsername() && isPassword()) {
-
-                Thread thread = new Thread(clientListener = new ClientListener(clientSocket, this, getUsername(), getPassword()));
-                thread.setDaemon(true); //TODO Daemon?? :D
-                thread.start();
-
-            } else {
-                login.setDisable(true);
-                try {
-                    clientSocket.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-    }
-
-    @FXML
-    private void registerAccountOnServer() {
-        if (clientSocket != null) {
-
-            if (isUsername() && isPassword()) {
-
-                try {
-                    (new ObjectOutputStream(clientSocket.getOutputStream())).writeObject(new Message(new LoginForm(username.getText(), password.getText()), Codes.REGISTER, "#system"));
-                    Message message = (Message) (new ObjectInputStream(clientSocket.getInputStream())).readObject();
-
-                    if (message.getHeader() == Codes.SUCCESSFUL_REGISTER) {
-                        setReceivedMessages("You have been successful registered", "#system");
-                    } else {
-                        setReceivedMessages("Error - that username exists", "#system");
-                    }
-                } catch (IOException e) {
-                    e.printStackTrace();
-                } catch (ClassNotFoundException e) {
-                    e.printStackTrace();
-                }
-
-            }
-            login.setDisable(true);
-            register.setDisable(true);
-            try {
-                clientSocket.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            clientSocket = null;
-
-        }
-    }
-
-    @FXML
-    private void sendMessageToServer() {
-        if (clientSocket != null) {
-            if (outputMessage.getText().length() > 0) {
-                try {
-                    (new ObjectOutputStream(clientSocket.getOutputStream())).writeObject(new Message(outputMessage.getText(), Codes.SIMPLE_MESSAGE, tabPane.getSelectionModel().getSelectedItem().getText()));
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                outputMessage.clear();
-            }
-        }
-    }
-
-    @FXML
-    private void joinChannel() {
-        if (clientSocket != null) {
-            if (outputChannel.getText().length() > 0) {
-                try {
-                    (new ObjectOutputStream(clientSocket.getOutputStream())).writeObject(new Message(outputMessage.getText(), Codes.JOIN_ROOM, outputChannel.getText()));
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                openNewChannel(outputChannel.getText());
-                outputChannel.clear();
-            }
-        }
-    }
-
-    public void setReceivedMessages(String message, String channel) {
-
-        if (!channelsList.containsKey(channel)) {
-            openNewChannel(channel);
-        }
-
-        TextArea textArea = channelsList.get(channel);
-        StringBuilder stringBuilder = new StringBuilder();
-
-        stringBuilder.append(channelsList.get(channel).getText());
-
-        stringBuilder.append(message + "\n");
-        textArea.setText(stringBuilder.toString());
-
-    }
-
+    /**
+     * Open new channel and add to Hashtable
+     **/
     private void openNewChannel(String channel) {
         Tab tab = new Tab(channel);
+
         AnchorPane anchorPane = new AnchorPane();
+        tab.setContent(anchorPane);
+
         TextArea textArea = new TextArea();
+        anchorPane.getChildren().add(textArea);
         textArea.setEditable(false);
         textArea.setWrapText(true);
         textArea.setScrollTop(Double.MAX_VALUE);
-        tab.setContent(anchorPane);
-        anchorPane.getChildren().add(textArea);
+
         tabPane.getTabs().add(tab);
         channelsList.put(channel, textArea);
 
     }
 
-    public void setConnectButtonDisabled() {
-        connect.setDisable(true);
+    @FXML
+    void connectToServer() {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                conn();
+            }
+        }).start();
     }
 
-    public void setLoginButtonDisabled() {
-        login.setDisable(true);
+    private void conn() {
+        try {
+            this.socket = new Socket("127.0.0.1", 7171);
+            Object object = new ObjectInputStream(this.socket.getInputStream()).readObject();
+            if (object instanceof SuccessMessage) {
+                if (((SuccessMessage) object).getMessage() == SuccessCodes.CONNECTION) {
+                    System.out.println("Connected");//TODO Change IT!
+                }
+            }
+        } catch (IOException e) {
+            this.socket = null;
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
-    public void setRegisterButtonDisabled() {
-        register.setDisable(true);
+    @FXML
+    void disconnectFromServer(ActionEvent event) {
+
     }
 
-    public void terminate() {
-
-
-        if (clientListener != null) {
+    @FXML
+    void joinChannel() {
+        if(!outputChannel.getText().isEmpty()){
+            ActionMessage actionMessage = new ActionMessage(null, this.outputChannel.getText(), ActionCodes.JOIN_ROOM);
             try {
-                (new ObjectOutputStream(clientSocket.getOutputStream())).writeObject(new Message("", Codes.DISCONNECT, Constants.DEFAULT_CHANNEL));
+                new ObjectOutputStream(this.socket.getOutputStream()).writeObject(actionMessage);
+                openNewChannel(this.outputChannel.getText());
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            clientListener.terminate();
-            clientListener = null;
+            this.outputChannel.clear();
         }
+    }
 
-        if (clientSocket != null) {
+    @FXML
+    void loginToServer() { //TODO Refactor
+        if (!this.username.getText().isEmpty() && this.username.getText().length() < 20 && !this.password.getText().isEmpty()) {
 
+            /**Prepare login form**/
+            UserForm userForm = new UserForm(username.getText(), password.getText());
+            ActionMessage actionMessage = new ActionMessage(userForm, Constants.DEFAULT_ROOM, ActionCodes.LOGIN);
 
+            /**Send login form**/
             try {
-                clientSocket.close();
-            } catch (IOException e) {
+                new ObjectOutputStream(this.socket.getOutputStream()).writeObject(actionMessage);
+            } catch (final IOException e) {
                 e.printStackTrace();
             }
-            clientSocket = null;
-        }
 
-        login.setDisable(true);
-        register.setDisable(true);
+            /**Wait for success or failure register**/
+            try {
+                final Object object = new ObjectInputStream(this.socket.getInputStream()).readObject();
+
+                /**If success**/
+                if (object instanceof SuccessMessage) {
+
+                    this.logger.info("Creating new thread to listen messages");
+                    /**Create new thread to listen new messages from server **/
+                    this.listener = new Listener(socket, this);
+                    new Thread(this.listener).start();
+
+                    /**If failure**/
+                } else if (object instanceof ErrorMessage) {
+                    logger.info("Failed ?", ((Message) object).getMessage().toString()); //TODO Change IT!
+                }
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            }
+        }
 
     }
 
+    @FXML
+    void registerAccountOnServer(ActionEvent event) { //TODO Refactor
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                reg();
+            }
+        }).start();
+    }
+
+    private void reg() {
+        if (!this.username.getText().isEmpty() && this.username.getText().length() < 20 && !this.password.getText().isEmpty()) {
+            /**Prepare register form**/
+            UserForm userForm = new UserForm(username.getText(), password.getText());
+            ActionMessage actionMessage = new ActionMessage(userForm, Constants.DEFAULT_ROOM, ActionCodes.REGISTER);
+
+            /**Send register form**/
+            try {
+                new ObjectOutputStream(this.socket.getOutputStream()).writeObject(actionMessage);
+            } catch (final IOException e) {
+                e.printStackTrace();
+            }
+
+
+            /**Wait for success or failure register**/
+            try {
+                final Object object = new ObjectInputStream(this.socket.getInputStream()).readObject();
+
+                /**If success**/
+                if (object instanceof SuccessMessage) {
+                    this.logger.info("Register process went successfully");
+                    /**If failure**/
+                } else if (object instanceof ErrorMessage) {
+                    logger.info("Failed ?", ((Message) object).getMessage().toString()); //TODO Change IT!
+                }
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            }
+
+
+        }
+    }
+
+
+    @FXML
+    void sendMessageToServer() {
+        TextMessage textMessage = new TextMessage(this.outputMessage.getText(), this.tabPane.getSelectionModel().getSelectedItem().getText());
+        try {
+            new ObjectOutputStream(this.socket.getOutputStream()).writeObject(textMessage);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        this.outputMessage.clear();
+    }
+
+    public void addMessage(String message, String room) {
+        this.channelsList.get(room).appendText(message + "\n");
+    }
 }

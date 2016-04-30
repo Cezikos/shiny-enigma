@@ -45,7 +45,7 @@
                                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                             </HBox.margin>
                         </Label>
-                        <TextField fx:id="address">
+                        <TextField fx:id="address" text="127.0.0.1">
                             <HBox.margin>
                                 <Insets />
                             </HBox.margin>
@@ -55,7 +55,7 @@
                                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                             </HBox.margin>
                         </Label>
-                        <TextField fx:id="port" />
+                        <TextField fx:id="port" text="7171" />
                         <Button fx:id="connect" maxWidth="1.7976931348623157E308" minWidth="-Infinity" mnemonicParsing="false" onAction="#connectToServer" text="Connect">
                             <HBox.margin>
                                 <Insets bottom="5.0" left="5.0" right="5.0" />
@@ -78,13 +78,13 @@
                                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                             </HBox.margin>
                         </Label>
-                        <TextField fx:id="username" />
+                        <TextField fx:id="username" text="test" />
                         <Label alignment="CENTER_RIGHT" text="Password:">
                             <HBox.margin>
                                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                             </HBox.margin>
                         </Label>
-                        <PasswordField fx:id="password" />
+                        <PasswordField fx:id="password" text="test" />
                         <Button fx:id="login" mnemonicParsing="false" onAction="#loginToServer" text="Log In">
                             <HBox.margin>
                                 <Insets bottom="5.0" left="5.0" right="5.0" />
@@ -140,7 +140,7 @@
       <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
          <children>
             <Label text="Channel" />
-            <TextField fx:id="outputChannel" />
+            <TextField fx:id="outputChannel" text="Kappa" />
             <Button fx:id="joinChannel" mnemonicParsing="false" onAction="#joinChannel" text="Join" />
          </children>
       </VBox>
