@@ -36,7 +36,7 @@ public class Core implements Runnable {
                     final Socket socket = serverSocket.accept();
 
                     /**Create new thread for new MessagesManager**/
-                    new Thread(new MessagesManager(this, socket)).start();//TODO Close??
+                    new Thread(new MessagesManager(this, socket)).start();//TODO Close?? Deamon??
                 } catch (final IOException e) {
                     logger.error("New connection accept failed", e);
                 }

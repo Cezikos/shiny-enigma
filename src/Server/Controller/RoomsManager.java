@@ -17,7 +17,7 @@ public class RoomsManager {
         this.chatRooms = Collections.synchronizedList(new ArrayList<>(10));
     }
 
-    public boolean isRoom(final String room) {
+    private boolean isRoom(final String room) {
         synchronized (this.chatRooms) {
             for (int i = 0; i < this.chatRooms.size(); i++) {
                 if (this.chatRooms.get(i).getName().equals(room)) {

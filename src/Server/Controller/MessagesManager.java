@@ -24,6 +24,7 @@ public class MessagesManager implements Runnable, MessageTypeVisitor {
 
     private UserOnline userOnline;
 
+    private Logger logger = LoggerFactory.getLogger(UserOnline.class);
     public MessagesManager(Core core, Socket socket) {
         this.core = core;
         this.socket = socket;
@@ -32,16 +33,18 @@ public class MessagesManager implements Runnable, MessageTypeVisitor {
 
     @Override
     public void run() {
-        Logger logger = LoggerFactory.getLogger(UserOnline.class);
+        sendMessage(new SuccessMessage(0, "Successfully connected to the server", Constants.DEFAULT_ROOM), socket);
+
         ObjectInputStream objectInputStream;
         while (!Thread.currentThread().isInterrupted()) {
             try {
+
                 logger.info("Waiting for new message from user");
                 objectInputStream = new ObjectInputStream(socket.getInputStream());
                 logger.info("New message from user");
                 Message message = (Message) objectInputStream.readObject();
+                /**Visitor Pattern**/
                 ((MessageType) message).accept(this);
-
 
             } catch (IOException e) {
                 e.printStackTrace();
@@ -52,37 +55,12 @@ public class MessagesManager implements Runnable, MessageTypeVisitor {
         }
     }
 
-    private void userBuilder() {
+    private void sendMessage(final Message message, final Socket socket) {
         try {
-            sendMessage(new SuccessMessage(0, "Successfully connected to the server", Constants.DEFAULT_ROOM), socket);
-
-            final ObjectInputStream objectInputStream = new ObjectInputStream(socket.getInputStream());
-            final Message message = (Message) objectInputStream.readObject();
-
-
-            if (message instanceof LoginMessage)
-            /**If True, create new thread for UserOnline to listen messages**/
-
-            else if (message instanceof RegisterMessage) {
-                if (registerCode(message)) {
-                    sendMessage(new SuccessMessage(message.getID(), "Successfully registered to the server", Constants.DEFAULT_ROOM), socket);
-                } else {
-                    sendMessage(new FailureMessage(message.getID(), "Failure register.....", Constants.DEFAULT_ROOM), socket);
-                }
-            } else if (message instanceof DisconnectMessage) {
-                socket.close();
-            }
-
-
-        } catch (final IOException e) {
-            e.printStackTrace();
-        } catch (final ClassNotFoundException e) {
+            new ObjectOutputStream(socket.getOutputStream()).writeObject(message);
+        } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-    private void sendMessage(final Message message, final Socket socket) throws IOException {
-        new ObjectOutputStream(socket.getOutputStream()).writeObject(message);
     }
 
     public void disconnect() {
@@ -91,7 +69,12 @@ public class MessagesManager implements Runnable, MessageTypeVisitor {
 
     @Override
     public boolean visit(DisconnectMessage disconnectMessage) {
-        return false;
+        try {
+            socket.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return true;//TODO ??
     }
 
     @Override
@@ -115,26 +98,15 @@ public class MessagesManager implements Runnable, MessageTypeVisitor {
 
         final UserForm userForm = (UserForm) loginMessage.getMessage();
         if (this.core.getDatabase().validateUserAndPassword(userForm.getUsername(), userForm.getPassword())) {
-            if (!this.core.getRoomsManager().isRoom(Constants.DEFAULT_ROOM)) {
-                this.core.getRoomsManager().addRoom(Constants.DEFAULT_ROOM);//TODO Create new room? It should be RoomsManager job, logging to default room Security!
-            }
             this.userOnline = new UserOnline(userForm.getUsername(), socket);
             core.getRoomsManager().addUser(this.userOnline, Constants.DEFAULT_ROOM);
 
-            try {
-                sendMessage(new SuccessMessage(loginMessage.getID(), "Successfully logged to the server", Constants.DEFAULT_ROOM), socket);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            sendMessage(new SuccessMessage(loginMessage.getID(), "Successfully logged to the server", Constants.DEFAULT_ROOM), socket);
 
             return true;
         }
 
-        try {
-            sendMessage(new FailureMessage(loginMessage.getID(), "Failure of login process", Constants.DEFAULT_ROOM), socket);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        sendMessage(new FailureMessage(loginMessage.getID(), "Failure of login process", Constants.DEFAULT_ROOM), socket);
 
         return false;
     }
@@ -144,9 +116,11 @@ public class MessagesManager implements Runnable, MessageTypeVisitor {
         final UserForm userForm = (UserForm) registerMessage.getMessage();
         if (!this.core.getDatabase().isUser(userForm.getUsername())) {
             if (this.core.getDatabase().createUser(userForm.getUsername(), userForm.getPassword())) {
+                sendMessage(new SuccessMessage(registerMessage.getID(), "Successfully registered to the server", Constants.DEFAULT_ROOM), socket);
                 return true;
             }
         }
+        sendMessage(new FailureMessage(registerMessage.getID(), "Failure register.....", Constants.DEFAULT_ROOM), socket);
         return false;
     }
 
