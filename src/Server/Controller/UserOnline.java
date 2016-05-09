@@ -1,9 +1,10 @@
-package Server.Model.Classes;
+package Server.Controller;
 
 
+import Server.Model.Classes.Messages.ActionMessage;
+import Server.Model.Classes.Messages.TextMessage;
 import Server.Model.Enums.ActionCodes;
 import Server.Model.Interfaces.Message;
-import Server.Controller.Server;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

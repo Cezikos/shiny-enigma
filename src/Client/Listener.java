@@ -1,6 +1,5 @@
 package Client;
 
-import Server.Model.Classes.TextMessage;
 import Server.Model.Interfaces.Message;
 
 import java.io.IOException;

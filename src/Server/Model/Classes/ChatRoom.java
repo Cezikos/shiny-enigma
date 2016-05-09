@@ -1,6 +1,7 @@
 package Server.Model.Classes;
 
 
+import Server.Controller.UserOnline;
 import Server.Model.Interfaces.Message;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,7 +11,6 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.concurrent.SynchronousQueue;
 
 /**
  * Created by Piotr Kucharski on 2016-04-29.
@@ -19,7 +19,7 @@ public class ChatRoom {
     private final String name;
     private final List<UserOnline> usersOnline;
 
-    Logger logger;
+    private Logger logger;
 
     public ChatRoom(final String name) {
         this.name = name;

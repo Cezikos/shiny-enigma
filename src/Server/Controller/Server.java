@@ -1,6 +1,9 @@
 package Server.Controller;
 
 import Server.*;
+import Server.Model.Classes.Messages.ActionMessage;
+import Server.Model.Classes.Messages.ErrorMessage;
+import Server.Model.Classes.Messages.SuccessMessage;
 import Server.Model.Enums.ActionCodes;
 import Server.Model.Classes.*;
 import Server.Model.Enums.ErrorCodes;
@@ -78,6 +81,7 @@ public class Server implements Runnable {
                 final ActionCodes actionMessage = ((ActionMessage) message).getCode();
                 switch (actionMessage) {
                     case LOGIN:
+                        /**If True, create new thread for UserOnline to listen messages**/
                         if (loginCode(message, socket)) {
                             sendMessage(new SuccessMessage(message.getId(), SuccessCodes.LOGIN, Constants.DEFAULT_ROOM), socket);
                         } else {
@@ -117,7 +121,7 @@ public class Server implements Runnable {
                 addRoom(message.getRoom());
             }
             final UserOnline userOnline = new UserOnline(this, userForm.getUsername(), socket);
-            new Thread(userOnline).start();
+            new Thread(userOnline).start(); /**Creating new thread if user successfully logged in**/
             addUser(userOnline, message.getRoom());
             return true;
         }

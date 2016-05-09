@@ -2,6 +2,10 @@ package Client;
 
 import Server.Constants;
 import Server.Model.Classes.*;
+import Server.Model.Classes.Messages.ActionMessage;
+import Server.Model.Classes.Messages.ErrorMessage;
+import Server.Model.Classes.Messages.SuccessMessage;
+import Server.Model.Classes.Messages.TextMessage;
 import Server.Model.Enums.ActionCodes;
 import Server.Model.Enums.SuccessCodes;
 import Server.Model.Interfaces.Message;

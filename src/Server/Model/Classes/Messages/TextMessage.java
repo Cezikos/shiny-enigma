@@ -1,4 +1,4 @@
-package Server.Model.Classes;
+package Server.Model.Classes.Messages;
 
 
 import Server.Model.Interfaces.Message;
