@@ -1,5 +1,6 @@
 package Server.Model.Classes.Messages;
 
+import Server.Model.Classes.UserForm;
 import Server.Model.Interfaces.Message;
 import Server.Model.Interfaces.MessageType;
 import Server.Model.Interfaces.MessageTypeVisitor;
@@ -7,14 +8,13 @@ import Server.Model.Interfaces.MessageTypeVisitor;
 /**
  * Created by Piotr on 2016-05-09.
  */
-public class SuccessMessage implements Message, MessageType {
-    private final long ID;
-    private final String message;
+public class LoginMessage implements Message, MessageType {
+    private final long ID = System.currentTimeMillis();
+    private final UserForm userForm;
     private final String room;
 
-    public SuccessMessage(final long ID, final String message, final String room) {
-        this.ID = ID;
-        this.message = message;
+    public LoginMessage(final UserForm userForm, final String room) {
+        this.userForm = userForm;
         this.room = room;
     }
 
@@ -24,8 +24,8 @@ public class SuccessMessage implements Message, MessageType {
     }
 
     @Override
-    public String getMessage() {
-        return this.message;
+    public Object getMessage() {
+        return this.userForm;
     }
 
     @Override

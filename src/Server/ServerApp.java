@@ -1,13 +1,13 @@
 package Server;
 
-import Server.Controller.Server;
+import Server.Controller.Core;
 
 /**
  * Hello world!
  */
 public class ServerApp {
     public static void main(String[] args) {
-        Server server = new Server();
-        server.run();
+        Core core = new Core();
+        core.run();
     }
 }

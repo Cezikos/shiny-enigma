@@ -2,15 +2,32 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="dfae9aaf-4a0e-4b56-8073-fb6fced69658" name="Default" comment="">
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/Server/Model/Classes/ActionMessage.java" afterPath="$PROJECT_DIR$/src/Server/Model/Classes/Messages/ActionMessage.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/Server/Model/Classes/ErrorMessage.java" afterPath="$PROJECT_DIR$/src/Server/Model/Classes/Messages/ErrorMessage.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/Server/Model/Classes/SuccessMessage.java" afterPath="$PROJECT_DIR$/src/Server/Model/Classes/Messages/SuccessMessage.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/Server/Model/Classes/TextMessage.java" afterPath="$PROJECT_DIR$/src/Server/Model/Classes/Messages/TextMessage.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/Server/Model/Classes/UserOnline.java" afterPath="$PROJECT_DIR$/src/Server/Controller/UserOnline.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/file.template.settings.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Server/Controller/MessagesManager.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Server/Controller/RoomsManager.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Server/Model/Classes/Messages/DisconnectMessage.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Server/Model/Classes/Messages/FailureMessage.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Server/Model/Classes/Messages/JoinRoom.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Server/Model/Classes/Messages/LeftRoom.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Server/Model/Classes/Messages/RegisterMessage.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Server/Model/Classes/UserOnline.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Server/Model/Interfaces/MessageType.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Server/Model/Interfaces/MessageTypeVisitor.java" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/Server/Controller/UserOnline.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/Server/Model/Classes/Messages/ActionMessage.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/Server/Model/Classes/Messages/ErrorMessage.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/Server/Model/Enums/ActionCodes.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/Server/Model/Enums/ErrorCodes.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/Server/Model/Enums/SuccessCodes.java" afterPath="" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/Server/Controller/Server.java" afterPath="$PROJECT_DIR$/src/Server/Controller/Core.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Client/ClientListener.java" afterPath="$PROJECT_DIR$/src/Client/ClientListener.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Client/Controller.java" afterPath="$PROJECT_DIR$/src/Client/Controller.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Client/Listener.java" afterPath="$PROJECT_DIR$/src/Client/Listener.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Server/Controller/Server.java" afterPath="$PROJECT_DIR$/src/Server/Controller/Server.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Server/Model/Classes/ChatRoom.java" afterPath="$PROJECT_DIR$/src/Server/Model/Classes/ChatRoom.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Server/Model/Classes/Messages/SuccessMessage.java" afterPath="$PROJECT_DIR$/src/Server/Model/Classes/Messages/SuccessMessage.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Server/Model/Classes/Messages/TextMessage.java" afterPath="$PROJECT_DIR$/src/Server/Model/Classes/Messages/TextMessage.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Server/Model/Interfaces/Message.java" afterPath="$PROJECT_DIR$/src/Server/Model/Interfaces/Message.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Server/ServerApp.java" afterPath="$PROJECT_DIR$/src/Server/ServerApp.java" />
     </list>
     <ignored path="Chat-JavaFX.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -27,58 +44,74 @@
   <component name="CreatePatchCommitExecutor">
     <option name="PATCH_PATH" value="" />
   </component>
+  <component name="DatabaseView">
+    <option name="GROUP_SCHEMA" value="true" />
+    <option name="GROUP_CONTENTS" value="false" />
+    <option name="SORT_POSITIONED" value="false" />
+    <option name="SHOW_TABLE_DETAILS" value="true" />
+    <option name="SHOW_EMPTY_GROUPS" value="false" />
+  </component>
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FavoritesManager">
     <favorites_list name="Chat-JavaFX" />
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="Message.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Server/Model/Interfaces/Message.java">
+      <file leaf-file-name="UserOnline.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Server/Model/Classes/UserOnline.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="136">
-              <caret line="8" column="17" selection-start-line="8" selection-start-column="17" selection-end-line="8" selection-end-column="17" />
+            <state relative-caret-position="357">
+              <caret line="25" column="0" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ErrorMessage.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Server/Model/Classes/Messages/ErrorMessage.java">
+      <file leaf-file-name="MessageTypeVisitor.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Server/Model/Interfaces/MessageTypeVisitor.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="153">
-              <caret line="12" column="26" selection-start-line="12" selection-start-column="26" selection-end-line="12" selection-end-column="26" />
+            <state relative-caret-position="306">
+              <caret line="18" column="11" selection-start-line="18" selection-start-column="11" selection-end-line="18" selection-end-column="11" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ActionMessage.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Server/Model/Classes/Messages/ActionMessage.java">
+      <file leaf-file-name="DisconnectMessage.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Server/Model/Classes/Messages/DisconnectMessage.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="187">
-              <caret line="14" column="30" selection-start-line="14" selection-start-column="30" selection-end-line="14" selection-end-column="30" />
-              <folding />
+            <state relative-caret-position="238">
+              <caret line="16" column="32" selection-start-line="16" selection-start-column="32" selection-end-line="16" selection-end-column="32" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#420#421#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ActionCodes.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/Server/Model/Enums/ActionCodes.java">
+      <file leaf-file-name="LoginMessage.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Server/Model/Classes/Messages/LoginMessage.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="187">
-              <caret line="11" column="15" selection-start-line="11" selection-start-column="15" selection-end-line="11" selection-end-column="15" />
-              <folding />
+            <state relative-caret-position="510">
+              <caret line="36" column="15" selection-start-line="36" selection-start-column="11" selection-end-line="36" selection-end-column="15" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#887#888#0" expanded="true" />
+                <element signature="e#933#934#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="SuccessMessage.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Server/Model/Classes/Messages/SuccessMessage.java">
+      <file leaf-file-name="RegisterMessage.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Server/Model/Classes/Messages/RegisterMessage.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="408">
-              <caret line="33" column="0" selection-start-line="33" selection-start-column="0" selection-end-line="33" selection-end-column="0" />
-              <folding />
+            <state relative-caret-position="170">
+              <caret line="10" column="60" selection-start-line="10" selection-start-column="60" selection-end-line="10" selection-end-column="60" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -86,14 +119,332 @@
       <file leaf-file-name="TextMessage.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Server/Model/Classes/Messages/TextMessage.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="187">
-              <caret line="13" column="30" selection-start-line="13" selection-start-column="30" selection-end-line="13" selection-end-column="30" />
+            <state relative-caret-position="493">
+              <caret line="41" column="1" selection-start-line="41" selection-start-column="1" selection-end-line="41" selection-end-column="1" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MessagesManager.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/Server/Controller/MessagesManager.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="459">
+              <caret line="115" column="18" selection-start-line="115" selection-start-column="18" selection-end-line="115" selection-end-column="18" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#3153#3154#0" expanded="true" />
+                <element signature="e#3181#3182#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="JAVA/Server.ServerApp" pinned="false" current-in-tab="false">
+        <entry file="uml://JAVA/Server.ServerApp">
+          <provider selected="true" editor-type-id="UmlEditorProvider">
+            <state>
+              <ID>JAVA</ID>
+              <OriginalElement>Server.ServerApp</OriginalElement>
+              <nodes>
+                <node x="319.05088325652844" y="666.0">Server.ServerApp</node>
+                <node x="1239.0574116743471" y="388.0">Server.Model.Classes.Messages.LoginMessage</node>
+                <node x="538.8633832565284" y="223.0">Server.Model.Classes.Messages.SuccessMessage</node>
+                <node x="793.8633832565284" y="223.0">Server.Model.Classes.Messages.FailureMessage</node>
+                <node x="1401.1133832565283" y="234.0">Server.Model.Classes.UserForm</node>
+                <node x="944.8633832565284" y="256.0">Server.Model.Classes.Messages.DisconnectMessage</node>
+                <node x="241.55088325652844" y="543.0">Server.Controller.Core</node>
+                <node x="254.05088325652844" y="388.0">Server.Controller.MessagesManager</node>
+                <node x="97.05088325652844" y="0.0">Server.Model.Classes.UserOnline</node>
+                <node x="1101.8633832565283" y="256.0">Server.Model.Classes.Messages.JoinRoom</node>
+                <node x="400.5" y="256.0">java.lang.Runnable</node>
+                <node x="707.5266897081412" y="22.0">Server.Model.Interfaces.MessageType</node>
+                <node x="1411.8326612903227" y="22.0">java.io.Serializable</node>
+                <node x="0.0" y="740.0">Server.Constants</node>
+                <node x="374.5" y="22.0">java.lang.FunctionalInterface</node>
+                <node x="243.5" y="256.0">Server.Model.Interfaces.MessageTypeVisitor</node>
+                <node x="689.8633832565284" y="256.0">Server.Model.Classes.Messages.LeftRoom</node>
+                <node x="0.0" y="410.0">Server.Controller.RoomsManager</node>
+                <node x="1058.4016897081412" y="22.0">Server.Model.Interfaces.Message</node>
+                <node x="1207.8633832565283" y="223.0">Server.Model.Classes.Messages.TextMessage</node>
+                <node x="1044.0157450076804" y="388.0">Server.Model.Classes.Messages.RegisterMessage</node>
+                <node x="1437.8633832565283" y="410.0">Server.Model.Classes.MySQL</node>
+                <node x="1580.1133832565283" y="256.0">Server.Model.Interfaces.Database</node>
+                <node x="25.0" y="223.0">Server.Model.Classes.ChatRoom</node>
+              </nodes>
+              <notes />
+              <edges>
+                <edge source="Server.Controller.MessagesManager" target="Server.Controller.Core">
+                  <point x="36.0" y="47.5" />
+                  <point x="0.0" y="-36.5" />
+                </edge>
+                <edge source="Server.ServerApp" target="Server.Controller.Core">
+                  <point x="0.0" y="-14.5" />
+                  <point x="0.0" y="36.5" />
+                </edge>
+                <edge source="Server.Controller.Core" target="Server.Controller.MessagesManager">
+                  <point x="-34.42857142857139" y="-36.5" />
+                  <point x="327.62231182795705" y="503.0" />
+                  <point x="290.05088325652844" y="503.0" />
+                  <point x="-36.0" y="47.5" />
+                </edge>
+                <edge source="Server.Model.Classes.Messages.LoginMessage" target="Server.Model.Interfaces.Message">
+                  <point x="0.0" y="-47.5" />
+                  <point x="1304.5574116743471" y="348.0" />
+                  <point x="1349.3633832565283" y="348.0" />
+                  <point x="1349.3633832565283" y="93.0" />
+                  <point x="1131.5266897081412" y="93.0" />
+                  <point x="34.125" y="14.5" />
+                </edge>
+                <edge source="Server.Model.Classes.Messages.SuccessMessage" target="Server.Model.Interfaces.Message">
+                  <point x="32.75" y="-47.5" />
+                  <point x="637.1133832565284" y="173.0" />
+                  <point x="1063.2766897081412" y="173.0" />
+                  <point x="-34.125" y="14.5" />
+                </edge>
+                <edge source="Server.Controller.MessagesManager" target="java.lang.Runnable">
+                  <point x="12.0" y="-47.5" />
+                  <point x="338.05088325652844" y="348.0" />
+                  <point x="421.0" y="348.0" />
+                  <point x="-20.5" y="14.5" />
+                </edge>
+                <edge source="Server.Model.Classes.Messages.LoginMessage" target="Server.Model.Interfaces.MessageType">
+                  <point x="-43.66666666666663" y="-47.5" />
+                  <point x="1260.8907450076804" y="338.0" />
+                  <point x="527.0508832565284" y="338.0" />
+                  <point x="527.0508832565284" y="143.0" />
+                  <point x="727.0266897081412" y="143.0" />
+                  <point x="-32.5" y="14.5" />
+                </edge>
+                <edge source="Server.Controller.Core" target="java.lang.Runnable">
+                  <point x="34.428571428571445" y="-36.5" />
+                  <point x="396.4794546850999" y="503.0" />
+                  <point x="472.02016129032256" y="503.0" />
+                  <point x="472.02016129032256" y="348.0" />
+                  <point x="462.0" y="348.0" />
+                  <point x="20.5" y="14.5" />
+                </edge>
+                <edge source="java.lang.Runnable" target="java.lang.FunctionalInterface">
+                  <point x="0.0" y="-14.5" />
+                  <point x="0.0" y="14.5" />
+                </edge>
+                <edge source="Server.Model.Classes.Messages.DisconnectMessage" target="Server.Model.Interfaces.Message">
+                  <point x="34.25" y="-14.5" />
+                  <point x="1047.6133832565283" y="203.0" />
+                  <point x="1092.5266897081412" y="203.0" />
+                  <point x="-4.875" y="14.5" />
+                </edge>
+                <edge source="Server.Model.Classes.ChatRoom" target="Server.Model.Classes.UserOnline">
+                  <point x="0.0" y="-47.5" />
+                  <point x="103.5" y="203.0" />
+                  <point x="123.55088325652844" y="203.0" />
+                  <point x="-53.0" y="36.5" />
+                </edge>
+                <edge source="Server.Model.Classes.Messages.LeftRoom" target="Server.Model.Interfaces.Message">
+                  <point x="21.0" y="-14.5" />
+                  <point x="752.8633832565284" y="183.0" />
+                  <point x="1073.0266897081412" y="183.0" />
+                  <point x="-24.375" y="14.5" />
+                </edge>
+                <edge source="Server.Controller.MessagesManager" target="Server.Model.Classes.Messages.SuccessMessage">
+                  <point x="36.0" y="-47.5" />
+                  <point x="362.05088325652844" y="358.0" />
+                  <point x="604.3633832565284" y="358.0" />
+                  <point x="0.0" y="47.5" />
+                </edge>
+                <edge source="Server.Controller.Core" target="Server.Model.Interfaces.Database">
+                  <point x="103.28571428571428" y="-36.5" />
+                  <point x="465.3365975422427" y="523.0" />
+                  <point x="1684.3633832565283" y="523.0" />
+                  <point x="1684.3633832565283" y="368.0" />
+                  <point x="1640.1133832565283" y="368.0" />
+                  <point x="20.0" y="14.5" />
+                </edge>
+                <edge source="Server.Model.Classes.Messages.SuccessMessage" target="Server.Model.Interfaces.MessageType">
+                  <point x="-32.75" y="-47.5" />
+                  <point x="571.6133832565284" y="153.0" />
+                  <point x="740.0266897081412" y="153.0" />
+                  <point x="-19.5" y="14.5" />
+                </edge>
+                <edge source="Server.Controller.MessagesManager" target="Server.Model.Classes.UserOnline">
+                  <point x="-36.0" y="-47.5" />
+                  <point x="290.05088325652844" y="358.0" />
+                  <point x="226.55088325652844" y="358.0" />
+                  <point x="226.55088325652844" y="203.0" />
+                  <point x="229.55088325652844" y="203.0" />
+                  <point x="53.0" y="36.5" />
+                </edge>
+                <edge source="Server.Model.Classes.Messages.RegisterMessage" target="Server.Model.Interfaces.Message">
+                  <point x="0.0" y="-47.5" />
+                  <point x="1109.5157450076804" y="348.0" />
+                  <point x="1197.3633832565283" y="348.0" />
+                  <point x="1197.3633832565283" y="123.0" />
+                  <point x="1112.0266897081412" y="123.0" />
+                  <point x="14.625" y="14.5" />
+                </edge>
+                <edge source="Server.Model.Classes.Messages.DisconnectMessage" target="Server.Model.Interfaces.MessageType">
+                  <point x="-34.25" y="-14.5" />
+                  <point x="979.1133832565284" y="153.0" />
+                  <point x="779.0266897081412" y="153.0" />
+                  <point x="19.5" y="14.5" />
+                </edge>
+                <edge source="Server.Model.Classes.Messages.TextMessage" target="Server.Model.Interfaces.Message">
+                  <point x="0.0" y="-47.5" />
+                  <point x="1273.3633832565283" y="103.0" />
+                  <point x="1121.7766897081412" y="103.0" />
+                  <point x="24.375" y="14.5" />
+                </edge>
+                <edge source="Server.Controller.Core" target="Server.Model.Classes.MySQL">
+                  <point x="68.85714285714289" y="-36.5" />
+                  <point x="430.9080261136713" y="513.0" />
+                  <point x="1555.8633832565283" y="513.0" />
+                  <point x="0.0" y="25.5" />
+                </edge>
+                <edge source="Server.Model.Classes.Messages.JoinRoom" target="Server.Model.Interfaces.Message">
+                  <point x="21.25" y="-14.5" />
+                  <point x="1165.6133832565283" y="133.0" />
+                  <point x="1102.2766897081412" y="133.0" />
+                  <point x="4.875" y="14.5" />
+                </edge>
+                <edge source="Server.Model.Classes.Messages.RegisterMessage" target="Server.Model.Interfaces.MessageType">
+                  <point x="-43.66666666666663" y="-47.5" />
+                  <point x="1065.8490783410139" y="348.0" />
+                  <point x="493.6666666666667" y="348.0" />
+                  <point x="493.6666666666667" y="133.0" />
+                  <point x="714.0266897081412" y="133.0" />
+                  <point x="-45.5" y="14.5" />
+                </edge>
+                <edge source="Server.Model.Classes.UserForm" target="java.io.Serializable">
+                  <point x="0.0" y="-36.5" />
+                  <point x="1480.6133832565283" y="203.0" />
+                  <point x="1479.3326612903227" y="203.0" />
+                  <point x="22.5" y="14.5" />
+                </edge>
+                <edge source="Server.Model.Classes.Messages.LeftRoom" target="Server.Model.Interfaces.MessageType">
+                  <point x="-21.0" y="-14.5" />
+                  <point x="710.8633832565284" y="163.0" />
+                  <point x="753.0266897081412" y="163.0" />
+                  <point x="-6.5" y="14.5" />
+                </edge>
+                <edge source="Server.Controller.MessagesManager" target="Server.Model.Classes.Messages.FailureMessage">
+                  <point x="60.0" y="-47.5" />
+                  <point x="386.05088325652844" y="368.0" />
+                  <point x="859.3633832565284" y="368.0" />
+                  <point x="0.0" y="47.5" />
+                </edge>
+                <edge source="Server.Model.Classes.MySQL" target="Server.Model.Interfaces.Database">
+                  <point x="0.0" y="-25.5" />
+                  <point x="1555.8633832565283" y="368.0" />
+                  <point x="1600.1133832565283" y="368.0" />
+                  <point x="-20.0" y="14.5" />
+                </edge>
+                <edge source="Server.Controller.Core" target="Server.Controller.RoomsManager">
+                  <point x="-103.28571428571422" y="-36.5" />
+                  <point x="258.7651689708142" y="523.0" />
+                  <point x="51.75" y="523.0" />
+                  <point x="-51.75" y="25.5" />
+                </edge>
+                <edge source="Server.Model.Classes.Messages.TextMessage" target="java.io.Serializable">
+                  <point x="43.666666666666686" y="-47.5" />
+                  <point x="1317.030049923195" y="203.0" />
+                  <point x="1434.3326612903227" y="203.0" />
+                  <point x="-22.5" y="14.5" />
+                </edge>
+                <edge source="Server.Model.Classes.Messages.RegisterMessage" target="Server.Model.Classes.UserForm">
+                  <point x="43.666666666666686" y="-47.5" />
+                  <point x="1153.1824116743471" y="358.0" />
+                  <point x="1440.8633832565283" y="358.0" />
+                  <point x="-39.75" y="36.5" />
+                </edge>
+                <edge source="Server.Controller.RoomsManager" target="Server.Model.Classes.ChatRoom">
+                  <point x="51.75" y="-25.5" />
+                  <point x="155.25" y="368.0" />
+                  <point x="142.75" y="368.0" />
+                  <point x="39.25" y="47.5" />
+                </edge>
+                <edge source="Server.Model.Classes.Messages.FailureMessage" target="Server.Model.Interfaces.Message">
+                  <point x="32.75" y="-47.5" />
+                  <point x="892.1133832565284" y="193.0" />
+                  <point x="1082.7766897081412" y="193.0" />
+                  <point x="-14.625" y="14.5" />
+                </edge>
+                <edge source="Server.Model.Classes.Messages.TextMessage" target="Server.Model.Interfaces.MessageType">
+                  <point x="-43.66666666666666" y="-47.5" />
+                  <point x="1229.6967165898618" y="113.0" />
+                  <point x="805.0266897081412" y="113.0" />
+                  <point x="45.5" y="14.5" />
+                </edge>
+                <edge source="Server.Model.Classes.Messages.LoginMessage" target="Server.Model.Classes.UserForm">
+                  <point x="43.66666666666663" y="-47.5" />
+                  <point x="1348.2240783410139" y="368.0" />
+                  <point x="1520.3633832565283" y="368.0" />
+                  <point x="39.75" y="36.5" />
+                </edge>
+                <edge source="Server.Model.Classes.Messages.JoinRoom" target="Server.Model.Interfaces.MessageType">
+                  <point x="-21.25" y="-14.5" />
+                  <point x="1123.1133832565283" y="143.0" />
+                  <point x="792.0266897081412" y="143.0" />
+                  <point x="32.5" y="14.5" />
+                </edge>
+                <edge source="Server.Controller.MessagesManager" target="Server.Model.Interfaces.MessageTypeVisitor">
+                  <point x="-12.0" y="-47.5" />
+                  <point x="314.05088325652844" y="368.0" />
+                  <point x="312.0" y="368.0" />
+                  <point x="0.0" y="14.5" />
+                </edge>
+                <edge source="Server.Model.Classes.Messages.FailureMessage" target="Server.Model.Interfaces.MessageType">
+                  <point x="-32.75" y="-47.5" />
+                  <point x="826.6133832565284" y="163.0" />
+                  <point x="766.0266897081412" y="163.0" />
+                  <point x="6.5" y="14.5" />
+                </edge>
+              </edges>
+              <settings layout="Hierarchic Group" zoom="0.8897360703812317" x="259.74291364535264" y="154.41727092946604" />
+              <SelectedNodes>
+                <node>Server.ServerApp</node>
+              </SelectedNodes>
+              <Categories>
+                <Category>Fields</Category>
+              </Categories>
+              <SCOPE>All</SCOPE>
+              <VISIBILITY>private</VISIBILITY>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="RoomsManager.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Server/Controller/RoomsManager.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="391">
+              <caret line="30" column="10" selection-start-line="30" selection-start-column="10" selection-end-line="30" selection-end-column="10" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#331#332#0" expanded="true" />
+                <element signature="e#413#414#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MessageType.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Server/Model/Interfaces/MessageType.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="119">
+              <caret line="7" column="17" selection-start-line="7" selection-start-column="17" selection-end-line="7" selection-end-column="17" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
     </leaf>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+        <option value="Interface" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -107,13 +458,35 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/.gitignore" />
-        <option value="$PROJECT_DIR$/src/Server/Controller/Server.java" />
-        <option value="$PROJECT_DIR$/src/Server/Controller/UserOnline.java" />
         <option value="$PROJECT_DIR$/src/Server/Model/Classes/ChatRoom.java" />
         <option value="$PROJECT_DIR$/src/Server/Model/Classes/Messages/ErrorMessage.java" />
         <option value="$PROJECT_DIR$/src/Server/Model/Classes/Messages/ActionMessage.java" />
+        <option value="$PROJECT_DIR$/src/Server/Model/Interfaces/Message.java" />
+        <option value="$PROJECT_DIR$/src/Server/Controller/SuccessMessage.java" />
+        <option value="$PROJECT_DIR$/src/Server/Controller/DisconnectMessage.java" />
+        <option value="$PROJECT_DIR$/src/Client/Controller.java" />
+        <option value="$PROJECT_DIR$/src/Server/Controller/Server.java" />
+        <option value="$PROJECT_DIR$/src/Server/Model/Interfaces/MessageManager.java" />
+        <option value="$PROJECT_DIR$/src/Server/Model/Interfaces/MessagesManager.java" />
+        <option value="$PROJECT_DIR$/src/Server/Controller/UserOnline.java" />
+        <option value="$PROJECT_DIR$/src/Server/Model/Classes/MessagesManager.java" />
+        <option value="$PROJECT_DIR$/src/Server/Model/Classes/UserOnline.java" />
+        <option value="$PROJECT_DIR$/src/Server/Controller/Core.java" />
+        <option value="$PROJECT_DIR$/.idea/copyright/profiles_settings.xml" />
+        <option value="$PROJECT_DIR$/src/Server/Model/Classes/Messages/JoinChannel.java" />
+        <option value="$PROJECT_DIR$/src/Server/Model/Interfaces/MessageVisitor.java" />
+        <option value="$PROJECT_DIR$/src/Server/Model/Classes/Messages/DisconnectMessage.java" />
+        <option value="$PROJECT_DIR$/src/Server/Model/Classes/Messages/FailureMessage.java" />
+        <option value="$PROJECT_DIR$/src/Server/Model/Classes/Messages/JoinRoom.java" />
+        <option value="$PROJECT_DIR$/src/Server/Model/Classes/Messages/LeftRoom.java" />
+        <option value="$PROJECT_DIR$/src/Server/Model/Classes/Messages/RegisterMessage.java" />
         <option value="$PROJECT_DIR$/src/Server/Model/Classes/Messages/SuccessMessage.java" />
         <option value="$PROJECT_DIR$/src/Server/Model/Classes/Messages/TextMessage.java" />
+        <option value="$PROJECT_DIR$/src/Server/Model/Interfaces/MessageType.java" />
+        <option value="$PROJECT_DIR$/src/Server/Controller/RoomsManager.java" />
+        <option value="$PROJECT_DIR$/src/Server/Model/Classes/Messages/LoginMessage.java" />
+        <option value="$PROJECT_DIR$/src/Server/Model/Interfaces/MessageTypeVisitor.java" />
+        <option value="$PROJECT_DIR$/src/Server/Controller/MessagesManager.java" />
       </list>
     </option>
   </component>
@@ -153,9 +526,9 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="Scratches" />
       <pane id="PackagesPane" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -215,32 +588,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="Interfaces" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Chat-JavaFX" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Chat-JavaFX" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Server" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Model" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Enums" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -362,6 +709,38 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Chat-JavaFX" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Chat-JavaFX" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value=".idea" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Chat-JavaFX" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Chat-JavaFX" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value=".idea" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="copyright" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
         </subPane>
       </pane>
     </panes>
@@ -369,8 +748,16 @@
   <component name="PropertiesComponent">
     <property name="aspect.path.notification.shown" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+    <property name="settings.editor.splitter.proportion" value="0.2" />
   </component>
-  <component name="RunManager" selected="Application.ClientApp">
+  <component name="RecentsManager">
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="Server.Model.Interfaces" />
+      <recent name="Server.Controller" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Application.ServerApp">
     <configuration default="false" name="ServerApp" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
         <pattern>
@@ -415,43 +802,6 @@
       <module name="" />
       <option name="VM_PARAMETERS" value="-Xmx512m -Xms256m -XX:MaxPermSize=250m -ea" />
       <option name="PROGRAM_PARAMETERS" />
-      <method />
-    </configuration>
-    <configuration default="true" type="AndroidRunConfigurationType" factoryName="Android Application">
-      <module name="" />
-      <option name="DEPLOY" value="true" />
-      <option name="ARTIFACT_NAME" value="" />
-      <option name="PM_INSTALL_OPTIONS" value="" />
-      <option name="ACTIVITY_EXTRA_FLAGS" value="" />
-      <option name="MODE" value="default_activity" />
-      <option name="TARGET_SELECTION_MODE" value="SHOW_DIALOG" />
-      <option name="PREFERRED_AVD" value="" />
-      <option name="CLEAR_LOGCAT" value="false" />
-      <option name="SHOW_LOGCAT_AUTOMATICALLY" value="true" />
-      <option name="SKIP_NOOP_APK_INSTALLATIONS" value="true" />
-      <option name="FORCE_STOP_RUNNING_APP" value="true" />
-      <option name="USE_LAST_SELECTED_DEVICE" value="false" />
-      <option name="PREFERRED_AVD" value="" />
-      <option name="DEEP_LINK" value="" />
-      <option name="ACTIVITY_CLASS" value="" />
-      <method />
-    </configuration>
-    <configuration default="true" type="AndroidTestRunConfigurationType" factoryName="Android Tests">
-      <module name="" />
-      <option name="TESTING_TYPE" value="0" />
-      <option name="INSTRUMENTATION_RUNNER_CLASS" value="" />
-      <option name="METHOD_NAME" value="" />
-      <option name="CLASS_NAME" value="" />
-      <option name="PACKAGE_NAME" value="" />
-      <option name="EXTRA_OPTIONS" value="" />
-      <option name="TARGET_SELECTION_MODE" value="SHOW_DIALOG" />
-      <option name="PREFERRED_AVD" value="" />
-      <option name="CLEAR_LOGCAT" value="false" />
-      <option name="SHOW_LOGCAT_AUTOMATICALLY" value="true" />
-      <option name="SKIP_NOOP_APK_INSTALLATIONS" value="true" />
-      <option name="FORCE_STOP_RUNNING_APP" value="true" />
-      <option name="USE_LAST_SELECTED_DEVICE" value="false" />
-      <option name="PREFERRED_AVD" value="" />
       <method />
     </configuration>
     <configuration default="true" type="Applet" factoryName="Applet">
@@ -536,25 +886,6 @@
       <listeners />
       <method />
     </configuration>
-    <configuration default="true" type="CucumberJavaRunConfigurationType" factoryName="Cucumber java">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
-      <option name="myFilePath" />
-      <option name="GLUE" />
-      <option name="myNameFilter" />
-      <option name="myGeneratedName" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="VM_PARAMETERS" />
-      <option name="PROGRAM_PARAMETERS" />
-      <option name="WORKING_DIRECTORY" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="ENABLE_SWING_INSPECTOR" value="false" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <module name="" />
-      <envs />
-      <method />
-    </configuration>
     <configuration default="true" type="FlashRunConfigurationType" factoryName="Flash App">
       <option name="BCName" value="" />
       <option name="IOSSimulatorSdkPath" value="" />
@@ -602,31 +933,6 @@
       </option>
       <option name="moduleName" value="" />
       <option name="trusted" value="true" />
-      <method />
-    </configuration>
-    <configuration default="true" type="GradleRunConfiguration" factoryName="Gradle">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list />
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
-      <method />
-    </configuration>
-    <configuration default="true" type="GrailsRunConfigurationType" factoryName="Grails">
-      <setting name="vmparams" value="" />
-      <setting name="cmdLine" value="run-app" />
-      <setting name="passParentEnv" value="true" />
-      <setting name="launchBrowser" value="true" />
-      <setting name="depsClasspath" value="false" />
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <method />
     </configuration>
     <configuration default="true" type="JUnit" factoryName="JUnit">
@@ -818,8 +1124,8 @@
     </list>
     <recent_temporary>
       <list size="2">
-        <item index="0" class="java.lang.String" itemvalue="Application.ClientApp" />
-        <item index="1" class="java.lang.String" itemvalue="Application.ServerApp" />
+        <item index="0" class="java.lang.String" itemvalue="Application.ServerApp" />
+        <item index="1" class="java.lang.String" itemvalue="Application.ClientApp" />
       </list>
     </recent_temporary>
   </component>
@@ -837,12 +1143,16 @@
       <option name="presentableId" value="Default" />
       <updated>1462747077146</updated>
       <workItem from="1462747078688" duration="1608000" />
-      <workItem from="1462784925762" duration="3064000" />
+      <workItem from="1462784925762" duration="13328000" />
+      <workItem from="1462812380535" duration="2983000" />
+      <workItem from="1462815981600" duration="149000" />
+      <workItem from="1462816152026" duration="9991000" />
+      <workItem from="1462826338268" duration="709000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="4672000" />
+    <option name="totallyTimeSpent" value="28768000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="70" y="-8" width="1858" height="1096" extended-state="6" />
@@ -850,29 +1160,31 @@
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32917964" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32917964" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.15628476" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3298109" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24972191" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Dependency Viewer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32917964" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Module Dependencies" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3298109" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32987553" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32917964" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32917964" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="Vcs.Log.UiProperties">
@@ -887,7 +1199,9 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="XDebuggerManager">
-    <breakpoint-manager />
+    <breakpoint-manager>
+      <option name="time" value="2" />
+    </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="antWorkspaceConfiguration">
@@ -895,6 +1209,189 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/src/Client/Controller.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="442">
+          <caret line="46" column="0" selection-start-line="46" selection-start-column="0" selection-end-line="46" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Server/Controller/Core.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="22" column="4" selection-start-line="22" selection-start-column="4" selection-end-line="22" selection-end-column="43" />
+          <folding>
+            <element signature="imports" expanded="false" />
+            <element signature="e#1754#1755#0" expanded="false" />
+            <element signature="e#1794#1795#0" expanded="false" />
+            <element signature="e#1837#1838#0" expanded="false" />
+            <element signature="e#1873#1874#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Server/Model/Classes/UserOnline.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="442">
+          <caret line="37" column="40" selection-start-line="37" selection-start-column="40" selection-end-line="37" selection-end-column="40" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Server/Controller/MessagesManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="10" column="0" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#3153#3154#0" expanded="true" />
+            <element signature="e#3181#3182#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Server/Model/Classes/ChatRoom.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Server/Model/Classes/Messages/DisconnectMessage.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#420#421#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Server/Model/Classes/Messages/SuccessMessage.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="374">
+          <caret line="26" column="5" selection-start-line="26" selection-start-column="5" selection-end-line="26" selection-end-column="5" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#661#662#0" expanded="true" />
+            <element signature="e#696#697#0" expanded="true" />
+            <element signature="e#852#853#0" expanded="true" />
+            <element signature="e#898#899#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Server/Model/Classes/Messages/FailureMessage.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="340">
+          <caret line="22" column="0" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="false" />
+            <element signature="e#852#853#0" expanded="false" />
+            <element signature="e#898#899#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Server/Model/Classes/Messages/LoginMessage.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="8" column="21" selection-start-line="8" selection-start-column="21" selection-end-line="8" selection-end-column="21" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#887#888#0" expanded="true" />
+            <element signature="e#933#934#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Server/Model/Classes/Messages/RegisterMessage.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="9" column="54" selection-start-line="9" selection-start-column="54" selection-end-line="9" selection-end-column="54" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Client/Controller.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="442">
+          <caret line="46" column="0" selection-start-line="46" selection-start-column="0" selection-end-line="46" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Server/Model/Classes/Messages/TextMessage.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="18" column="5" selection-start-line="18" selection-start-column="5" selection-end-line="18" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Server/Controller/Core.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1615">
+          <caret line="109" column="45" selection-start-line="109" selection-start-column="45" selection-end-line="109" selection-end-column="45" />
+          <folding>
+            <element signature="imports" expanded="false" />
+            <element signature="e#1754#1755#0" expanded="false" />
+            <element signature="e#1794#1795#0" expanded="false" />
+            <element signature="e#1837#1838#0" expanded="false" />
+            <element signature="e#1873#1874#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Server/Model/Classes/UserOnline.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Server/Model/Classes/Messages/DisconnectMessage.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#420#421#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Server/Model/Classes/Messages/SuccessMessage.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="374">
+          <caret line="26" column="5" selection-start-line="26" selection-start-column="5" selection-end-line="26" selection-end-column="5" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#661#662#0" expanded="true" />
+            <element signature="e#696#697#0" expanded="true" />
+            <element signature="e#852#853#0" expanded="true" />
+            <element signature="e#898#899#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Server/Model/Classes/Messages/FailureMessage.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="340">
+          <caret line="22" column="0" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="false" />
+            <element signature="e#852#853#0" expanded="false" />
+            <element signature="e#898#899#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/Server/ServerApp.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -907,7 +1404,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="68">
           <caret line="8" column="13" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -923,7 +1419,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="34">
           <caret line="2" column="0" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -935,19 +1430,43 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Server/Controller/Server.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="646">
-          <caret line="120" column="20" selection-start-line="120" selection-start-column="20" selection-end-line="120" selection-end-column="20" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Client/ClientApp.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="68">
           <caret line="8" column="13" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Server/Model/Enums/ActionCodes.java" />
+    <entry file="file://$PROJECT_DIR$/src/Server/Model/Interfaces/Message.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="204">
+          <caret line="12" column="0" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Server/Model/Classes/Messages/SuccessMessage.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="9" column="4" selection-start-line="9" selection-start-column="4" selection-end-line="9" selection-end-column="4" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#661#662#0" expanded="true" />
+            <element signature="e#696#697#0" expanded="true" />
+            <element signature="e#852#853#0" expanded="true" />
+            <element signature="e#898#899#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="uml://JAVA/Server.Model.Enums.ActionCodes" />
+    <entry file="file://$PROJECT_DIR$/src/Server/Model/Classes/Messages/ErrorMessage.java" />
+    <entry file="file://$PROJECT_DIR$/src/Server/Model/Classes/Messages/ActionMessage.java" />
+    <entry file="jar://C:/Java/jdk1.8.0_77/src.zip!/java/util/List.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-106">
+          <caret line="461" column="34" selection-start-line="461" selection-start-column="34" selection-end-line="461" selection-end-column="34" />
         </state>
       </provider>
     </entry>
@@ -959,247 +1478,408 @@
         </state>
       </provider>
     </entry>
-    <entry file="uml://JAVA/Server.Model.Enums.ActionCodes">
+    <entry file="file://$PROJECT_DIR$/src/Client/Controller.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1325">
+          <caret line="130" column="62" selection-start-line="130" selection-start-column="62" selection-end-line="130" selection-end-column="62" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Server/Model/Interfaces/Database.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="5" column="17" selection-start-line="5" selection-start-column="17" selection-end-line="5" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.idea/copyright/profiles_settings.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="1" column="36" selection-start-line="1" selection-start-column="36" selection-end-line="1" selection-end-column="36" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Server/Model/Classes/MySQL.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="19" column="11" selection-start-line="19" selection-start-column="11" selection-end-line="19" selection-end-column="11" />
+          <folding>
+            <element signature="e#458#459#0" expanded="false" />
+            <element signature="e#492#493#0" expanded="false" />
+            <marker date="1462746903445" expanded="true" signature="1601:1650" placeholder="INSERT INTO USERS... " />
+            <marker date="1462746903445" expanded="true" signature="2881:2921" placeholder="SELECT passw... USERS" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Server/Controller/Core.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="16" column="36" selection-start-line="16" selection-start-column="36" selection-end-line="16" selection-end-column="36" />
+          <folding>
+            <element signature="imports" expanded="false" />
+            <element signature="e#1754#1755#0" expanded="false" />
+            <element signature="e#1794#1795#0" expanded="false" />
+            <element signature="e#1837#1838#0" expanded="false" />
+            <element signature="e#1873#1874#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Server/Model/Classes/ChatRoom.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="18" column="38" selection-start-line="18" selection-start-column="38" selection-end-line="18" selection-end-column="38" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Server/Model/Classes/Messages/FailureMessage.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="544">
+          <caret line="38" column="5" selection-start-line="38" selection-start-column="5" selection-end-line="38" selection-end-column="5" />
+          <folding>
+            <element signature="imports" expanded="false" />
+            <element signature="e#852#853#0" expanded="false" />
+            <element signature="e#898#899#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Server/Model/Classes/Messages/JoinRoom.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="9" column="53" selection-start-line="9" selection-start-column="53" selection-end-line="9" selection-end-column="53" />
+          <folding>
+            <element signature="imports" expanded="false" />
+            <element signature="e#323#324#0" expanded="false" />
+            <element signature="e#347#348#0" expanded="false" />
+            <element signature="e#395#396#0" expanded="false" />
+            <element signature="e#422#423#0" expanded="false" />
+            <element signature="e#467#468#0" expanded="false" />
+            <element signature="e#494#495#0" expanded="false" />
+            <element signature="e#573#574#0" expanded="false" />
+            <element signature="e#619#620#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Server/Model/Classes/Messages/LeftRoom.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="476">
+          <caret line="28" column="5" selection-start-line="28" selection-start-column="5" selection-end-line="28" selection-end-column="5" />
+          <folding>
+            <element signature="imports" expanded="false" />
+            <element signature="e#323#324#0" expanded="false" />
+            <element signature="e#347#348#0" expanded="false" />
+            <element signature="e#395#396#0" expanded="false" />
+            <element signature="e#422#423#0" expanded="false" />
+            <element signature="e#467#468#0" expanded="false" />
+            <element signature="e#494#495#0" expanded="false" />
+            <element signature="e#573#574#0" expanded="false" />
+            <element signature="e#619#620#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Server/Model/Classes/Messages/SuccessMessage.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="476">
+          <caret line="38" column="5" selection-start-line="38" selection-start-column="5" selection-end-line="38" selection-end-column="5" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#661#662#0" expanded="true" />
+            <element signature="e#696#697#0" expanded="true" />
+            <element signature="e#852#853#0" expanded="true" />
+            <element signature="e#898#899#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Server/Model/Interfaces/MessageType.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="7" column="17" selection-start-line="7" selection-start-column="17" selection-end-line="7" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Server/Controller/RoomsManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="391">
+          <caret line="30" column="10" selection-start-line="30" selection-start-column="10" selection-end-line="30" selection-end-column="10" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#331#332#0" expanded="true" />
+            <element signature="e#413#414#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="uml://JAVA/Server.ServerApp">
       <provider selected="true" editor-type-id="UmlEditorProvider">
         <state>
           <ID>JAVA</ID>
-          <OriginalElement>Server.Model.Enums.ActionCodes</OriginalElement>
+          <OriginalElement>Server.ServerApp</OriginalElement>
           <nodes>
-            <node x="541.5868421052631" y="275.0">Server.Model.Enums.ErrorCodes</node>
-            <node x="286.58684210526314" y="741.0">Server.ServerApp</node>
-            <node x="216.08684210526314" y="618.0">Server.Controller.Server</node>
-            <node x="850.2118421052631" y="119.0">Server.Model.Classes.UserForm</node>
-            <node x="278.4999999999999" y="264.0">Server.Controller.UserOnline</node>
-            <node x="1077.8258771929823" y="442.0">Server.Model.Classes.TextMessage</node>
-            <node x="252.8203947368421" y="141.0">java.lang.Runnable</node>
-            <node x="654.5868421052631" y="242.0">Server.Model.Enums.ActionCodes</node>
-            <node x="747.4166666666665" y="431.0">Server.Model.Classes.ActionMessage</node>
-            <node x="485.0" y="815.0">Server.Constants</node>
-            <node x="795.1592105263156" y="0.0">java.io.Serializable</node>
-            <node x="926.8258771929823" y="442.0">Server.Model.Classes.SuccessMessage</node>
-            <node x="226.8203947368421" y="0.0">java.lang.FunctionalInterface</node>
-            <node x="941.5868421052631" y="264.0">Server.Model.Enums.SuccessCodes</node>
-            <node x="522.5868421052631" y="442.0">Server.Model.Classes.ErrorMessage</node>
-            <node x="626.0793859649123" y="119.0">java.lang.Enum</node>
-            <node x="843.5868421052631" y="297.0">Server.Model.Interfaces.Message</node>
-            <node x="577.38399122807" y="0.0">java.lang.Comparable</node>
-            <node x="10.499999999999886" y="464.0">Server.Model.Classes.MySQL</node>
-            <node x="17.82938596491215" y="297.0">Server.Model.Interfaces.Database</node>
-            <node x="345.58684210526314" y="442.0">Server.Model.Classes.ChatRoom</node>
-            <node x="0.0" y="815.0">Server.jbcrypt.BCrypt</node>
+            <node x="319.05088325652844" y="666.0">Server.ServerApp</node>
+            <node x="1239.0574116743471" y="388.0">Server.Model.Classes.Messages.LoginMessage</node>
+            <node x="538.8633832565284" y="223.0">Server.Model.Classes.Messages.SuccessMessage</node>
+            <node x="793.8633832565284" y="223.0">Server.Model.Classes.Messages.FailureMessage</node>
+            <node x="1401.1133832565283" y="234.0">Server.Model.Classes.UserForm</node>
+            <node x="944.8633832565284" y="256.0">Server.Model.Classes.Messages.DisconnectMessage</node>
+            <node x="241.55088325652844" y="543.0">Server.Controller.Core</node>
+            <node x="254.05088325652844" y="388.0">Server.Controller.MessagesManager</node>
+            <node x="97.05088325652844" y="0.0">Server.Model.Classes.UserOnline</node>
+            <node x="1101.8633832565283" y="256.0">Server.Model.Classes.Messages.JoinRoom</node>
+            <node x="400.5" y="256.0">java.lang.Runnable</node>
+            <node x="707.5266897081412" y="22.0">Server.Model.Interfaces.MessageType</node>
+            <node x="1411.8326612903227" y="22.0">java.io.Serializable</node>
+            <node x="0.0" y="740.0">Server.Constants</node>
+            <node x="374.5" y="22.0">java.lang.FunctionalInterface</node>
+            <node x="243.5" y="256.0">Server.Model.Interfaces.MessageTypeVisitor</node>
+            <node x="689.8633832565284" y="256.0">Server.Model.Classes.Messages.LeftRoom</node>
+            <node x="0.0" y="410.0">Server.Controller.RoomsManager</node>
+            <node x="1058.4016897081412" y="22.0">Server.Model.Interfaces.Message</node>
+            <node x="1207.8633832565283" y="223.0">Server.Model.Classes.Messages.TextMessage</node>
+            <node x="1044.0157450076804" y="388.0">Server.Model.Classes.Messages.RegisterMessage</node>
+            <node x="1437.8633832565283" y="410.0">Server.Model.Classes.MySQL</node>
+            <node x="1580.1133832565283" y="256.0">Server.Model.Interfaces.Database</node>
+            <node x="25.0" y="223.0">Server.Model.Classes.ChatRoom</node>
           </nodes>
           <notes />
           <edges>
-            <edge source="Server.Controller.Server" target="Server.Model.Classes.SuccessMessage">
-              <point x="102.14999999999998" y="-36.5" />
-              <point x="431.7368421052631" y="598.0" />
-              <point x="992.3258771929823" y="598.0" />
-              <point x="0.0" y="47.5" />
+            <edge source="Server.Controller.MessagesManager" target="Server.Controller.Core">
+              <point x="36.0" y="47.5" />
+              <point x="0.0" y="-36.5" />
             </edge>
-            <edge source="Server.Model.Enums.ActionCodes" target="java.lang.Enum">
-              <point x="-42.0" y="-69.5" />
-              <point x="696.5868421052631" y="222.0" />
-              <point x="694.5793859649123" y="222.0" />
+            <edge source="Server.ServerApp" target="Server.Controller.Core">
+              <point x="0.0" y="-14.5" />
               <point x="0.0" y="36.5" />
             </edge>
-            <edge source="Server.Model.Enums.ErrorCodes" target="java.io.Serializable">
-              <point x="-23.25" y="-36.5" />
-              <point x="564.8368421052631" y="222.0" />
-              <point x="571.4201754385965" y="222.0" />
-              <point x="571.4201754385965" y="69.0" />
-              <point x="810.1592105263156" y="69.0" />
-              <point x="-30.0" y="14.5" />
+            <edge source="Server.Controller.Core" target="Server.Controller.MessagesManager">
+              <point x="-34.42857142857139" y="-36.5" />
+              <point x="327.62231182795705" y="503.0" />
+              <point x="290.05088325652844" y="503.0" />
+              <point x="-36.0" y="47.5" />
             </edge>
-            <edge source="Server.Model.Enums.SuccessCodes" target="java.lang.Enum">
-              <point x="-28.25" y="-47.5" />
-              <point x="969.8368421052631" y="212.0" />
-              <point x="740.2460526315788" y="212.0" />
-              <point x="45.66666666666663" y="36.5" />
-            </edge>
-            <edge source="Server.Controller.UserOnline" target="Server.Controller.Server">
-              <point x="0.0" y="47.5" />
-              <point x="357.9999999999999" y="411.0" />
-              <point x="335.08684210526314" y="411.0" />
-              <point x="335.08684210526314" y="598.0" />
-              <point x="340.93684210526317" y="598.0" />
-              <point x="11.350000000000023" y="-36.5" />
-            </edge>
-            <edge source="Server.Model.Classes.SuccessMessage" target="Server.Model.Enums.SuccessCodes">
+            <edge source="Server.Model.Classes.Messages.LoginMessage" target="Server.Model.Interfaces.Message">
               <point x="0.0" y="-47.5" />
-              <point x="992.3258771929823" y="411.0" />
-              <point x="998.0868421052631" y="411.0" />
-              <point x="0.0" y="47.5" />
+              <point x="1304.5574116743471" y="348.0" />
+              <point x="1349.3633832565283" y="348.0" />
+              <point x="1349.3633832565283" y="93.0" />
+              <point x="1131.5266897081412" y="93.0" />
+              <point x="34.125" y="14.5" />
             </edge>
-            <edge source="Server.Controller.Server" target="Server.Model.Classes.ErrorMessage">
-              <point x="79.44999999999999" y="-36.5" />
-              <point x="409.03684210526313" y="588.0" />
-              <point x="588.0868421052631" y="588.0" />
-              <point x="0.0" y="47.5" />
+            <edge source="Server.Model.Classes.Messages.SuccessMessage" target="Server.Model.Interfaces.Message">
+              <point x="32.75" y="-47.5" />
+              <point x="637.1133832565284" y="173.0" />
+              <point x="1063.2766897081412" y="173.0" />
+              <point x="-34.125" y="14.5" />
             </edge>
-            <edge source="Server.Model.Classes.ErrorMessage" target="Server.Model.Enums.ErrorCodes">
-              <point x="0.0" y="-47.5" />
-              <point x="0.0" y="36.5" />
+            <edge source="Server.Controller.MessagesManager" target="java.lang.Runnable">
+              <point x="12.0" y="-47.5" />
+              <point x="338.05088325652844" y="348.0" />
+              <point x="421.0" y="348.0" />
+              <point x="-20.5" y="14.5" />
             </edge>
-            <edge source="Server.Controller.Server" target="Server.Model.Classes.MySQL">
-              <point x="-79.44999999999993" y="-36.5" />
-              <point x="250.1368421052632" y="588.0" />
-              <point x="128.4999999999999" y="588.0" />
-              <point x="0.0" y="25.5" />
+            <edge source="Server.Model.Classes.Messages.LoginMessage" target="Server.Model.Interfaces.MessageType">
+              <point x="-43.66666666666663" y="-47.5" />
+              <point x="1260.8907450076804" y="338.0" />
+              <point x="527.0508832565284" y="338.0" />
+              <point x="527.0508832565284" y="143.0" />
+              <point x="727.0266897081412" y="143.0" />
+              <point x="-32.5" y="14.5" />
             </edge>
-            <edge source="Server.Model.Classes.SuccessMessage" target="java.io.Serializable">
-              <point x="43.666666666666686" y="-47.5" />
-              <point x="1035.992543859649" y="411.0" />
-              <point x="1097.8620614035087" y="411.0" />
-              <point x="1097.8620614035087" y="79.0" />
-              <point x="870.1592105263156" y="79.0" />
-              <point x="30.0" y="14.5" />
-            </edge>
-            <edge source="Server.Model.Enums.ActionCodes" target="java.io.Serializable">
-              <point x="42.0" y="-69.5" />
-              <point x="780.5868421052631" y="222.0" />
-              <point x="778.0868421052631" y="222.0" />
-              <point x="778.0868421052631" y="89.0" />
-              <point x="830.1592105263156" y="89.0" />
-              <point x="-10.0" y="14.5" />
+            <edge source="Server.Controller.Core" target="java.lang.Runnable">
+              <point x="34.428571428571445" y="-36.5" />
+              <point x="396.4794546850999" y="503.0" />
+              <point x="472.02016129032256" y="503.0" />
+              <point x="472.02016129032256" y="348.0" />
+              <point x="462.0" y="348.0" />
+              <point x="20.5" y="14.5" />
             </edge>
             <edge source="java.lang.Runnable" target="java.lang.FunctionalInterface">
               <point x="0.0" y="-14.5" />
               <point x="0.0" y="14.5" />
             </edge>
-            <edge source="java.lang.Enum" target="java.io.Serializable">
-              <point x="34.25" y="-36.5" />
-              <point x="728.8293859649123" y="79.0" />
-              <point x="820.1592105263156" y="79.0" />
-              <point x="-20.0" y="14.5" />
+            <edge source="Server.Model.Classes.Messages.DisconnectMessage" target="Server.Model.Interfaces.Message">
+              <point x="34.25" y="-14.5" />
+              <point x="1047.6133832565283" y="203.0" />
+              <point x="1092.5266897081412" y="203.0" />
+              <point x="-4.875" y="14.5" />
             </edge>
-            <edge source="Server.Model.Classes.TextMessage" target="Server.Model.Interfaces.Message">
-              <point x="-32.75" y="-47.5" />
-              <point x="1110.5758771929823" y="401.0" />
-              <point x="911.8368421052631" y="401.0" />
-              <point x="29.25" y="14.5" />
-            </edge>
-            <edge source="Server.Controller.Server" target="Server.Controller.UserOnline">
-              <point x="-11.349999999999966" y="-36.5" />
-              <point x="318.2368421052632" y="598.0" />
-              <point x="304.92565789473673" y="598.0" />
-              <point x="-53.0" y="47.5" />
-            </edge>
-            <edge source="Server.Model.Classes.ChatRoom" target="Server.Controller.UserOnline">
+            <edge source="Server.Model.Classes.ChatRoom" target="Server.Model.Classes.UserOnline">
               <point x="0.0" y="-47.5" />
-              <point x="424.08684210526314" y="411.0" />
-              <point x="410.9999999999999" y="411.0" />
-              <point x="53.0" y="47.5" />
+              <point x="103.5" y="203.0" />
+              <point x="123.55088325652844" y="203.0" />
+              <point x="-53.0" y="36.5" />
             </edge>
-            <edge source="Server.ServerApp" target="Server.Controller.Server">
-              <point x="0.0" y="-14.5" />
-              <point x="0.0" y="36.5" />
+            <edge source="Server.Model.Classes.Messages.LeftRoom" target="Server.Model.Interfaces.Message">
+              <point x="21.0" y="-14.5" />
+              <point x="752.8633832565284" y="183.0" />
+              <point x="1073.0266897081412" y="183.0" />
+              <point x="-24.375" y="14.5" />
             </edge>
-            <edge source="Server.Model.Classes.TextMessage" target="java.io.Serializable">
-              <point x="32.75" y="-47.5" />
-              <point x="1176.0758771929823" y="69.0" />
-              <point x="880.1592105263156" y="69.0" />
-              <point x="40.0" y="14.5" />
+            <edge source="Server.Controller.MessagesManager" target="Server.Model.Classes.Messages.SuccessMessage">
+              <point x="36.0" y="-47.5" />
+              <point x="362.05088325652844" y="358.0" />
+              <point x="604.3633832565284" y="358.0" />
+              <point x="0.0" y="47.5" />
             </edge>
-            <edge source="Server.Model.Classes.ActionMessage" target="Server.Model.Interfaces.Message">
-              <point x="50.0" y="-58.5" />
-              <point x="-9.75" y="14.5" />
+            <edge source="Server.Controller.Core" target="Server.Model.Interfaces.Database">
+              <point x="103.28571428571428" y="-36.5" />
+              <point x="465.3365975422427" y="523.0" />
+              <point x="1684.3633832565283" y="523.0" />
+              <point x="1684.3633832565283" y="368.0" />
+              <point x="1640.1133832565283" y="368.0" />
+              <point x="20.0" y="14.5" />
             </edge>
-            <edge source="java.lang.Enum" target="java.lang.Comparable">
-              <point x="-34.25" y="-36.5" />
-              <point x="660.3293859649123" y="49.0" />
-              <point x="625.88399122807" y="49.0" />
-              <point x="0.0" y="14.5" />
+            <edge source="Server.Model.Classes.Messages.SuccessMessage" target="Server.Model.Interfaces.MessageType">
+              <point x="-32.75" y="-47.5" />
+              <point x="571.6133832565284" y="153.0" />
+              <point x="740.0266897081412" y="153.0" />
+              <point x="-19.5" y="14.5" />
             </edge>
-            <edge source="Server.Model.Classes.ErrorMessage" target="Server.Model.Interfaces.Message">
-              <point x="43.666666666666686" y="-47.5" />
-              <point x="631.7535087719298" y="411.0" />
-              <point x="853.3368421052631" y="411.0" />
-              <point x="-29.25" y="14.5" />
+            <edge source="Server.Controller.MessagesManager" target="Server.Model.Classes.UserOnline">
+              <point x="-36.0" y="-47.5" />
+              <point x="290.05088325652844" y="358.0" />
+              <point x="226.55088325652844" y="358.0" />
+              <point x="226.55088325652844" y="203.0" />
+              <point x="229.55088325652844" y="203.0" />
+              <point x="53.0" y="36.5" />
             </edge>
-            <edge source="Server.Model.Classes.ErrorMessage" target="java.io.Serializable">
-              <point x="-43.66666666666666" y="-47.5" />
-              <point x="544.4201754385965" y="411.0" />
-              <point x="521.7535087719298" y="411.0" />
-              <point x="521.7535087719298" y="59.0" />
-              <point x="800.1592105263156" y="59.0" />
-              <point x="-40.0" y="14.5" />
+            <edge source="Server.Model.Classes.Messages.RegisterMessage" target="Server.Model.Interfaces.Message">
+              <point x="0.0" y="-47.5" />
+              <point x="1109.5157450076804" y="348.0" />
+              <point x="1197.3633832565283" y="348.0" />
+              <point x="1197.3633832565283" y="123.0" />
+              <point x="1112.0266897081412" y="123.0" />
+              <point x="14.625" y="14.5" />
             </edge>
-            <edge source="Server.Model.Classes.ActionMessage" target="java.io.Serializable">
-              <point x="0.0" y="-58.5" />
-              <point x="822.4166666666665" y="401.0" />
-              <point x="833.0868421052631" y="401.0" />
-              <point x="833.0868421052631" y="99.0" />
-              <point x="840.1592105263156" y="99.0" />
-              <point x="0.0" y="14.5" />
+            <edge source="Server.Model.Classes.Messages.DisconnectMessage" target="Server.Model.Interfaces.MessageType">
+              <point x="-34.25" y="-14.5" />
+              <point x="979.1133832565284" y="153.0" />
+              <point x="779.0266897081412" y="153.0" />
+              <point x="19.5" y="14.5" />
+            </edge>
+            <edge source="Server.Model.Classes.Messages.TextMessage" target="Server.Model.Interfaces.Message">
+              <point x="0.0" y="-47.5" />
+              <point x="1273.3633832565283" y="103.0" />
+              <point x="1121.7766897081412" y="103.0" />
+              <point x="24.375" y="14.5" />
+            </edge>
+            <edge source="Server.Controller.Core" target="Server.Model.Classes.MySQL">
+              <point x="68.85714285714289" y="-36.5" />
+              <point x="430.9080261136713" y="513.0" />
+              <point x="1555.8633832565283" y="513.0" />
+              <point x="0.0" y="25.5" />
+            </edge>
+            <edge source="Server.Model.Classes.Messages.JoinRoom" target="Server.Model.Interfaces.Message">
+              <point x="21.25" y="-14.5" />
+              <point x="1165.6133832565283" y="133.0" />
+              <point x="1102.2766897081412" y="133.0" />
+              <point x="4.875" y="14.5" />
+            </edge>
+            <edge source="Server.Model.Classes.Messages.RegisterMessage" target="Server.Model.Interfaces.MessageType">
+              <point x="-43.66666666666663" y="-47.5" />
+              <point x="1065.8490783410139" y="348.0" />
+              <point x="493.6666666666667" y="348.0" />
+              <point x="493.6666666666667" y="133.0" />
+              <point x="714.0266897081412" y="133.0" />
+              <point x="-45.5" y="14.5" />
             </edge>
             <edge source="Server.Model.Classes.UserForm" target="java.io.Serializable">
               <point x="0.0" y="-36.5" />
-              <point x="929.7118421052631" y="99.0" />
-              <point x="850.1592105263156" y="99.0" />
-              <point x="10.0" y="14.5" />
+              <point x="1480.6133832565283" y="203.0" />
+              <point x="1479.3326612903227" y="203.0" />
+              <point x="22.5" y="14.5" />
+            </edge>
+            <edge source="Server.Model.Classes.Messages.LeftRoom" target="Server.Model.Interfaces.MessageType">
+              <point x="-21.0" y="-14.5" />
+              <point x="710.8633832565284" y="163.0" />
+              <point x="753.0266897081412" y="163.0" />
+              <point x="-6.5" y="14.5" />
+            </edge>
+            <edge source="Server.Controller.MessagesManager" target="Server.Model.Classes.Messages.FailureMessage">
+              <point x="60.0" y="-47.5" />
+              <point x="386.05088325652844" y="368.0" />
+              <point x="859.3633832565284" y="368.0" />
+              <point x="0.0" y="47.5" />
             </edge>
             <edge source="Server.Model.Classes.MySQL" target="Server.Model.Interfaces.Database">
               <point x="0.0" y="-25.5" />
-              <point x="128.4999999999999" y="411.0" />
-              <point x="77.82938596491215" y="411.0" />
-              <point x="20.0" y="14.5" />
-            </edge>
-            <edge source="Server.Model.Classes.ActionMessage" target="Server.Model.Enums.ActionCodes">
-              <point x="-50.0" y="-58.5" />
-              <point x="772.4166666666665" y="401.0" />
-              <point x="738.5868421052631" y="401.0" />
-              <point x="0.0" y="69.5" />
-            </edge>
-            <edge source="Server.Model.Enums.ErrorCodes" target="java.lang.Enum">
-              <point x="23.25" y="-36.5" />
-              <point x="611.3368421052631" y="222.0" />
-              <point x="648.9127192982455" y="222.0" />
-              <point x="-45.66666666666663" y="36.5" />
-            </edge>
-            <edge source="Server.Controller.Server" target="Server.Model.Interfaces.Database">
-              <point x="-102.14999999999992" y="-36.5" />
-              <point x="227.43684210526322" y="598.0" />
-              <point x="0.0" y="598.0" />
-              <point x="0.0" y="411.0" />
-              <point x="37.82938596491215" y="411.0" />
+              <point x="1555.8633832565283" y="368.0" />
+              <point x="1600.1133832565283" y="368.0" />
               <point x="-20.0" y="14.5" />
             </edge>
-            <edge source="Server.Controller.Server" target="Server.Model.Classes.ChatRoom">
-              <point x="56.75" y="-36.5" />
-              <point x="386.33684210526314" y="578.0" />
-              <point x="463.33684210526314" y="578.0" />
+            <edge source="Server.Controller.Core" target="Server.Controller.RoomsManager">
+              <point x="-103.28571428571422" y="-36.5" />
+              <point x="258.7651689708142" y="523.0" />
+              <point x="51.75" y="523.0" />
+              <point x="-51.75" y="25.5" />
+            </edge>
+            <edge source="Server.Model.Classes.Messages.TextMessage" target="java.io.Serializable">
+              <point x="43.666666666666686" y="-47.5" />
+              <point x="1317.030049923195" y="203.0" />
+              <point x="1434.3326612903227" y="203.0" />
+              <point x="-22.5" y="14.5" />
+            </edge>
+            <edge source="Server.Model.Classes.Messages.RegisterMessage" target="Server.Model.Classes.UserForm">
+              <point x="43.666666666666686" y="-47.5" />
+              <point x="1153.1824116743471" y="358.0" />
+              <point x="1440.8633832565283" y="358.0" />
+              <point x="-39.75" y="36.5" />
+            </edge>
+            <edge source="Server.Controller.RoomsManager" target="Server.Model.Classes.ChatRoom">
+              <point x="51.75" y="-25.5" />
+              <point x="155.25" y="368.0" />
+              <point x="142.75" y="368.0" />
               <point x="39.25" y="47.5" />
             </edge>
-            <edge source="Server.Model.Classes.SuccessMessage" target="Server.Model.Interfaces.Message">
+            <edge source="Server.Model.Classes.Messages.FailureMessage" target="Server.Model.Interfaces.Message">
+              <point x="32.75" y="-47.5" />
+              <point x="892.1133832565284" y="193.0" />
+              <point x="1082.7766897081412" y="193.0" />
+              <point x="-14.625" y="14.5" />
+            </edge>
+            <edge source="Server.Model.Classes.Messages.TextMessage" target="Server.Model.Interfaces.MessageType">
               <point x="-43.66666666666666" y="-47.5" />
-              <point x="948.6592105263156" y="411.0" />
-              <point x="892.3368421052631" y="411.0" />
-              <point x="9.75" y="14.5" />
+              <point x="1229.6967165898618" y="113.0" />
+              <point x="805.0266897081412" y="113.0" />
+              <point x="45.5" y="14.5" />
             </edge>
-            <edge source="Server.Model.Enums.SuccessCodes" target="java.io.Serializable">
-              <point x="28.25" y="-47.5" />
-              <point x="1026.3368421052633" y="89.0" />
-              <point x="860.1592105263156" y="89.0" />
-              <point x="20.0" y="14.5" />
+            <edge source="Server.Model.Classes.Messages.LoginMessage" target="Server.Model.Classes.UserForm">
+              <point x="43.66666666666663" y="-47.5" />
+              <point x="1348.2240783410139" y="368.0" />
+              <point x="1520.3633832565283" y="368.0" />
+              <point x="39.75" y="36.5" />
             </edge>
-            <edge source="Server.Controller.UserOnline" target="java.lang.Runnable">
-              <point x="0.0" y="-47.5" />
-              <point x="357.9999999999999" y="222.0" />
-              <point x="321.1537280701754" y="222.0" />
-              <point x="27.333333333333314" y="14.5" />
+            <edge source="Server.Model.Classes.Messages.JoinRoom" target="Server.Model.Interfaces.MessageType">
+              <point x="-21.25" y="-14.5" />
+              <point x="1123.1133832565283" y="143.0" />
+              <point x="792.0266897081412" y="143.0" />
+              <point x="32.5" y="14.5" />
             </edge>
-            <edge source="Server.Controller.Server" target="java.lang.Runnable">
-              <point x="-34.049999999999955" y="-36.5" />
-              <point x="295.5368421052632" y="588.0" />
-              <point x="267.9999999999999" y="588.0" />
-              <point x="267.9999999999999" y="222.0" />
-              <point x="293.8203947368421" y="222.0" />
+            <edge source="Server.Controller.MessagesManager" target="Server.Model.Interfaces.MessageTypeVisitor">
+              <point x="-12.0" y="-47.5" />
+              <point x="314.05088325652844" y="368.0" />
+              <point x="312.0" y="368.0" />
               <point x="0.0" y="14.5" />
             </edge>
+            <edge source="Server.Model.Classes.Messages.FailureMessage" target="Server.Model.Interfaces.MessageType">
+              <point x="-32.75" y="-47.5" />
+              <point x="826.6133832565284" y="163.0" />
+              <point x="766.0266897081412" y="163.0" />
+              <point x="6.5" y="14.5" />
+            </edge>
           </edges>
-          <settings layout="Hierarchic Group" zoom="0.8376383763837638" x="-14.50220264317187" y="276.51982378854626" />
+          <settings layout="Hierarchic Group" zoom="0.8897360703812317" x="259.74291364535264" y="154.41727092946604" />
           <SelectedNodes>
-            <node>Server.Model.Enums.ActionCodes</node>
+            <node>Server.ServerApp</node>
           </SelectedNodes>
           <Categories>
             <Category>Fields</Category>
@@ -1209,67 +1889,72 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Server/Model/Classes/ChatRoom.java">
+    <entry file="file://$PROJECT_DIR$/src/Server/Model/Classes/UserOnline.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="21" column="12" selection-start-line="21" selection-start-column="12" selection-end-line="21" selection-end-column="12" />
+        <state relative-caret-position="357">
+          <caret line="25" column="0" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Server/Controller/UserOnline.java">
+    <entry file="file://$PROJECT_DIR$/src/Server/Model/Interfaces/MessageTypeVisitor.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="578">
-          <caret line="51" column="9" selection-start-line="51" selection-start-column="9" selection-end-line="51" selection-end-column="9" />
+        <state relative-caret-position="306">
+          <caret line="18" column="11" selection-start-line="18" selection-start-column="11" selection-end-line="18" selection-end-column="11" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Server/Model/Classes/Messages/ErrorMessage.java">
+    <entry file="file://$PROJECT_DIR$/src/Server/Model/Classes/Messages/DisconnectMessage.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="12" column="26" selection-start-line="12" selection-start-column="26" selection-end-line="12" selection-end-column="26" />
-          <folding />
+        <state relative-caret-position="238">
+          <caret line="16" column="32" selection-start-line="16" selection-start-column="32" selection-end-line="16" selection-end-column="32" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#420#421#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Server/Model/Classes/Messages/SuccessMessage.java">
+    <entry file="file://$PROJECT_DIR$/src/Server/Model/Classes/Messages/LoginMessage.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="408">
-          <caret line="33" column="0" selection-start-line="33" selection-start-column="0" selection-end-line="33" selection-end-column="0" />
-          <folding />
+        <state relative-caret-position="510">
+          <caret line="36" column="15" selection-start-line="36" selection-start-column="11" selection-end-line="36" selection-end-column="15" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#887#888#0" expanded="true" />
+            <element signature="e#933#934#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Server/Model/Classes/Messages/RegisterMessage.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="10" column="60" selection-start-line="10" selection-start-column="60" selection-end-line="10" selection-end-column="60" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Server/Model/Classes/Messages/TextMessage.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="13" column="30" selection-start-line="13" selection-start-column="30" selection-end-line="13" selection-end-column="30" />
+        <state relative-caret-position="493">
+          <caret line="41" column="1" selection-start-line="41" selection-start-column="1" selection-end-line="41" selection-end-column="1" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Server/Model/Interfaces/Message.java">
+    <entry file="file://$PROJECT_DIR$/src/Server/Controller/MessagesManager.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="8" column="17" selection-start-line="8" selection-start-column="17" selection-end-line="8" selection-end-column="17" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Server/Model/Classes/Messages/ActionMessage.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="14" column="30" selection-start-line="14" selection-start-column="30" selection-end-line="14" selection-end-column="30" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Server/Model/Enums/ActionCodes.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="11" column="15" selection-start-line="11" selection-start-column="15" selection-end-line="11" selection-end-column="15" />
-          <folding />
+        <state relative-caret-position="459">
+          <caret line="115" column="18" selection-start-line="115" selection-start-column="18" selection-end-line="115" selection-end-column="18" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#3153#3154#0" expanded="true" />
+            <element signature="e#3181#3182#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

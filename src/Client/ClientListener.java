@@ -1,6 +1,6 @@
 //package Client;
 //
-//import Server.Model.Interfaces.Message;
+//import Core.Model.Interfaces.Message;
 //
 //import java.io.IOException;
 //import java.io.ObjectInputStream;

@@ -7,30 +7,20 @@ import Server.Model.Interfaces.MessageTypeVisitor;
 /**
  * Created by Piotr on 2016-05-09.
  */
-public class SuccessMessage implements Message, MessageType {
-    private final long ID;
-    private final String message;
-    private final String room;
-
-    public SuccessMessage(final long ID, final String message, final String room) {
-        this.ID = ID;
-        this.message = message;
-        this.room = room;
-    }
-
+public class DisconnectMessage implements Message, MessageType{
     @Override
     public long getID() {
-        return this.ID;
+        return 0;
     }
 
     @Override
-    public String getMessage() {
-        return this.message;
+    public Object getMessage() {
+        return null;
     }
 
     @Override
     public String getRoom() {
-        return this.room;
+        return null;
     }
 
     @Override

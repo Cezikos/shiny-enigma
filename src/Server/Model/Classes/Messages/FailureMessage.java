@@ -7,12 +7,12 @@ import Server.Model.Interfaces.MessageTypeVisitor;
 /**
  * Created by Piotr on 2016-05-09.
  */
-public class SuccessMessage implements Message, MessageType {
+public class FailureMessage implements Message, MessageType {
     private final long ID;
     private final String message;
     private final String room;
 
-    public SuccessMessage(final long ID, final String message, final String room) {
+    public FailureMessage(final long ID, final String message, final String room) {
         this.ID = ID;
         this.message = message;
         this.room = room;

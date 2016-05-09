@@ -1,7 +1,6 @@
 package Server.Model.Classes;
 
 
-import Server.Controller.UserOnline;
 import Server.Model.Interfaces.Message;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
