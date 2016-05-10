@@ -44,7 +44,7 @@ public class MessagesManager implements Runnable, MessageTypeVisitor {
                 logger.info("New message from user");
                 Message message = (Message) objectInputStream.readObject();
                 /**Visitor Pattern**/
-                ((MessageType) message).accept(this);
+                ((MessageType) message).accept(this);//TODO new thread?
 
             } catch (IOException e) {
                 e.printStackTrace();
@@ -131,6 +131,8 @@ public class MessagesManager implements Runnable, MessageTypeVisitor {
 
     @Override
     public boolean visit(TextMessage textMessage) {
-        return false;
+        this.core.getRoomsManager().getChatRoom(textMessage.getRoom()).sendMessageToAll(textMessage);
+
+        return true;
     }
 }

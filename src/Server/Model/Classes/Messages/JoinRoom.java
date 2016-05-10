@@ -4,13 +4,22 @@ import Server.Model.Interfaces.Message;
 import Server.Model.Interfaces.MessageType;
 import Server.Model.Interfaces.MessageTypeVisitor;
 
+import java.io.Serializable;
+
 /**
  * Created by Piotr Kucharski on 2016-05-09.
  */
-public class JoinRoom implements Message, MessageType {
+public class JoinRoom implements Serializable, Message, MessageType {
+    private final long ID = System.currentTimeMillis();
+    private final String room;
+
+    public JoinRoom(final String room) {
+        this.room = room;
+    }
+
     @Override
     public long getID() {
-        return 0;
+        return this.ID;
     }
 
     @Override
@@ -20,7 +29,7 @@ public class JoinRoom implements Message, MessageType {
 
     @Override
     public String getRoom() {
-        return null;
+        return this.room;
     }
 
     @Override

@@ -64,7 +64,7 @@ public class ChatRoom {
         }
     }
 
-    public final void setMessageQueue(Message message) {
+    public final void setMessageQueue(Message message) {//TODO Need to implement K-)
         logger.info("Put new message in Queue");
         sendMessageToAll(message);
 

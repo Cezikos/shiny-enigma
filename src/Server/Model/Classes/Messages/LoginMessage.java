@@ -1,21 +1,22 @@
 package Server.Model.Classes.Messages;
 
+import Server.Constants;
 import Server.Model.Classes.UserForm;
 import Server.Model.Interfaces.Message;
 import Server.Model.Interfaces.MessageType;
 import Server.Model.Interfaces.MessageTypeVisitor;
 
+import java.io.Serializable;
+
 /**
  * Created by Piotr on 2016-05-09.
  */
-public class LoginMessage implements Message, MessageType {
+public class LoginMessage implements Serializable, Message, MessageType {
     private final long ID = System.currentTimeMillis();
     private final UserForm userForm;
-    private final String room;
 
-    public LoginMessage(final UserForm userForm, final String room) {
+    public LoginMessage(final UserForm userForm) {
         this.userForm = userForm;
-        this.room = room;
     }
 
     @Override
@@ -30,7 +31,7 @@ public class LoginMessage implements Message, MessageType {
 
     @Override
     public String getRoom() {
-        return this.room;
+        return null;
     }
 
     @Override

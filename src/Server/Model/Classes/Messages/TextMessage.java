@@ -10,7 +10,7 @@ import java.io.Serializable;
 /**
  * Created by Piotr Kucharski on 2016-04-30.
  */
-public class TextMessage implements Message, MessageType, Serializable {
+public class TextMessage implements Serializable, Message, MessageType {
     private final long ID = System.currentTimeMillis();
     private final String message;
     private final String room;

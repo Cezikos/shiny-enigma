@@ -1,7 +1,4 @@
-package Server.Controller;
-
-import Server.Model.Classes.ChatRoom;
-import Server.Model.Classes.UserOnline;
+package Server.Model.Classes;
 
 import java.util.ArrayList;
 import java.util.Collections;
