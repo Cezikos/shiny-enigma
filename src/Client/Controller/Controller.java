@@ -139,7 +139,7 @@ public class Controller implements Initializable {
     @FXML
     void leaveChannel() {
         final String channel = this.outputChannel.getText();
-        if(!channel.isEmpty()){
+        if (!channel.isEmpty()) {
             try {
                 this.messagesManager.leftRoom(channel);
             } catch (IOException e) {
@@ -170,7 +170,7 @@ public class Controller implements Initializable {
         final String password = this.password.getText();
         if (!username.isEmpty() && 20 > username.length() && !password.isEmpty()) {
             try {
-                this.messagesManager.login(username, password);
+                this.messagesManager.register(username, password);
                 this.password.clear();
             } catch (IOException e) {
                 e.printStackTrace();

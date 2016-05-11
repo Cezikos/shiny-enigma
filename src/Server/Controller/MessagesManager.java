@@ -51,16 +51,22 @@ public class MessagesManager implements Runnable, MessageTypeVisitor {
                 this.logger.info("New message from user");
                 final MessageType message = (MessageType) objectInputStream.readObject();
 
-                /**Visitor Pattern**/
-                final MessageTypeVisitor messageTypeVisitor = this;
-                Thread thread = new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        message.accept(messageTypeVisitor);//TODO new thread?
-                    }
-                });
-                thread.setDaemon(true);
-                thread.start();
+                if (userOnline != null && message instanceof LoginMessage) {
+                    sendMessage(new FailureMessage(((Message) message).getID(), "You are arleady logged in " + userOnline.getUsername(), Constants.DEFAULT_ROOM), this.socket);
+                } else {
+
+                    /**Visitor Pattern**/
+                    final MessageTypeVisitor messageTypeVisitor = this;
+                    Thread thread = new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            message.accept(messageTypeVisitor);//TODO new thread?
+                        }
+                    });
+                    thread.setDaemon(true);
+                    thread.start();
+                }
+
 
             } catch (IOException e) {
                 this.logger.error("Unable to read input stream", e);
@@ -130,12 +136,13 @@ public class MessagesManager implements Runnable, MessageTypeVisitor {
     @Override
     public void visit(RegisterMessage registerMessage) {
         final UserForm userForm = (UserForm) registerMessage.getMessage();
-        if (!this.core.getDatabase().isUser(userForm.getUsername())) {
+        if (!this.core.getDatabase().isUser(userForm.getUsername())) {//TODO Unnecessary query, need optimization
             if (this.core.getDatabase().createUser(userForm.getUsername(), userForm.getPassword())) {
                 sendMessage(new SuccessMessage(registerMessage.getID(), "Successfully registered to the server", Constants.DEFAULT_ROOM), socket);
             }
+        } else {
+            sendMessage(new FailureMessage(registerMessage.getID(), "Failure of register process", Constants.DEFAULT_ROOM), socket);
         }
-        sendMessage(new FailureMessage(registerMessage.getID(), "Failure register.....", Constants.DEFAULT_ROOM), socket);
     }
 
     @Override
