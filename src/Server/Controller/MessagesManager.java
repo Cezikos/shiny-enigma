@@ -52,8 +52,8 @@ public class MessagesManager implements Runnable, MessageTypeVisitor {
                 final MessageType message = (MessageType) objectInputStream.readObject();
 
                 if (userOnline != null && message instanceof LoginMessage) {
-                    sendMessage(new FailureMessage(((Message) message).getID(), "You are arleady logged in " + userOnline.getUsername(), Constants.DEFAULT_ROOM), this.socket);
-                } else {
+                    sendMessage(new FailureMessage(((Message) message).getID(), "You are already logged in " + userOnline.getUsername(), Constants.DEFAULT_ROOM), this.socket);
+                } else if( userOnline != null || (userOnline == null && message instanceof LoginMessage)){
 
                     /**Visitor Pattern**/
                     final MessageTypeVisitor messageTypeVisitor = this;
@@ -65,6 +65,8 @@ public class MessagesManager implements Runnable, MessageTypeVisitor {
                     });
                     thread.setDaemon(true);
                     thread.start();
+                } else {
+                    sendMessage(new FailureMessage(((Message) message).getID(), "Please log in ", Constants.DEFAULT_ROOM), this.socket);
                 }
 
 
