@@ -142,6 +142,7 @@
             <Label text="Channel" />
             <TextField fx:id="outputChannel" text="Kappa" />
             <Button fx:id="joinChannel" mnemonicParsing="false" onAction="#joinChannel" text="Join" />
+            <Button fx:id="leaveChannel" mnemonicParsing="false" onAction="#leaveChannel" text="Leave" />
          </children>
       </VBox>
    </left>

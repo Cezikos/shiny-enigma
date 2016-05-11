@@ -137,12 +137,26 @@ public class Controller implements Initializable {
     }
 
     @FXML
+    void leaveChannel() {
+        final String channel = this.outputChannel.getText();
+        if(!channel.isEmpty()){
+            try {
+                this.messagesManager.leftRoom(channel);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            this.outputChannel.clear();
+        }
+    }
+
+    @FXML
     void loginToServer() {
         final String username = this.username.getText();
         final String password = this.password.getText();
         if (!username.isEmpty() && 20 > username.length() && !password.isEmpty()) {
             try {
-                this.messagesManager.register(username, password);
+                this.messagesManager.login(username, password);
+                this.password.clear();
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -152,15 +166,19 @@ public class Controller implements Initializable {
 
     @FXML
     void registerAccountOnServer() {
-
-    }
-
-    private void reg() {
-        if (!this.username.getText().isEmpty() && this.username.getText().length() < 20 && !this.password.getText().isEmpty()) {
+        final String username = this.username.getText();
+        final String password = this.password.getText();
+        if (!username.isEmpty() && 20 > username.length() && !password.isEmpty()) {
+            try {
+                this.messagesManager.login(username, password);
+                this.password.clear();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
 
         }
-    }
 
+    }
 
     @FXML
     void sendMessageToServer() {

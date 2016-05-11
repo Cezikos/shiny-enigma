@@ -14,6 +14,9 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * Created by Piotr on 2016-05-09.
@@ -23,34 +26,50 @@ public class MessagesManager implements Runnable, MessageTypeVisitor {
     private final Socket socket;
 
     private UserOnline userOnline;
+    private final List<String> userRooms;
 
-    private Logger logger = LoggerFactory.getLogger(UserOnline.class);
+    private final Logger logger = LoggerFactory.getLogger(UserOnline.class);
+
     public MessagesManager(Core core, Socket socket) {
         this.core = core;
         this.socket = socket;
         this.userOnline = null;
+        this.userRooms = Collections.synchronizedList(new ArrayList<>(2));
     }
 
     @Override
     public void run() {
-        sendMessage(new SuccessMessage(0, "Successfully connected to the server", Constants.DEFAULT_ROOM), socket);
+        sendMessage(new SuccessMessage(0, "Successfully connected to the server", Constants.DEFAULT_ROOM), this.socket);
 
         ObjectInputStream objectInputStream;
         while (!Thread.currentThread().isInterrupted()) {
             try {
 
-                logger.info("Waiting for new message from user");
+                this.logger.info("Waiting for new message from user");
                 objectInputStream = new ObjectInputStream(socket.getInputStream());
-                logger.info("New message from user");
-                Message message = (Message) objectInputStream.readObject();
+
+                this.logger.info("New message from user");
+                final MessageType message = (MessageType) objectInputStream.readObject();
+
                 /**Visitor Pattern**/
-                ((MessageType) message).accept(this);//TODO new thread?
+                final MessageTypeVisitor messageTypeVisitor = this;
+                Thread thread = new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        message.accept(messageTypeVisitor);//TODO new thread?
+                    }
+                });
+                thread.setDaemon(true);
+                thread.start();
 
             } catch (IOException e) {
-                e.printStackTrace();
-                disconnect();
+                this.logger.error("Unable to read input stream", e);
+                for (int i = 0; i < this.userRooms.size(); i++) {
+                    this.core.getRoomsManager().getChatRoom(this.userRooms.get(i)).removeUserOnline(this.userOnline.getUsername());//TODO performance?
+                }
+                Thread.currentThread().interrupt();
             } catch (ClassNotFoundException e) {
-                e.printStackTrace();
+                this.logger.error("Class not found", e);
             }
         }
     }
@@ -68,33 +87,32 @@ public class MessagesManager implements Runnable, MessageTypeVisitor {
     }
 
     @Override
-    public boolean visit(DisconnectMessage disconnectMessage) {
+    public void visit(DisconnectMessage disconnectMessage) {
         try {
-            socket.close();
+            this.socket.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return true;//TODO ??
     }
 
     @Override
-    public boolean visit(FailureMessage failureMessage) {
-        return false;
+    public void visit(FailureMessage failureMessage) {//TODO FailureMessage for server?
     }
 
     @Override
-    public boolean visit(JoinRoom joinRoom) {
+    public void visit(JoinRoom joinRoom) {
+        this.userRooms.add(joinRoom.getRoom());
         this.core.getRoomsManager().addUser(this.userOnline, joinRoom.getRoom());
-        return true;
     }
 
     @Override
-    public boolean visit(LeftRoom leftRoom) {
-        return false;
+    public void visit(LeftRoom leftRoom) {
+        this.userRooms.remove(leftRoom.getRoom());
+        this.core.getRoomsManager().getChatRoom(leftRoom.getRoom()).removeUserOnline(this.userOnline.getUsername());
     }
 
     @Override
-    public boolean visit(LoginMessage loginMessage) {
+    public void visit(LoginMessage loginMessage) {
 
         final UserForm userForm = (UserForm) loginMessage.getMessage();
         if (this.core.getDatabase().validateUserAndPassword(userForm.getUsername(), userForm.getPassword())) {
@@ -103,36 +121,29 @@ public class MessagesManager implements Runnable, MessageTypeVisitor {
 
             sendMessage(new SuccessMessage(loginMessage.getID(), "Successfully logged to the server", Constants.DEFAULT_ROOM), socket);
 
-            return true;
+        } else {
+            sendMessage(new FailureMessage(loginMessage.getID(), "Failure of login process", Constants.DEFAULT_ROOM), socket);
+
         }
-
-        sendMessage(new FailureMessage(loginMessage.getID(), "Failure of login process", Constants.DEFAULT_ROOM), socket);
-
-        return false;
     }
 
     @Override
-    public boolean visit(RegisterMessage registerMessage) {
+    public void visit(RegisterMessage registerMessage) {
         final UserForm userForm = (UserForm) registerMessage.getMessage();
         if (!this.core.getDatabase().isUser(userForm.getUsername())) {
             if (this.core.getDatabase().createUser(userForm.getUsername(), userForm.getPassword())) {
                 sendMessage(new SuccessMessage(registerMessage.getID(), "Successfully registered to the server", Constants.DEFAULT_ROOM), socket);
-                return true;
             }
         }
         sendMessage(new FailureMessage(registerMessage.getID(), "Failure register.....", Constants.DEFAULT_ROOM), socket);
-        return false;
     }
 
     @Override
-    public boolean visit(SuccessMessage successMessage) {
-        return false;
+    public void visit(SuccessMessage successMessage) { //TODO Receive status of delivered message, need message table
     }
 
     @Override
-    public boolean visit(TextMessage textMessage) {
+    public void visit(TextMessage textMessage) {
         this.core.getRoomsManager().getChatRoom(textMessage.getRoom()).sendMessageToAll(textMessage);
-
-        return true;
     }
 }

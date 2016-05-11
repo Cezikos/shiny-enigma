@@ -12,19 +12,19 @@ import Server.Model.Classes.Messages.*;
  * In effect we have overloaded method visit, very simple to implement and develop
  **/
 public interface MessageTypeVisitor {
-    boolean visit(DisconnectMessage disconnectMessage);
+    void visit(DisconnectMessage disconnectMessage);
 
-    boolean visit(FailureMessage failureMessage);
+    void visit(FailureMessage failureMessage);
 
-    boolean visit(JoinRoom joinRoom);
+    void visit(JoinRoom joinRoom);
 
-    boolean visit(LeftRoom leftRoom);
+    void visit(LeftRoom leftRoom);
 
-    boolean visit(LoginMessage loginMessage);
+    void visit(LoginMessage loginMessage);
 
-    boolean visit(RegisterMessage registerMessage);
+    void visit(RegisterMessage registerMessage);
 
-    boolean visit(SuccessMessage successMessage);
+    void visit(SuccessMessage successMessage);
 
-    boolean visit(TextMessage textMessage);
+    void visit(TextMessage textMessage);
 }
