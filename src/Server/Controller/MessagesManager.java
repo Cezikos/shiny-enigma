@@ -53,7 +53,7 @@ public class MessagesManager implements Runnable, MessageTypeVisitor {
 
                 if (userOnline != null && message instanceof LoginMessage) {
                     sendMessage(new FailureMessage(((Message) message).getID(), "You are already logged in " + userOnline.getUsername(), Constants.DEFAULT_ROOM), this.socket);
-                } else if( userOnline != null || (userOnline == null && message instanceof LoginMessage)){
+                } else if (userOnline != null || (userOnline == null && message instanceof LoginMessage)) {
 
                     /**Visitor Pattern**/
                     final MessageTypeVisitor messageTypeVisitor = this;
@@ -153,6 +153,14 @@ public class MessagesManager implements Runnable, MessageTypeVisitor {
 
     @Override
     public void visit(TextMessage textMessage) {
-        this.core.getRoomsManager().getChatRoom(textMessage.getRoom()).sendMessageToAll(textMessage);
+        SignedMessage signedMessage = new SignedMessage(this.userOnline.getUsername(), textMessage.getMessage());
+        SignedTextMessage signedTextMessage = new SignedTextMessage(textMessage.getID(), signedMessage, textMessage.getRoom());
+
+        this.core.getRoomsManager().getChatRoom(textMessage.getRoom()).sendMessageToAll(signedTextMessage);
+    }
+
+    @Override
+    public void visit(SignedTextMessage signedTextMessage) {
+        //TODO unnecessary?
     }
 }

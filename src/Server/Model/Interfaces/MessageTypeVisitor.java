@@ -27,4 +27,6 @@ public interface MessageTypeVisitor {
     void visit(SuccessMessage successMessage);
 
     void visit(TextMessage textMessage);
+
+    void visit(SignedTextMessage signedTextMessage);
 }

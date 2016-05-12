@@ -39,9 +39,14 @@ public class MessagesManager implements Runnable {
         while (!Thread.currentThread().isInterrupted()) {
             try {
                 Message message = (Message) new ObjectInputStream(socket.getInputStream()).readObject();
-                //if (message instanceof TextMessage) {
-                    controller.addMessage((String) message.getMessage(), message.getRoom());
-                //}
+
+                if (message instanceof SignedTextMessage) { //TODO Need to delete If's
+                    SignedTextMessage signedTextMessage = (SignedTextMessage)message;
+
+                    controller.addMessage("[" + signedTextMessage.getMessage().getAuthor() + "] - " + signedTextMessage.getMessage().getMessage(), message.getRoom());//TODO each message should be handled separately
+                } else {
+                    controller.addMessage((String) message.getMessage(), message.getRoom());//TODO each message should be handled separately
+                }
             } catch (IOException e) {
                 closeListener();
                 e.printStackTrace();
