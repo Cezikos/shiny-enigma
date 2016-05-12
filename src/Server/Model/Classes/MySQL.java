@@ -82,11 +82,15 @@ public class MySQL implements Database {
         try {
             connection = this.hikariDataSource.getConnection();
 
-            statement = connection.prepareStatement("SELECT count(*) FROM USERS where login=?;"); //TODO Optimize, change to "if exist" boolean.
+            statement = connection.prepareStatement("SELECT IF (EXISTS (SELECT login FROM USERS WHERE login=?), 1, 0) AS 'isUser';"); //TODO Optimize, change to "if exist" boolean.
             statement.setString(1, username);
-            statement.execute();
-
-            return true;
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                if (resultSet.getBoolean(1)) {
+                    return true;
+                }
+            }
+            return false;
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
