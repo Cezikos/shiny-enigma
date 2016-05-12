@@ -51,9 +51,9 @@ public class MessagesManager implements Runnable, MessageTypeVisitor {
                 this.logger.info("New message from user");
                 final MessageType message = (MessageType) objectInputStream.readObject();
 
-                if (userOnline != null && message instanceof LoginMessage) {
+                if (userOnline != null && message instanceof LoginMessage) { //TODO Delete this fking if's
                     sendMessage(new FailureMessage(((Message) message).getID(), "You are already logged in " + userOnline.getUsername(), Constants.DEFAULT_ROOM), this.socket);
-                } else if (userOnline != null || (userOnline == null && message instanceof LoginMessage)) {
+                }  else if (userOnline != null || (userOnline == null && message instanceof LoginMessage) || message instanceof RegisterMessage) {
 
                     /**Visitor Pattern**/
                     final MessageTypeVisitor messageTypeVisitor = this;
