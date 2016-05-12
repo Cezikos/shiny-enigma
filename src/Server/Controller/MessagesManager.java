@@ -143,7 +143,7 @@ public class MessagesManager implements Runnable, MessageTypeVisitor {
                 sendMessage(new SuccessMessage(registerMessage.getID(), "Successfully registered to the server", Constants.DEFAULT_ROOM), socket);
             }
         } else {
-            sendMessage(new FailureMessage(registerMessage.getID(), "Failure of register process", Constants.DEFAULT_ROOM), socket);
+            sendMessage(new FailureMessage(registerMessage.getID(), "That username already exist", Constants.DEFAULT_ROOM), socket);
         }
     }
 

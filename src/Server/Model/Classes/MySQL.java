@@ -76,6 +76,36 @@ public class MySQL implements Database {
     }
 
     public final boolean isUser(final String username) { //TODO Need to implement
+        Connection connection = null;
+        PreparedStatement statement = null;
+
+        try {
+            connection = this.hikariDataSource.getConnection();
+
+            statement = connection.prepareStatement("SELECT count(*) FROM USERS where login=?;"); //TODO Optimize, change to "if exist" boolean.
+            statement.setString(1, username);
+            statement.execute();
+
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (statement != null) {
+                    statement.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            try {
+                if (connection != null) {
+                    connection.close();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
         return false;
     }
 
