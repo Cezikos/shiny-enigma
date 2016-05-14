@@ -119,11 +119,17 @@ public class MessagesManager implements Runnable, MessageTypeVisitor {
 
     @Override
     public void visit(DisconnectMessage disconnectMessage) {
+
+        sendMessage(new SuccessMessage(disconnectMessage.getID(), "Successfully disconnected from server", Constants.DEFAULT_ROOM), this.socket);
+
         try {
             this.socket.close();
         } catch (IOException e) {
             e.printStackTrace();
+        } finally {
+            Thread.currentThread().interrupt();
         }
+
     }
 
     @Override
