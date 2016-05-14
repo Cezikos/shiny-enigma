@@ -19,17 +19,35 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * Created by Piotr on 2016-05-09.
+ * Manages received messages from specific user
  */
 public class MessagesManager implements Runnable, MessageTypeVisitor {
+    /**
+     * Reference to Core give access to active Rooms and Database
+     **/
     private final Core core;
+    /**
+     * Reference to the user's socket
+     **/
     private final Socket socket;
 
+    /**
+     * Contains details about username and socket
+     **/
     private UserOnline userOnline;
+    /**
+     * List of all rooms where user is
+     **/
     private final List<String> userRooms;
 
     private final Logger logger = LoggerFactory.getLogger(UserOnline.class);
 
+    /**
+     * Constructor.
+     *
+     * @param core   reference to the core class
+     * @param socket reference to the user's socket, connection must be established before
+     */
     public MessagesManager(Core core, Socket socket) {
         this.core = core;
         this.socket = socket;
@@ -37,22 +55,33 @@ public class MessagesManager implements Runnable, MessageTypeVisitor {
         this.userRooms = Collections.synchronizedList(new ArrayList<>(2));
     }
 
+    /**
+     * Runnable's method
+     * Receives all user's messages then creates a separate Thread to manage it
+     */
     @Override
     public void run() {
+        // Notify user that connection was established successfully
         sendMessage(new SuccessMessage(0, "Successfully connected to the server", Constants.DEFAULT_ROOM), this.socket);
 
         ObjectInputStream objectInputStream;
+
+        // Loop to receive all user's messages
         while (!Thread.currentThread().isInterrupted()) {
             try {
 
+                // Waiting for new message from user
                 this.logger.info("Waiting for new message from user");
                 objectInputStream = new ObjectInputStream(socket.getInputStream());
 
+                // Preparing message to redirect to new Thread
                 this.logger.info("New message from user");
                 final MessageType message = (MessageType) objectInputStream.readObject();
 
-                /**Visitor Pattern**/
+                // Visitor Pattern
+                // Reference to this class, to come back in visitor pattern
                 final MessageTypeVisitor messageTypeVisitor = this;
+                // New thread to manage received message in parallel mode
                 Thread thread = new Thread(new Runnable() {
                     @Override
                     public void run() {
@@ -74,16 +103,18 @@ public class MessagesManager implements Runnable, MessageTypeVisitor {
         }
     }
 
+    /**
+     * Send Message to the specific user
+     *
+     * @param message Message to send
+     * @param socket  Socket to the specific user
+     */
     private void sendMessage(final Message message, final Socket socket) {
         try {
             new ObjectOutputStream(socket.getOutputStream()).writeObject(message);
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-    public void disconnect() {
-        Thread.currentThread().interrupt();
     }
 
     @Override

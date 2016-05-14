@@ -10,10 +10,17 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 /**
- * Created by Piotr Kucharski on 2016-04-30.
+ * Core class which listen on specific port for new users then
+ * create separate thread for each user
  */
 public class Core implements Runnable {
+    /**
+     * Main class to manage all rooms
+     **/
     private final RoomsManager roomsManager;
+    /**
+     * Specific type of database to store data
+     **/
     private final Database database;
 
     public Core() {
@@ -21,22 +28,26 @@ public class Core implements Runnable {
         this.database = new MySQL();
     }
 
+    /**
+     * Awaiting for new user then create separate thread for each user
+     */
     public void run() {
         final Logger logger = LoggerFactory.getLogger(this.getClass());
         ServerSocket serverSocket = null;
 
         try {
-            /**Listen on specific port**/
+            // Listen on specific port
             serverSocket = new ServerSocket(7171);
 
-            /**Loop to wait for new users**/
+            // Loop to wait for new users
             while (!Thread.currentThread().isInterrupted()) {
                 try {
                     logger.info("Waiting for the new user");
                     final Socket socket = serverSocket.accept();
 
-                    /**Create new thread for new MessagesManager**/
+                    // Create new thread for new MessagesManager
                     new Thread(new MessagesManager(this, socket)).start();//TODO Close?? Deamon??
+
                 } catch (final IOException e) {
                     logger.error("New connection accept failed", e);
                 }
@@ -55,16 +66,17 @@ public class Core implements Runnable {
         }
     }
 
+    /**
+     * @return RoomsManager Which contain all rooms
+     **/
     public final RoomsManager getRoomsManager() {
         return this.roomsManager;
     }
 
+    /**
+     * @return Database Which give access to stored data
+     */
     public final Database getDatabase() {
         return this.database;
-    }
-
-    public final void closeServer() {
-        //TODO Close rooms, disconnect with users
-        Thread.currentThread().interrupt();
     }
 }

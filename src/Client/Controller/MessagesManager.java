@@ -41,7 +41,7 @@ public class MessagesManager implements Runnable {
                 Message message = (Message) new ObjectInputStream(socket.getInputStream()).readObject();
 
                 if (message instanceof SignedTextMessage) { //TODO Need to delete If's
-                    SignedTextMessage signedTextMessage = (SignedTextMessage)message;
+                    SignedTextMessage signedTextMessage = (SignedTextMessage) message;
 
                     controller.addMessage("[" + signedTextMessage.getMessage().getAuthor() + "] - " + signedTextMessage.getMessage().getMessage(), message.getRoom());//TODO each message should be handled separately
                 } else {
@@ -74,6 +74,14 @@ public class MessagesManager implements Runnable {
 
     public void sendMessage(Message message) throws IOException {
         new ObjectOutputStream(this.socket.getOutputStream()).writeObject(message);
+    }
+
+    public void disconnect() {
+        try {
+            new ObjectOutputStream(this.socket.getOutputStream()).writeObject(new DisconnectMessage());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void closeListener() {

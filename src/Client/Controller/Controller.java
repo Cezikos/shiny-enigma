@@ -115,8 +115,8 @@ public class Controller implements Initializable {
 
 
     @FXML
-    void disconnectFromServer(ActionEvent event) {
-
+    void disconnectFromServer() {
+        this.messagesManager.disconnect();
     }
 
     @FXML
