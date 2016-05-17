@@ -1,3 +1,5 @@
+NOW: Learning netty to implement
+
 ﻿Used:
     JDK 8u40+ Client
     JDK 7+ Server
